@@ -28,7 +28,7 @@ sap.ui.define(
         //setModel() : 뷰를 ()로 맞춰줌
 
         const i18nModel = new ResourceModel({
-          bundleName: "ui5.walkthrough.i18n.i18n",
+          bundleName: "fioriedu02.sync4.c1.i18n.i18n",
         });
         this.getView().setModel(i18nModel, "i18n");
       },

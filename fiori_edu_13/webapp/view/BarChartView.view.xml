@@ -1,0 +1,25 @@
+<mvc:View controllerName="sync.c1.fioriedu13.controller.BarChartView"
+    xmlns:mvc="sap.ui.core.mvc" 
+    displayBlock="true"
+    xmlns="sap.m"
+	xmlns:c="sap.suite.ui.microchart">
+    <FlexBox width="30rem" height="20rem" alignItems="Center" class="sapUiSmallMargin">
+			<items>
+				<c:InteractiveBarChart displayedBars="9" bars="{path:'/AccountSet'}" labelWidth="25%" selectionChanged="selectionChanged" press="press">
+					<c:bars>
+						<c:InteractiveBarChartBar label="{Belnr}" value="{=parseFloat(${Dmbtr})}"/>
+					</c:bars>
+				</c:InteractiveBarChart>
+			</items>
+    </FlexBox>
+    <FlexBox width="30rem" height="20rem" alignItems="Center" class="sapUiSmallMargin">
+			<items>
+				<c:InteractiveLineChart displayedPoints="10" points="{path:'/AccountSet'}" selectionChanged="selectionChanged" press="press" precedingPoint="15"
+									  succeedingPoint="89">
+					<c:points>
+						<c:InteractiveLineChartPoint value="{=parseFloat(${Dmbtr})}" label="{Belnr}" secondaryLabel="Q2"/>
+					</c:points>
+				</c:InteractiveLineChart>
+			</items>
+    </FlexBox>
+</mvc:View>

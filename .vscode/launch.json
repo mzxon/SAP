@@ -763,6 +763,278 @@
       "env": {
         "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false"
       }
+    },
+    {
+      "name": "Start fiori_edu_12",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/fiori_edu_12",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": ["--open", "test/flpSandbox.html#sync4c1fioriedu12-display"],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
+    },
+    {
+      "name": "Start fiori_edu_12 Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/fiori_edu_12",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#sync4c1fioriedu12-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
+    },
+    {
+      "name": "Start fiori_edu_12 Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/fiori_edu_12",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#sync4c1fioriedu12-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
+    },
+    {
+      "name": "Start fiori_edu_13",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/fiori_edu_13",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": ["--open", "test/flpSandbox.html#syncc1fioriedu13-display"],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
+    },
+    {
+      "name": "Start fiori_edu_13 Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/fiori_edu_13",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#syncc1fioriedu13-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
+    },
+    {
+      "name": "Start fiori_edu_13 Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/fiori_edu_13",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#syncc1fioriedu13-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
+    },
+    {
+      "name": "Start fiori_edu_13",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/fiori_edu_13",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": ["--open", "test/flpSandbox.html#syncc1fioriedu13-display"],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
+    },
+    {
+      "name": "Start fiori_edu_13 Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/fiori_edu_13",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#syncc1fioriedu13-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
+    },
+    {
+      "name": "Start fiori_edu_13 Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/fiori_edu_13",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#syncc1fioriedu13-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
+    },
+    {
+      "name": "Start fiori_edu_14",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/fiori_edu_14",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": ["--open", "test/flpSandbox.html#sync4c1fioriedu14-display"],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
+    },
+    {
+      "name": "Start fiori_edu_14 Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/fiori_edu_14",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#sync4c1fioriedu14-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
+    },
+    {
+      "name": "Start fiori_edu_14 Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/fiori_edu_14",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": ["fiori", "run"],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#sync4c1fioriedu14-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-client=100&sap-ui-xx-viewCache=false"
+      }
     }
   ],
   "compounds": []
