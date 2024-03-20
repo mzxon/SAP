@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZC113GW0008_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Metal" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Steel"/>
+                    <PropertyRef Name="Werks"/>
+                </Key>
+                <Property Name="Steel" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Steel_ID" sap:updatable="false"/>
+                <Property Name="Werks" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Plant" sap:updatable="false"/>
+                <Property Name="IndustryKind" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Industry_kind"/>
+                <Property Name="Area" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Area"/>
+                <Property Name="ProductQty" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:unit="ProductUnit" sap:label="Quantity"/>
+                <Property Name="ProductUnit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Base Unit" sap:semantics="unit-of-measure"/>
+                <Property Name="UnitPrice" Type="Edm.Decimal" Precision="24" Scale="3" sap:unicode="false" sap:unit="PriceUnit" sap:label="Amount in LC"/>
+                <Property Name="PriceUnit" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="Currency" sap:semantics="currency-code"/>
+            </EntityType>
+            <EntityContainer Name="ZC113GW0008_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="MetalSet" EntityType="ZC113GW0008_SRV.Metal" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link rel="self" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZC113GW0008_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZC113GW0008_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

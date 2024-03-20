@@ -1,0 +1,133 @@
+<mvc:View controllerName="sync4.c1.fioriedu09.controller.Idol"
+    xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+	<l:VerticalLayout class="sapUiContentPadding">
+        <OverflowToolbar style="Clear">
+            <Label text="Group ID" />
+            <Input id="groupId" width="200px"/>
+            <Label text="Member ID" />
+            <Input id="memberId" width="200px"/>
+            <Button text="Search" icon="sap-icon://search" press="onSearch"/>
+        </OverflowToolbar>
+        <!-- <Image
+			src="{img>/photo}"
+			densityAware="true"
+			width="{/widthS}">
+		</Image> -->
+		<!-- <Image
+			src="{img>/photo}"
+			densityAware="true"
+			width="{/widthM}"> 
+		</Image> -->
+		<!-- <Image
+			src="{img>/photo}"
+			densityAware="true"
+			width="{/widthL}">
+		</Image> -->
+    	<t:Table
+            id="idolList"
+            rows="{/IdolSet}"
+            selectionMode="Single"
+            selectionBehavior="Row"
+            paste="onPaste"
+            ariaLabelledBy="title"
+            visibleRowCount="7">
+            <t:columns>
+                <t:Column width="5rem">
+                    <Label text="Group ID" />
+                    <t:template>
+                        <Text text="{Group_Id}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Member ID" />
+                    <t:template>
+                        <Text text="{Member_Id}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Member Name" />
+                    <t:template>
+                        <Text text="{MemberName}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Entry Date" />
+                    <t:template>
+                        <Text text="{Erdat}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Entry Time" />
+                    <t:template>
+                        <Text text="{Erzet}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Member Gender" />
+                    <t:template>
+                        <Text text="{Member_Gender}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Member Addr" />
+                    <t:template>
+                        <Text text="{Member_Addr}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Member Phone" />
+                    <t:template>
+                        <Text text="{Member_Phone}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+        </t:Table>
+        <OverflowToolbar style="Clear">
+            <Title id="title" text="Idol Member Management"/>
+            <ToolbarSpacer />
+            <Button text="Clear" icon="sap-icon://clear-all" press="onClear"/>
+            <Button text="Display" icon="sap-icon://display" press="onDisplay"/>
+            <Button text="Edit" icon="sap-icon://edit" press="onEdit"/>
+            <Button text="Create" icon="sap-icon://create" press="onCreate"/>
+            <Button text="Delete" icon="sap-icon://delete" press="onDelete"/>
+        </OverflowToolbar>
+        <f:SimpleForm id="SimpleFormDisplay354"
+        editable="false"
+        layout="ResponsiveGridLayout"
+        title="Idol Member Information"
+        labelSpanXL="3"
+        labelSpanL="3"
+        labelSpanM="3"
+        labelSpanS="12"
+        adjustLabelSpan="false"
+        emptySpanXL="4"
+        emptySpanL="4"
+        emptySpanM="4"
+        emptySpanS="0"
+        columnsXL="1"
+        columnsL="1"
+        columnsM="1"
+        singleContainerFullSize="false" >
+            <f:content>
+                <Label text="Group ID" />
+                <Input id="Group_Id" value="{Group_Id}" width="2rem" maxLength="2" showClearIcon="true"/>
+                <Label text="Member ID" />
+                <Input id="Member_Id" value="{Member_Id}" width="2rem" maxLength="2" showClearIcon="true"/>
+                <Label text="Member Name" />
+                <Input id="Member_Name" value="{Member_Name}" width="15rem" maxLength="15" showClearIcon="true"/>
+                <Label text="Gender" />
+                <Input id="Member_Gender" value="{Gender}" width="1rem" maxLength="1" showClearIcon="true"/>
+                <Label text="Address" />
+                <Input id="Member_Addr" value="{Member_Addr}" width="30rem" maxLength="30" showClearIcon="true"/>
+                <Label text="Moblie Phone" />
+                <Input id="Member_Phone" value="{Member_Phone}" width="10rem" maxLength="10" showClearIcon="true"/>
+            </f:content>
+        </f:SimpleForm>
+	</l:VerticalLayout>
+    </Page>
+</mvc:View>

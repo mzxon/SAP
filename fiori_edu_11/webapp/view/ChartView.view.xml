@@ -1,0 +1,17 @@
+<mvc:View controllerName="sync4.c1.fioriedu11.controller.ChartView"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns:c="sap.suite.ui.microchart"
+    xmlns="sap.m">
+    <FlexBox width="20rem" height="10rem" alignItems="Start" justifyContent="SpaceBetween">
+		<items>
+			<c:InteractiveDonutChart selectionChanged="onSelectionChanged">
+				<c:segments>
+					<c:InteractiveDonutChartSegment label="Implementation Phase" value="40.0" displayedValue="40.0%"/>
+					<c:InteractiveDonutChartSegment label="Design Phase" value="21.5" displayedValue="21.5%"/>
+					<c:InteractiveDonutChartSegment label="Test Phase" value="38.5" displayedValue="38.5%"/>
+				</c:segments>
+			</c:InteractiveDonutChart>
+		</items>
+	</FlexBox>
+
+</mvc:View>

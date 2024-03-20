@@ -1,0 +1,64 @@
+<mvc:View controllerName="sync4.c1.fioriedu04.controller.ListView"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <Table id="airlineTable"
+            inset="false"
+            items="{
+                    path: '/scarrSet',
+                    sorter: {
+                        path: 'Carrid'
+                    }
+		}">
+        <!-- items : 모델(데이터)의 경로 -->
+        <headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="Products" level="H2"/>
+					<ToolbarSpacer />
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+        <columns>
+        <!-- 제목(데이터 key) -->
+			<Column
+				width="12em">
+				<Text text="Airline" />
+			</Column>
+			<Column
+				width="20em">
+				<Text text="Airline Name" />
+			</Column>
+			<Column
+				width="12em">
+				<Text text="Currency" />
+			</Column>
+            <Column
+				width="25em">
+				<Text text="Country" />
+			</Column>
+			<Column
+				width="25em">
+				<Text text="Url" />
+			</Column>
+			
+		</columns>
+        <items>
+			<ColumnListItem vAlign="Middle">
+				<cells>
+					<Text
+						text="{Carrid}" />
+					<Text
+						text="{Currcode}" />
+					<Text
+						text="{Currcode}" />
+                    <Text
+						text="{Country}" />
+					<Text
+						text="{Url}" />
+				</cells>
+			</ColumnListItem>
+		</items>
+        </Table>
+    </Page>
+</mvc:View>

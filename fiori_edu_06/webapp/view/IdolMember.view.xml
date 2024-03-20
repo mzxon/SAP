@@ -1,0 +1,68 @@
+<mvc:View controllerName="sync4.c1.fioriedu06.controller.IdolMember"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.ui.table"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m">
+    <m:Page id="page" title="{i18n>title}">
+        <m:OverflowToolbar id="otb1">
+            <m:Label text="그룹명 또는 멤버코드를 검색 : "/>
+            <m:Input id="Search" width="100px" showClearIcon="true" maxLength="3"/>
+            <m:Button text="Search" type="Transparent"
+            icon="sap-icon://search" press="onSearch"/>
+        </m:OverflowToolbar>
+        <Table
+            id="Idol"
+            rows="{/IdolSet}"
+            selectionMode="MultiToggle"
+            selectionBehavior="Row"
+            paste="onPaste"
+            ariaLabelledBy="title"
+            visibleRowCount="6">
+            <extension>
+                <m:OverflowToolbar style="Clear">
+                    <m:Title id="title" text="Idol Master"/>
+                </m:OverflowToolbar>
+            </extension>
+             <columns>
+                <Column width="5rem">
+                    <m:Label text="그룹명" />
+                    <template>
+                        <m:Text text="{Group_Id}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="5rem">
+                    <m:Label text="멤버코드" />
+                    <template>
+                        <m:Text text="{Member_Id}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="7rem">
+                    <m:Label text="멤버명" />
+                    <template>
+                        <m:Text text="{MemberName}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="5rem">
+                    <m:Label text="멤버성별" />
+                    <template>
+                        <m:Text text="{Member_Gender}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="12rem">
+                    <m:Label text="멤버주소" />
+                    <template>
+                        <m:Text text="{Member_Addr}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="16rem">
+                    <m:Label text="멤버번호" />
+                    <template>
+                        <m:Text text="{Member_Phone}" wrapping="false" />
+                    </template>
+                </Column>
+            </columns>
+        </Table>
+    </m:Page>
+</mvc:View>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZC113GW0002_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Idol" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Group_Id"/>
+                    <PropertyRef Name="Member_Id"/>
+                </Key>
+                <Property Name="Group_Id" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Idol group_id"/>
+                <Property Name="Member_Id" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Idol member_id"/>
+                <Property Name="MemberName" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Idol member_name"/>
+                <Property Name="Erdat" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Created on"/>
+                <Property Name="Erzet" Type="Edm.String" MaxLength="8" sap:unicode="false" sap:label="Time"/>
+                <Property Name="Ernam" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Created by"/>
+                <Property Name="Aedat" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Changed On"/>
+                <Property Name="Aezet" Type="Edm.String" MaxLength="8" sap:unicode="false" sap:label="Time of change"/>
+                <Property Name="Aenam" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Changed by"/>
+                <Property Name="Member_Gender" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="Idol member_gender"/>
+                <Property Name="Member_Addr" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Idol member_address"/>
+                <Property Name="Member_Phone" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Idol member_phone"/>
+            </EntityType>
+            <EntityContainer Name="ZC113GW0002_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="IdolSet" EntityType="ZC113GW0002_SRV.Idol" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link rel="self" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZC113GW0002_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZC113GW0002_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

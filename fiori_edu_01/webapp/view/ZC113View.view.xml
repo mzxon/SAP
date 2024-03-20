@@ -1,0 +1,12 @@
+<mvc:View controllerName="sync4.fioriedu01.controller.ZC113View"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true" 
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}"> <!--il8n파일의 title-->
+        <content>
+            <Text text="Hello World"/>
+            <Button
+                text="누르셈"
+                press=".showMessage"/>
+        </content>
+    </Page>
+</mvc:View>

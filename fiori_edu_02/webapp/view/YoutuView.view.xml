@@ -1,0 +1,17 @@
+<mvc:View controllerName="fioriedu02.sync4.c1.controller.YoutuView"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Button id="button"
+                text="Say Hello"
+                press=".onShowHello"/>
+            <Input id="input"
+                value="{/gs_data/name}"
+                description="Hello {/gs_data/name}"
+                valueLiveUpdate="true"
+                width="60%"/>
+                <!-- controller의 gs_data  -->
+        </content>
+    </Page>
+</mvc:View>

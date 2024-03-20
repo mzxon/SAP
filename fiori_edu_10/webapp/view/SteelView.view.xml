@@ -1,0 +1,126 @@
+<mvc:View controllerName="sync4.c1.fioriedu10.controller.SteelView"
+    xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+    <l:VerticalLayout class="sapUiContentPadding">
+    <!-- 검색 -->
+        <OverflowToolbar style="Clear">
+            <Label text="STEEL" />
+            <Input id="ser_st" width="200px"/>
+            <Label text="WERKS" />
+            <Input id="ser_we" width="200px"/>
+            <Button text="Search" icon="sap-icon://search" press="onSearch"/>
+        </OverflowToolbar>
+    <!-- 테이블 -->
+        <t:Table
+            id="steelList"
+            rows="{/MetalSet}"
+            selectionMode="Single"
+            selectionBehavior="Row"
+            paste="onPaste"
+            ariaLabelledBy="title"
+            visibleRowCount="7">
+            <t:columns>
+                <t:Column width="5rem">
+                    <Label text="Steel" />
+                    <t:template>
+                        <Text text="{Steel}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Werks" />
+                    <t:template>
+                        <Text text="{Werks}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Industry Kind" />
+                    <t:template>
+                        <Text text="{IndustryKind}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Area" />
+                    <t:template>
+                        <Text text="{Area}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Qty" />
+                    <t:template>
+                        <Text text="{ProductQty}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Product_Unit" />
+                    <t:template>
+                        <Text text="{ProductUnit}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Price" />
+                    <t:template>
+                        <Text text="{UnitPrice}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Price_Unit" />
+                    <t:template>
+                        <Text text="{PriceUnit}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+        </t:Table>
+    <!-- Form - 아이콘 -->
+    <OverflowToolbar style="Clear">
+            <Title id="title" text="Push Button"/>
+            <ToolbarSpacer />
+            <Button text="Clear" icon="sap-icon://clear-all" press="onClear"/>
+            <Button text="Display" icon="sap-icon://display" press="onDisplay"/>
+            <Button text="Edit" icon="sap-icon://edit" press="onEdit"/>
+            <Button text="Create" icon="sap-icon://create" press="onCreate"/>
+            <Button text="Delete" icon="sap-icon://delete" press="onDelete"/>
+    </OverflowToolbar>
+    <!-- Form -->
+    <f:SimpleForm id="SimpleFormDisplay354"
+        editable="false"
+        layout="ResponsiveGridLayout"
+        title="Input Information"
+        labelSpanXL="3"
+        labelSpanL="3"
+        labelSpanM="3"
+        labelSpanS="12"
+        adjustLabelSpan="false"
+        emptySpanXL="4"
+        emptySpanL="4"
+        emptySpanM="4"
+        emptySpanS="0"
+        columnsXL="1"
+        columnsL="1"
+        columnsM="1"
+        singleContainerFullSize="false" >
+        <f:content>
+            <Label text="STEEL" />
+            <Input id="put_st" value="{Steel}" width="5rem" maxLength="5" showClearIcon="true"/>
+            <Label text="WERKS" />
+            <Input id="put_we" value="{Werks}" width="5rem" maxLength="4" showClearIcon="true"/>
+            <Label text="Industry Kind" />
+            <Input id="put_ki" value="{IndustryKind}" width="1rem" maxLength="1" showClearIcon="true"/>
+            <Label text="Area" />
+            <Input id="put_ar" value="{Area}" width="5rem" maxLength="3" showClearIcon="true"/>
+            <Label text="Qty" />
+            <Input id="put_qt" value="{ProductQty}" width="8rem" maxLength="8" showClearIcon="true"/>
+            <Label text="Product_Unit" />
+            <Input id="put_un" value="{ProductUnit}" width="4rem" maxLength="3" showClearIcon="true"/>
+            <Label text="Price" />
+            <Input id="put_pr" value="{UnitPrice}" width="8rem" maxLength="8" showClearIcon="true"/>
+            <Label text="Price_Unit" />
+            <Input id="put_pun" value="{PriceUnit}" width="5rem" maxLength="3" showClearIcon="true"/>
+        </f:content>
+        </f:SimpleForm>
+    </l:VerticalLayout>
+    </Page>
+</mvc:View>

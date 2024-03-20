@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Fiori Training</title>
+    <style>
+      html,
+      body,
+      body > div,
+      #container,
+      #container-uiarea {
+        height: 100%;
+      }
+    </style>
+    <script
+      id="sap-ui-bootstrap"
+      src="resources/sap-ui-core.js"
+      data-sap-ui-theme="sap_horizon"
+      data-sap-ui-libs="sap.m"
+      data-sap-ui-compatVersion="edge"
+      data-sap-ui-async="true"
+      data-sap-ui-oninit="module:sync4/fioriedu01/training/index"
+      data-sap-ui-resourceroots='{
+          "sync4.fioriedu01": "./"
+      }'
+    ></script>
+    <script lang="javscript">
+      function display() {
+          alert(frm.name.value);
+
+          alert(document.getElementById("name").value);
+
+          document.getElementById("num1").value = document.getElementById("name").value;
+      }
+
+      function result() {
+          var sum = 0;
+          sum = parseInt(frm.num1.value) + parseInt(frm.num2.value);
+
+          frm.num3.value = sum;
+      }
+
+      function Msg(value){
+        alert(value);
+      }
+    </script>
+  </head>
+
+  <body body class="sapUiBody sapUiSizeCompact" id="content">
+    <div
+      id="div"
+      data-sap-ui-component
+      data-name="sync4.fioriedu01"
+      data-id="container"
+      data-settings='{"id" : "sync4.fioriedu01"}'
+      data-handle-validation="true"
+    >
+      <form name="frm">
+        <input type="text" size="10" id="name" />
+        <input type="button" value="누르셈" onclick="display()" />
+        <br /><br />
+        <input type="text" size="5" id="num1" />
+        <br /><br />
+        <input type="text" size="5" name="num2" /> =
+        <input tabindex="text" size="5" name="num3" /><br />
+        <input type="button" value="합계" onclick="result()" />
+        <input type="button" value="메세지" onclick="Msg('SYNC')" />
+        <br /><br />
+        <br /><br />
+        <table
+          border="2"
+          bordercolor="blue"
+          width="200"
+          height="100"
+          align="center"
+        >
+          <tr>
+            <td align="center">1행 1열</td>
+            <td>1행 2열</td>
+          </tr>
+          <tr>
+            <td align="center" colspan="2">2행 셀합침</td>
+          </tr>
+        </table>
+        <br /><br />
+        <table border="2" bordercolor="blue" width="300" height="50">
+          <tr align="center" style="background-color: blue">
+            <td colspan="3">오늘의 수입/지출</td>
+          </tr>
+          <tr align="center" style="background-color: skyblue">
+            <td>내용</td>
+            <td>수입</td>
+            <td>지출</td>
+          </tr>
+          <tr>
+            <td>월급!!</td>
+            <td>1,000,000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>점심값</td>
+            <td></td>
+            <td>5,000</td>
+          </tr>
+          <tr>
+            <td>부모님선물</td>
+            <td></td>
+            <td>30,000</td>
+          </tr>
+          <tr align="center">
+            <td rowspan="3" style="background-color: skyblue">총계</td>
+            <td>수입</td>
+            <td>지출</td>
+          </tr>
+          <tr>
+            <td>1,000,000</td>
+            <td>35,000</td>
+          </tr>
+          <tr>
+            <td>남은돈</td>
+            <td>965,000</td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </body>
+</html>

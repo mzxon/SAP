@@ -1,0 +1,168 @@
+<mvc:View controllerName="sync4.c1.fioriedum02.controller.Flight_InfoView"
+   xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+    <l:VerticalLayout class="sapUiContentPadding">
+    <!-- 테이블1 -->
+    <!-- Carrid 선택 버튼-->
+        <OverflowToolbar style="Clear">
+            <Button text="선택한 Flight 정보 가져오기" icon="sap-icon://accept" press="onSelect"/>
+            <Button text="Flight 전체행 가져오기" icon="sap-icon://complete" press="onDisplay"/>
+        </OverflowToolbar>
+    <!-- 테이블 -->
+        <t:Table
+            id="ScarrList"
+            rows="{/AirlineSet}"
+            selectionMode="MultiToggle"
+            selectionBehavior="Row"
+            paste="onPaste"
+            ariaLabelledBy="title"
+            visibleRowCount="7">
+            <t:columns>
+                <t:Column width="5rem">
+                    <Label text="Carrid" />
+                    <t:template>
+                        <Text text="{Carrid}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Carrname" />
+                    <t:template>
+                        <Text text="{Carrname}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Currcode" />
+                    <t:template>
+                        <Text text="{Currcode}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Url" />
+                    <t:template>
+                        <Text text="{Url}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+        </t:Table>
+    <!-- 테이블2 -->
+    <!-- CRUD 아이콘 -->
+        <OverflowToolbar style="Clear">
+                <Title id="title" text="Push Button"/>
+                <Button text="Display" icon="sap-icon://display" press="onDisplayData"/>
+                <Button text="Clear" icon="sap-icon://clear-all" press="onClear"/>
+                <Button text="Edit" icon="sap-icon://edit" press="onEdit"/>
+                <Button text="Create" icon="sap-icon://create" press="onCreate"/>
+                <Button text="Delete" icon="sap-icon://delete" press="onDelete"/>
+        </OverflowToolbar>
+    <!-- 테이블 -->
+        <t:Table
+            id="FlightList"
+            rows="{/FlightSet}"
+            selectionMode="Single"
+            selectionBehavior="Row"
+            paste="onPaste"
+            ariaLabelledBy="title"
+            visibleRowCount="7">
+            <t:columns>
+                <t:Column width="5rem">
+                    <Label text="Carrid" />
+                    <t:template>
+                        <Text text="{Carrid}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Connid" />
+                    <t:template>
+                        <Text text="{Connid}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Fldate" />
+                    <t:template>
+                        <Text text="{Fldate}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="CountryFrom" />
+                    <t:template>
+                        <Text text="{Countryfr}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="CountryTo" />
+                    <t:template>
+                        <Text text="{Countryto}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Deptime" />
+                    <t:template>
+                        <Text text="{Deptime}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Arrtime" />
+                    <t:template>
+                        <Text text="{Arrtime}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Price" />
+                    <t:template>
+                        <Text text="{Price}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Currency" />
+                    <t:template>
+                        <Text text="{Currency}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+        </t:Table>
+    <!-- Form -->
+        <f:SimpleForm id="SimpleFormDisplay354"
+            editable="false"
+            layout="ResponsiveGridLayout"
+            title="Input Information"
+            labelSpanXL="3"
+            labelSpanL="3"
+            labelSpanM="3"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="4"
+            emptySpanL="4"
+            emptySpanM="4"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1"
+            singleContainerFullSize="false" >
+        <f:content>
+            <Label text="STEEL" />
+            <Input id="put_car" value="{Carrid}" width="5rem" maxLength="5" showClearIcon="true"/>
+            <Label text="WERKS" />
+            <Input id="put_conn" value="{Connid}" width="5rem" maxLength="4" showClearIcon="true"/>
+            <Label text="Industry Kind" />
+            <Input id="put_dat" value="{Fldate}" width="1rem" maxLength="1" showClearIcon="true"/>
+            <Label text="Area" />
+            <Input id="put_cfr" value="{Countryfr}" width="5rem" maxLength="3" showClearIcon="true"/>
+            <Label text="Qty" />
+            <Input id="put_cft" value="{Countryto}" width="8rem" maxLength="8" showClearIcon="true"/>
+            <Label text="Product_Unit" />
+            <Input id="put_dep" value="{Deptime}" width="4rem" maxLength="3" showClearIcon="true"/>
+            <Label text="Price" />
+            <Input id="put_arr" value="{Arrtime}" width="8rem" maxLength="8" showClearIcon="true"/>
+            <Label text="Price_Unit" />
+            <Input id="put_pr" value="{Price}" width="5rem" maxLength="3" showClearIcon="true"/>
+            <Label text="Price_Unit" />
+            <Input id="put_cu" value="{Currency}" width="5rem" maxLength="3" showClearIcon="true"/>
+        </f:content>
+        </f:SimpleForm>
+    </l:VerticalLayout>
+    </Page>
+</mvc:View>

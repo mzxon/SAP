@@ -1,0 +1,78 @@
+<mvc:View controllerName="sync4.c1.fioriedu08.controller.FlightView"
+    displayBlock="true"
+    xmlns="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m">
+    <m:Page id="page" title="{i18n>title}">
+    <!-- 검색 -->
+        <m:OverflowToolbar id="otb1"> <!--namespace를 적어줘야함-->
+            <m:Label text="Flight Info 검색 :"/> 
+            <!-- 해당 property와 이름 맞춰주는게 더 가독성있음 -->
+            <m:Input id="Search" width="100px" showClearIcon="true" maxLength="2"/> 
+            <!--showClearIcon : 입력하면 바로 지울수있게 아이콘-->
+            <m:Button text="Search" type="Transparent"
+            icon="sap-icon://search" press="onSearch"
+            />
+	    </m:OverflowToolbar>
+        
+    <!-- selectionNode=None : 체크박스 사라짐 -->
+    <!-- EntitySet 이름적어줌 -->
+        <Table
+            id="Schedule"
+            rows="{/Airline_InfoSet}"
+            selectionMode="MultiToggle"
+            selectionBehavior="Row"
+            paste="onPaste"
+            ariaLabelledBy="title"
+            visibleRowCount="7">
+            <extension>
+                <m:OverflowToolbar style="Clear">
+                    <m:Title id="title" text="Airline Master"/>
+                </m:OverflowToolbar>
+            </extension>
+            <!-- 필드명-필드(데이터) 맞춰줌 -->
+            <columns>
+                <Column width="7rem">
+                    <m:Label text="Airline" />
+                    <template>
+                        <m:Text text="{Carrid}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="11rem">
+                    <m:Label text="Connection No" />
+                    <template>
+                        <m:Text text="{Connid}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="7rem">
+                    <m:Label text="Flight Date" />
+                    <template>
+                        <m:Text text="{Fldate}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="8rem">
+                    <m:Label text="Price" />
+                    <template>
+                        <!-- 단위 붙여주기 -->
+                        <m:Text text="{
+                            parts:[{path:'Price'},{path:'Currency'}],
+                            type: 'sap.ui.model.type.Currency',
+                            formatOptions: {showMeasure: true }
+                            }" wrapping="false" />
+                            <!-- part : 금액, 단위 필드-->
+                            <!-- type : 붙여줄 단위 타입 -->
+                            <!-- showMeasure : 단위 표시여부 (true : 단위까지 같이-> 따로 단위 필드 안해줘도 됨) -->
+                    </template>
+                </Column>
+                <!-- <Column width="16rem">
+                    <m:Label text="Currency" />
+                    <template>
+                        <m:Text text="{Currency}" wrapping="false" />
+                    </template>
+                </Column> -->
+            </columns>
+        </Table>
+    </m:Page>
+</mvc:View>
