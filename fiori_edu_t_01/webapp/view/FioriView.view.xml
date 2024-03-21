@@ -1,0 +1,102 @@
+<mvc:View controllerName="sync.c1.fioriedut01.controller.FioriView"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.ui.table" 
+    xmlns:u="sap.ui.unified"
+    xmlns:m="sap.m"
+    xmlns:c="sap.ui.core"
+    >
+    <m:Page id="page" title="{i18n>title}">
+        <m:content>
+            <!-- <Label id="lblCarrier" text="Carrid"></Label>
+            <Text id="txtCarrier" text="Carrid"></Text> -->
+            <!-- <Input id="iptCarrier" width="50%" placeholder="입력하세요"  editable="{/enabled}"></Input>
+            <Button id="btnSearch" text="Button" type="Emphasized" icon="sap-icon://search" press="onPress"></Button> -->
+<!-- 
+            <CheckBox id="chk" selected="{/enabled}" text="Edit"></CheckBox>
+
+            <RadioButtonGroup >
+            
+            <RadioButton id="rad" groupName="gr1" text="True" selected="{/enabled}"></RadioButton>
+            <RadioButton id="rad2" groupName="gr1" text="False"></RadioButton>
+            
+            </RadioButtonGroup> -->
+
+            <m:Text id="txtClear"></m:Text>
+
+            <!-- <f:SimpleForm id="simp" editable="true">
+                <f:content>
+                    <Label id="lblCarrier" text="Carrier" />
+                    <Input id="iptCarrier" width="50%" placeholder="입력하세요" editable="{/enabled}" ></Input>
+
+                    <Label id="lblConnections" text="Connections" />
+                    <Input id="iptConnections" width="100%" placeholder="입력하세요" editable="{/enabled}" ></Input>
+
+                    <Button id="btnSearch" text="Button" type="Emphasized" icon="sap-icon://search" press="onPress" width="20%"></Button>
+
+                    <Text id="txtCarrier"></Text>
+                </f:content>
+            </f:SimpleForm> -->
+
+            <Table id="tbCarrier" rows="{/employeeSet}" visibleRowCount="5"> 
+
+                <extension>
+                    <m:OverflowToolbar id="overTool" style="Clear">
+                        <m:Title id="tltPer" text="Personal Information" />
+
+                        <m:ToolbarSpacer id="tbSpacer"></m:ToolbarSpacer>
+                        <m:Button id="Display" press="onDisplay" text="Display" type="Emphasized"></m:Button>
+                    </m:OverflowToolbar>
+
+                </extension>
+
+                <columns>
+
+                    <Column id="colPernr" width="10rem">
+                        <m:Label id="lblPernr" text="Employee ID"></m:Label>
+
+                        <template>
+                            <m:Text id="txtPernr" text="{Pernr}"></m:Text> 
+                        </template>
+                    </Column>
+
+                    <Column id="colEname" width="8rem">
+                        <m:Label id="lblEname" text="Employee Name"></m:Label>
+
+                        <template>
+                            <m:Text id="txtEname" text="{Ename}"></m:Text>
+                        </template>
+                    </Column>
+
+                    <Column id="colAddress">
+                        <m:Label id="lblAddr" text="Employee Address"></m:Label>
+
+                        <template>
+                            <m:Text id="txtAddr" text="{Address}"></m:Text>
+                        </template>
+                    </Column>
+                    <Column id="colGender" width="6rem">
+                        <m:Label id="lblGender" text="Gender"></m:Label>
+
+                        <template>
+                            <m:Text id="txtGender" text="{Gender}"></m:Text>
+                        </template>
+                    </Column>
+
+                    <Column id="colEmail">
+                        <m:Label id="lblEmail" text="Employee Email"></m:Label>
+
+                        <template>
+                            <m:Text id="txtEmail" text="{Email}"></m:Text>
+                        </template>
+                    </Column>
+
+                </columns>
+
+            </Table>
+
+            
+
+
+        </m:content>
+    </m:Page>
+</mvc:View>
