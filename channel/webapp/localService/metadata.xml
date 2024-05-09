@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZC102GWSD001_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Ch_item" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Serno"/>
+                    <PropertyRef Name="Chlno"/>
+                    <PropertyRef Name="Modcd"/>
+                </Key>
+                <Property Name="Serno" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="제품 번호" sap:updatable="false"/>
+                <Property Name="Chlno" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="대리점 번호" sap:updatable="false"/>
+                <Property Name="Modcd" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="모델 코드" sap:updatable="false"/>
+                <Property Name="Itmst" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="상태"/>
+                <Property Name="Fanum" Type="Edm.String" MaxLength="8" sap:unicode="false" sap:label="자산번호"/>
+            </EntityType>
+            <EntityType Name="Rental_list" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Renno"/>
+                </Key>
+                <Property Name="Renno" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="렌탈거래번호" sap:updatable="false"/>
+                <Property Name="Custno" Type="Edm.String" MaxLength="13" sap:unicode="false" sap:label="고객 번호"/>
+                <Property Name="Modcd" Type="Edm.String" MaxLength="6" sap:unicode="false" sap:label="모델 코드"/>
+                <Property Name="Sereno" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="제품 번호"/>
+                <Property Name="Chlno" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="대리점 번호"/>
+                <Property Name="Stdat" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="렌탈시작일"/>
+                <Property Name="Endat" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="렌탈종료일"/>
+                <Property Name="Renst" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="렌탈거래 상태"/>
+                <Property Name="Cardcd" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="카드회사코드"/>
+                <Property Name="TotPrice" Type="Edm.Decimal" Precision="16" Scale="3" sap:unicode="false" sap:unit="Currency" sap:label="금액"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="Currency" sap:semantics="currency-code"/>
+                <Property Name="Empno" Type="Edm.String" MaxLength="8" sap:unicode="false" sap:label="직원번호"/>
+                <Property Name="Reqdat" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="렌탈요청일"/>
+                <Property Name="Refdat" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="반납일"/>
+                <Property Name="Latefee" Type="Edm.Decimal" Precision="16" Scale="3" sap:unicode="false" sap:unit="Currency" sap:label="연체금"/>
+            </EntityType>
+            <EntityType Name="Rental_req" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Reqno"/>
+                </Key>
+                <Property Name="Reqno" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="재고요청번호" sap:updatable="false"/>
+                <Property Name="Modcd" Type="Edm.String" MaxLength="6" sap:unicode="false" sap:label="모델 코드"/>
+                <Property Name="Chlno" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="대리점 번호"/>
+                <Property Name="Quant" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:unit="Unit" sap:label="요청 수량"/>
+                <Property Name="Unit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="단위" sap:semantics="unit-of-measure"/>
+                <Property Name="Status" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="요청상태"/>
+                <Property Name="ReqDate" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="재고요청일"/>
+                <Property Name="IssDate" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="입고완료일"/>
+                <Property Name="ArrDate" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="재고확인일"/>
+                <Property Name="CancDate" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="요청취소일"/>
+                <Property Name="Fanum" Type="Edm.String" MaxLength="8" sap:unicode="false" sap:label="자산번호"/>
+                <Property Name="Empno" Type="Edm.String" MaxLength="8" sap:unicode="false" sap:label="직원번호"/>
+            </EntityType>
+            <EntityType Name="Rental_check" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Chkno"/>
+                </Key>
+                <Property Name="Chkno" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="검수번호" sap:updatable="false"/>
+                <Property Name="Chlno" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="대리점 번호"/>
+                <Property Name="Serno" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="제품 번호"/>
+                <Property Name="Chkst" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="검수상태"/>
+                <Property Name="Crqdat" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="검수요청일"/>
+                <Property Name="Chkdat" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="검수완료일"/>
+                <Property Name="Chktxt" Type="Edm.String" MaxLength="300" sap:unicode="false" sap:label="검수내역"/>
+            </EntityType>
+            <EntityType Name="Ch_header" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Custid"/>
+                </Key>
+                <Property Name="Chlno" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="대리점 번호"/>
+                <Property Name="Chlname" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="대리점명"/>
+                <Property Name="Chladdr" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="대리점 주소"/>
+                <Property Name="Cityno" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="지역번호"/>
+                <Property Name="Chlphone" Type="Edm.String" MaxLength="11" sap:unicode="false" sap:label="전화번호"/>
+                <Property Name="Quant" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:label="대리점 재고"/>
+                <Property Name="Unit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="단위" sap:semantics="unit-of-measure"/>
+                <Property Name="Custno" Type="Edm.String" MaxLength="13" sap:unicode="false" sap:label="고객 번호"/>
+                <Property Name="Custid" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="고객 ID" sap:updatable="false"/>
+                <Property Name="Custpw" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="고객 PW"/>
+                <Property Name="Custname" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="성명"/>
+                <Property Name="Custphone" Type="Edm.String" MaxLength="13" sap:unicode="false" sap:label="연락처"/>
+                <Property Name="Custaddr" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="주소"/>
+                <Property Name="Custemail" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="이메일"/>
+                <Property Name="Custbirth" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="생년월일"/>
+                <Property Name="Custgender" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="성별"/>
+                <Property Name="Message" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Character 100"/>
+                <Property Name="Custst" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="고객 타입"/>
+            </EntityType>
+            <EntityContainer Name="ZC102GWSD001_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Ch_itemSet" EntityType="ZC102GWSD001_SRV.Ch_item" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Rental_listSet" EntityType="ZC102GWSD001_SRV.Rental_list" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Rental_reqSet" EntityType="ZC102GWSD001_SRV.Rental_req" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Rental_checkSet" EntityType="ZC102GWSD001_SRV.Rental_check" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Ch_headerSet" EntityType="ZC102GWSD001_SRV.Ch_header" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link rel="self" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZC102GWSD001_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZC102GWSD001_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
