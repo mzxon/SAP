@@ -44,7 +44,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.123.1",
       "libs": {
@@ -96,9 +96,7 @@
         {
           "name": "RouteChannel_Management",
           "pattern": ":?query:",
-          "target": [
-            "TargetChannel_Management"
-          ]
+          "target": ["TargetChannel_Management"]
         }
       ],
       "targets": {

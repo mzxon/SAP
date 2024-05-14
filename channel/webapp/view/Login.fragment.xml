@@ -1,13 +1,9 @@
-<mvc:View 
-    controllerName="chn.channel.controller.Channel_Management"
-    xmlns:mvc="sap.ui.core.mvc" 
-    displayBlock="true"
-    height="100%"
-    xmlns:l="sap.ui.layout"
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form"
-    xmlns="sap.m">
-    <Page id="Login" title="{i18n>title}">        
-    <l:VerticalLayout class="sapUiContentPadding">
+	xmlns:core="sap.ui.core">
+	<l:VerticalLayout class="sapUiContentPadding">
     <!-- Form -->
         <f:SimpleForm id="SimpleFormDisplay354"
             editable="false"
@@ -36,9 +32,8 @@
 			id="custpw"
 			type="Password"
 			placeholder="Enter password" />        
-        <Button id="login" text="로그인" enabled="false" press="handleLoginPress" />
-        </f:content>
+        <Button id="login" text="로그인" press="handleEditPress" />        
+		</f:content>
         </f:SimpleForm>
     </l:VerticalLayout>
-    </Page>
-</mvc:View>
+</core:FragmentDefinition>

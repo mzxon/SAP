@@ -6,7 +6,7 @@
     xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form"
     xmlns="sap.m">
-    <Page id="Login" title="{i18n>title}">        
+    <Page id="page" title="{i18n>title}">        
     <l:VerticalLayout class="sapUiContentPadding">
     <!-- Form -->
         <f:SimpleForm id="SimpleFormDisplay354"
@@ -36,8 +36,7 @@
 			id="custpw"
 			type="Password"
 			placeholder="Enter password" />        
-        <Button id="login" text="로그인" enabled="false" press="handleLoginPress" />
-        </f:content>
+        <Button id="login" text="로그인" press="handleEditPress" />        </f:content>
         </f:SimpleForm>
     </l:VerticalLayout>
     </Page>
