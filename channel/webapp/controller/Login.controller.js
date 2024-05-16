@@ -1,7 +1,6 @@
-let oID;
-
 sap.ui.define(
   [
+    "sap/m/MessageToast",
     "sap/ui/core/Fragment",
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
@@ -11,8 +10,17 @@ sap.ui.define(
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Fragment, Controller, JSONModel, Fliter, FilterOperator) {
+  function (
+    MessageToast,
+    Fragment,
+    Controller,
+    JSONModel,
+    Fliter,
+    FilterOperator
+  ) {
     "use strict";
+    let oID;
+    let oPW;
 
     return Controller.extend("chn.channel.controller.Channel_Management", {
       onInit: function () {
@@ -38,42 +46,67 @@ sap.ui.define(
       },
 
       Login: function () {
-        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-        oRouter.navTo("mainView");
         //로그인 버튼
         oID = this.byId("custid").getValue();
-        var lv_pw = this.byId("custpw").getValue();
+        var lv_pw = this.byId("custpw").getValue(),
+          lv_this = this,
+          oModel = this.getView().getModel();
 
-        let oBinding = oMainTable.getBinding("rows"),
-          oFilter = null,
-          aFliters = [];
+        // let oBinding = oMainTable.getBinding("rows"),
+        //   oFilter = null,
+        //   aFliters = [];
 
-        if ((oID = "")) {
+        if (oID == "") {
           alert("아이디를 입력하세요.");
         } else {
-          if ((lv_pw = "")) {
-            alert("비밀번호를 입력하세요.");
+          if (lv_pw == "") {
+            // alert("비밀번호를 입력하세요.");
+            alert(oID);
           }
-          oFilter = new Fliter({
-            //아이디
-            path: "Custid",
-            Operator: FilterOperator.Contains,
-            value1: oID,
+
+          oModel.read("/MemberSet('" + oID + "')", {
+            success: function (oData) {
+              if (lv_pw == oData.Custpw) {
+                alert("로그인에 성공했습니다.");
+
+                this.onSet(oData);
+
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(lv_this);
+                oRouter.navTo("mainView");
+              } else {
+                alert("비밀번호가 맞지 않습니다.");
+              }
+            }.bind(this),
+            error: function (oData) {
+              MessageToast.show("Error");
+            },
           });
 
-          aFliters.push(oFilter);
+          // oFilter = new Fliter({
+          //   //아이디
+          //   path: "Custid",
+          //   Operator: FilterOperator.Contains,
+          //   value1: oID,
+          // });
 
-          oFilter = new Fliter({
-            //비밀번호
-            path: "Custpw",
-            Operator: FilterOperator.Contains,
-            value1: lv_pw,
-          });
+          // aFliters.push(oFilter);
 
-          aFliters.push(oFilter);
+          // oFilter = new Fliter({
+          //   //비밀번호
+          //   path: "Custpw",
+          //   Operator: FilterOperator.Contains,
+          //   value1: lv_pw,
+          // });
+
+          // aFliters.push(oFilter);
         }
 
-        oBinding.filter(aFliters);
+        // oBinding.filter(aFliters);
+      },
+
+      onSet: function (oDataSet) {
+        oPW = oDataSet.Custpw;
+        alert(oPW);
       },
 
       //fragment 가져오기
