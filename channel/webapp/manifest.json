@@ -94,18 +94,26 @@
       },
       "routes": [
         {
-          "name": "RouteChannel_Management",
-          "pattern": ":?query:",
-          "target": ["TargetChannel_Management"]
+          "name": "loginView",
+          "pattern": "",
+          "target": "login"
+        },
+        {
+          "name": "mainView",
+          "pattern": "MainView",
+          "target": "main"
         }
       ],
       "targets": {
-        "TargetChannel_Management": {
+        "login": {
           "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "Channel_Management",
-          "viewName": "Channel_Management"
+          "viewLevel": 1,
+          "viewName": "LoginView"
+        },
+        "main": {
+          "viewType": "XML",
+          "viewLevel": 1,
+          "viewName": "MainView"
         }
       }
     },
@@ -114,6 +122,18 @@
       "type": "XML",
       "async": true,
       "id": "App"
+    },
+    "config": {
+      "sample": {
+        "stretch": true,
+        "files": [
+          "MainView.view.xml",
+          "Channel_Management.controller.js",
+          "LoginView.view.xml",
+          "Channel_main.fragment.xml",
+          "manifest.json"
+        ]
+      }
     }
   }
 }
