@@ -24,19 +24,7 @@ sap.ui.define(
 
     return Controller.extend("chn.channel.controller.Channel_Management", {
       onInit: function () {
-        //   set explored app's demo model on this sample
-        // var oModel = new JSONModel(
-        //   sap.ui.require.toUrl("sap/ui/demo/mock/supplier.json")
-        // );
-        // oModel.attachRequestCompleted(
-        //   function () {
-        //     this.byId("login").setEnabled(true);
-        //   }.bind(this)
-        // );
-        // this.getView().setModel(oModel);
-        // this.getView().bindElement("/SupplierCollection/0");
-        // this._formFragments = {}; //페이지이동용
-        // this._showFormFragment("Login"); //처음에 보여줄 페이지
+        
       },
 
       //로그인페이지로 이동
@@ -68,11 +56,13 @@ sap.ui.define(
             success: function (oData) {
               if (lv_pw == oData.Custpw) {
                 alert("로그인에 성공했습니다.");
-
+                
                 this.onSet(oData);
 
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(lv_this);
-                oRouter.navTo("mainView");
+                oRouter.navTo("mainView", {
+                  "EmpId": "로그인아이디", "EmpPw": "로그인패스워드"
+                });
               } else {
                 alert("비밀번호가 맞지 않습니다.");
               }

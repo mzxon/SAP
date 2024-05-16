@@ -100,17 +100,19 @@
         },
         {
           "name": "mainView",
-          "pattern": "MainView",
+          "pattern": "MainView/{EmpId}/{EmpPw}",
           "target": "main"
         }
       ],
       "targets": {
         "login": {
+          "viewId": "login",
           "viewType": "XML",
           "viewLevel": 1,
           "viewName": "LoginView"
         },
         "main": {
+          "viewId": "main",
           "viewType": "XML",
           "viewLevel": 1,
           "viewName": "MainView"

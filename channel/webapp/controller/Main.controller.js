@@ -18,7 +18,24 @@ sap.ui.define(
       onInit: function () {
         //아이디로 테이블에 접근해서 테이블 변수 생성
         oTable1 = this.byId("header");
+
+        this.getRouterInfo().getRoute("mainView").attachPatternMatched(this._onRouteMatched(), this);
+
+
+        // var oRouter = sap.ui.core.UIComponet.getRouterFor(this);
+        // oRouter.getRoute("mainView").attachPatternMatched(this._onRouteMatched, this);
+
       },
+
+      _onRouteMatched: function (oEvent){
+        var empid = oEvent.getParameter("arguments").EmpId;
+        var emppw = oEvent.getParameter("arguments").EmpPw;
+
+        // this.getView().bindElement({
+        //   path: "/" + oEvent.getParameter("arguments").mainPath,
+        //   model: "oModel"
+        // })
+      }
     });
   }
 );
