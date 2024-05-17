@@ -9,10 +9,8 @@
     xmlns="sap.m">
     <Page id="main" title="{i18n>title}">
     <l:VerticalLayout class="sapUiContentPadding">
-    <ObjectHeader
-        intro="{EmpId}"
-        title="{EmpPw}" 
-    />
+    <Text  text="{EmpId}"></Text>
+    <Text  text="{EmpPw}"></Text>
     <!-- 테이블 -->
         <t:Table
             id="header"
