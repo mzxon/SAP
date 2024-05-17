@@ -23,9 +23,7 @@ sap.ui.define(
     let oPW;
 
     return Controller.extend("chn.channel.controller.Login", {
-      onInit: function () {
-        
-      },
+      onInit: function () {},
 
       //로그인페이지로 이동
       navToMain: function () {
@@ -56,9 +54,8 @@ sap.ui.define(
             success: function (oData) {
               if (lv_pw == oData.Custpw) {
                 alert("로그인에 성공했습니다.");
-                
-                this.onSet(oData);
 
+                this.onSet(oData);
               } else {
                 alert("비밀번호가 맞지 않습니다.");
               }
@@ -95,7 +92,8 @@ sap.ui.define(
 
         var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
         oRouter.navTo("mainView", {
-          "EmpId": "아이디", "EmpPw": "비밀번호"
+          EmpId: "아이디",
+          EmpPw: "비밀번호",
         });
       },
 

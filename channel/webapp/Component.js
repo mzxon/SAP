@@ -27,11 +27,11 @@ sap.ui.define(
         // call the base component's init function
         UIComponent.prototype.init.apply(this, arguments);
 
-        // set dialog
-        this._helloDialog = new HelloDialog(this.getRootControl());
-
         // enable routing
         this.getRouter().initialize();
+
+        // set dialog
+        this._helloDialog = new HelloDialog(this.getRootControl());
 
         // set the device model
         this.setModel(models.createDeviceModel(), "device");
