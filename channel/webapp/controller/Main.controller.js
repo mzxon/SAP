@@ -1,52 +1,57 @@
-//테이블에 접근할 전역변수 선언
-let oTable1;
-let oArgs;
-let Empid;
-let Emppw;
-
 sap.ui.define(
   [
-    "sap/ui/core/routing/Router",
     "sap/ui/core/mvc/Controller",
+    "sap/m/MessageToast",
+    "sap/ui/core/UIComponent",
+    "sap/ui/core/routing/Router",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/ui/core/UIComponent",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (UIComponent, Router, Controller, Fliter, FilterOperator) {
+  function (Controller, MessageToast, UIComponent, Router, Fliter, FilterOperator) {
     "use strict";
+
+    let Empno;
+    let table;
 
     return Controller.extend("chn.channel.controller.Main", {
       onInit: function () {
-        var oRouter = this.getRouter();
-
-        oRouter.getRoute("mainView").attachMatched(_onRouteMatched(), this);
+        //mainView(routes name)의 라우터에 연결
+        this._getRouter().getRoute("mainView").attachPatternMatched(this._onRouteMatched.bind(this), this);
+      },
+      
+      //라우터 연결정보 가져오기
+      _getRouter:function () {
+        return sap.ui.core.UIComponent.getRouterFor(this);        
       },
 
-      onPress: function () {
-        alert(Empid);
-      },
-
+      //전달받은 파라미터 값 가져와서 대리점 조회하기
       _onRouteMatched: function (oEvent) {
-        var oModel = this.getView().getModel();
+        let oModel = this.getView().getModel();
+        table = this.byId("header");
+        let oBinding = table.getBinding("rows");
 
-        Empid = oEvent.getParameter("arguments").EmpId;
-        Emppw = oEvent.getParameter("arguments").EmpPw;
+        //empno 받아오기
+        Empno = oEvent.getParameter("arguments").Empno;
 
-        alert(Empid);
-
-        oModel.metadataLoaded().then(function () {
-          var sPath = oModel.createKey("/MainView", {
-            Custid: Empid,
-            Custpw: Emppw,
-          });
-
-          // sPath should be something like "/Invoices(CustomerName='Troll',OrderID=12345)"
-          that.getView().bindElement({ path: sPath });
+        //조회
+        oModel.read("/Ch_headerSet('" + Empno + "')", {
+          success: function (oData) {
+            alert("성공");
+            // oData.bind(this);
+          },
+          error: function (oData) {
+            MessageToast.show("Error");
+          },
         });
+
+
+
       },
+
+
     });
   }
 );

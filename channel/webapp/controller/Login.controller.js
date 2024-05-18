@@ -19,43 +19,34 @@ sap.ui.define(
     FilterOperator
   ) {
     "use strict";
-    let oID;
-    let oPW;
+
+    //Custno
+    let Custno;
 
     return Controller.extend("chn.channel.controller.Login", {
       onInit: function () {},
 
-      //로그인페이지로 이동
-      navToMain: function () {
-        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-        oRouter.navTo("mainView");
-      },
-
+      //로그인 버튼
       Login: function () {
-        //로그인 버튼
-        oID = this.byId("custid").getValue();
-        var lv_pw = this.byId("custpw").getValue(),
-          lv_this = this,
-          oModel = this.getView().getModel();
+        let lv_id = this.byId("custid").getValue(),
+            lv_pw = this.byId("custpw").getValue(),
+            oModel = this.getView().getModel();
 
-        // let oBinding = oMainTable.getBinding("rows"),
-        //   oFilter = null,
-        //   aFliters = [];
-
-        if (oID == "") {
+        if (lv_id == "") {
           alert("아이디를 입력하세요.");
         } else {
           if (lv_pw == "") {
-            // alert("비밀번호를 입력하세요.");
-            alert(oID);
+            alert("비밀번호를 입력하세요.");
           }
 
-          oModel.read("/MemberSet('" + oID + "')", {
+          //entityset
+          oModel.read("/MemberSet('" + lv_id + "')", {
             success: function (oData) {
               if (lv_pw == oData.Custpw) {
                 alert("로그인에 성공했습니다.");
 
                 this.onSet(oData);
+
               } else {
                 alert("비밀번호가 맞지 않습니다.");
               }
@@ -64,37 +55,21 @@ sap.ui.define(
               MessageToast.show("Error");
             },
           });
-
-          // oFilter = new Fliter({
-          //   //아이디
-          //   path: "Custid",
-          //   Operator: FilterOperator.Contains,
-          //   value1: oID,
-          // });
-
-          // aFliters.push(oFilter);
-
-          // oFilter = new Fliter({
-          //   //비밀번호
-          //   path: "Custpw",
-          //   Operator: FilterOperator.Contains,
-          //   value1: lv_pw,
-          // });
-
-          // aFliters.push(oFilter);
         }
-
-        // oBinding.filter(aFliters);
       },
 
+      //로그인 성공 시 Custno 가져오기
       onSet: function (oDataSet) {
-        oPW = oDataSet.Custpw;
+        Custno = oDataSet.Custno;
 
-        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-        oRouter.navTo("mainView", {
-          EmpId: "아이디",
-          EmpPw: "비밀번호",
+        this._getRouter().navTo("mainView", {
+          Empno: Custno
         });
+      },
+
+      //라우터 정보가져오기
+      _getRouter:function () {
+        return sap.ui.core.UIComponent.getRouterFor(this);        
       },
 
       //fragment 가져오기

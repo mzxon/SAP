@@ -37,7 +37,6 @@
 			type="Password"
 			placeholder="Enter password" />        
         <Button id="login" text="로그인" press="Login" />   
-        <Button id="press" text="페이지이동" press="navToMain" />      
 		</f:content>
         </f:SimpleForm>
     </l:VerticalLayout>

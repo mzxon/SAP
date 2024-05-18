@@ -65,8 +65,9 @@
             </EntityType>
             <EntityType Name="Ch_header" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="Custid"/>
+                    <PropertyRef Name="Custno"/>
                 </Key>
+                <Property Name="Custno" Type="Edm.String" MaxLength="13" sap:unicode="false" sap:label="고객 번호"/>
                 <Property Name="Chlno" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="대리점 번호"/>
                 <Property Name="Chlname" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="대리점명"/>
                 <Property Name="Chladdr" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="대리점 주소"/>
@@ -74,8 +75,13 @@
                 <Property Name="Chlphone" Type="Edm.String" MaxLength="11" sap:unicode="false" sap:label="전화번호"/>
                 <Property Name="Quant" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:label="대리점 재고"/>
                 <Property Name="Unit" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="단위" sap:semantics="unit-of-measure"/>
+            </EntityType>
+            <EntityType Name="Header" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Custno"/>
+                </Key>
                 <Property Name="Custno" Type="Edm.String" MaxLength="13" sap:unicode="false" sap:label="고객 번호"/>
-                <Property Name="Custid" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="고객 ID" sap:updatable="false"/>
+                <Property Name="Custid" Type="Edm.String" MaxLength="16" sap:unicode="false" sap:label="고객 ID"/>
                 <Property Name="Custpw" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="고객 PW"/>
                 <Property Name="Custname" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="성명"/>
                 <Property Name="Custphone" Type="Edm.String" MaxLength="13" sap:unicode="false" sap:label="연락처"/>
@@ -83,8 +89,6 @@
                 <Property Name="Custemail" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="이메일"/>
                 <Property Name="Custbirth" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="생년월일"/>
                 <Property Name="Custgender" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="성별"/>
-                <Property Name="Message" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Character 100"/>
-                <Property Name="Custst" Type="Edm.String" MaxLength="1" sap:unicode="false" sap:label="고객 타입"/>
             </EntityType>
             <EntityContainer Name="ZC102GWSD001_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="Ch_itemSet" EntityType="ZC102GWSD001_SRV.Ch_item" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
@@ -92,6 +96,7 @@
                 <EntitySet Name="Rental_reqSet" EntityType="ZC102GWSD001_SRV.Rental_req" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="Rental_checkSet" EntityType="ZC102GWSD001_SRV.Rental_check" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
                 <EntitySet Name="Ch_headerSet" EntityType="ZC102GWSD001_SRV.Ch_header" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="MemberSet" EntityType="ZC102GWSD001_SRV.Member" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
             </EntityContainer>
             <atom:link rel="self" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZC102GWSD001_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
             <atom:link rel="latest-version" href="http://edu.bgis.co.kr:8001/sap/opu/odata/sap/ZC102GWSD001_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>

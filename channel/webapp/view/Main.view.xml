@@ -8,8 +8,7 @@
 	xmlns:f="sap.ui.layout.form"
     xmlns="sap.m">
     <Page id="main" title="{i18n>title}">
-    <l:VerticalLayout class="sapUiContentPadding">
-    <Button id="button" text="버튼" press="onPress" />   
+    <l:VerticalLayout class="sapUiContentPadding"> 
     <!-- 테이블 -->
         <t:Table
             id="header"
