@@ -13,8 +13,8 @@ sap.ui.define(
   function (Controller, MessageToast, UIComponent, Router, Fliter, FilterOperator) {
     "use strict";
 
-    let Empno;
-    let table;
+    let oEmpno;
+    let otable;
 
     return Controller.extend("chn.channel.controller.Main", {
       onInit: function () {
@@ -29,28 +29,25 @@ sap.ui.define(
 
       //전달받은 파라미터 값 가져와서 대리점 조회하기
       _onRouteMatched: function (oEvent) {
-        let oModel = this.getView().getModel();
-        table = this.byId("header");
-        let oBinding = table.getBinding("rows");
+        let oModel = this.getOwnerComponent().getModel();
+        let oJsonModel = new sap.ui.model.json.JSONModel();
 
         //empno 받아오기
-        Empno = oEvent.getParameter("arguments").Empno;
+        oEmpno = oEvent.getParameter("arguments").Empno;
 
-        //조회
-        oModel.read("/Ch_headerSet('" + Empno + "')", {
-          success: function (oData) {
-            alert("성공");
-            // oData.bind(this);
+        //조회해서 JsonModel에 넣어서 View에서 사용하기
+        oModel.read("/Ch_headerSet('" + oEmpno + "')", {
+          success: function (response) {
+            debugger;
+            oJsonModel.setData(response);
+            this.getView().setModel(oJsonModel, "Ch_Model");
+          }.bind(this),
+          error: function (response) {
+            // MessageToast.show("Error");
+            debugger;
           },
-          error: function (oData) {
-            MessageToast.show("Error");
-          },
-        });
-
-
-
+        })
       },
-
 
     });
   }

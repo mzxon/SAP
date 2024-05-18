@@ -1,7 +1,6 @@
 <mvc:View 
     controllerName="chn.channel.controller.Main"
     xmlns:mvc="sap.ui.core.mvc" 
-	xmlns:t="sap.ui.table"
     displayBlock="true"
     height="100%"
     xmlns:l="sap.ui.layout"
@@ -10,41 +9,51 @@
     <Page id="main" title="{i18n>title}">
     <l:VerticalLayout class="sapUiContentPadding"> 
     <!-- 테이블 -->
-        <t:Table
+        <Table
             id="header"
-            rows="{/Ch_headerSet}"
+            item="{Ch_Model>/}"
             selectionMode="MultiToggle"
             selectionBehavior="Row"
             paste="onPaste"
             ariaLabelledBy="title"
             visibleRowCount="7">
-            <t:columns>
-                <t:Column width="5rem">
+            <columns>
+                <Column width="5rem">
                     <Label text="대리점번호" />
-                    <t:template>
-                        <Text text="{Chlno}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-                <t:Column width="12rem">
+                    <!-- <t:template>
+                        <Text text="{Ch_Model>/Chlno}" wrapping="false" />
+                    </t:template> -->
+                </Column>
+                <Column width="12rem">
                     <Label text="대리점명" />
-                    <t:template>
-                        <Text text="{Chlname}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-                <t:Column width="20rem">
+                    <!-- <t:template>
+                        <Text text="{Ch_Model>/Chlname}" wrapping="false" />
+                    </t:template> -->
+                </Column>
+                <Column width="20rem">
                     <Label text="대리점주소" />
-                    <t:template>
-                        <Text text="{Chladdr}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-                <t:Column width="11rem">
+                    <!-- <t:template>
+                        <Text text="{Ch_Model>/Chladdr}" wrapping="false" />
+                    </t:template> -->
+                </Column>
+                <Column width="11rem">
                     <Label text="대리점전화번호" />
-                    <t:template>
-                        <Text text="{Chlphone}" wrapping="false" />
-                    </t:template>
-                </t:Column>
-            </t:columns>
-        </t:Table>
+                    <!-- <t:template>
+                        <Text text="{Ch_Model>/Chlphone}" wrapping="false" />
+                    </t:template> -->
+                </Column>
+            </columns>
+            <items>
+			<ColumnListItem vAlign="Middle">
+				<cells>
+					<Text text="{Ch_Model>/Chlno}" />
+					<Text text="{Ch_Model>/Chlname}" />
+					<Text text="{Ch_Model>/Chladdr}" />
+					<Text text="{Ch_Model>/Chlphone}" />
+				</cells>
+			</ColumnListItem>
+		</items>
+        </Table>
     </l:VerticalLayout>
     </Page>
 </mvc:View>
