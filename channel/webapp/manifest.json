@@ -50,11 +50,12 @@
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
+        "sap.ui.table": {},
+				"sap.tnt": {},
         "sap.f": {},
         "sap.suite.ui.generic.template": {},
         "sap.ui.comp": {},
         "sap.ui.generic.app": {},
-        "sap.ui.table": {},
         "sap.ushell": {},
 				"sap.ui.layout": {}
       }
