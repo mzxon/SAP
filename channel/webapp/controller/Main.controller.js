@@ -19,20 +19,24 @@ sap.ui.define(
     return Controller.extend("chn.channel.controller.Main", {
       onInit: function () {
         //mainView(routes name)의 라우터에 연결
-        this._getRouter().getRoute("mainView").attachPatternMatched(this._onRouteMatched.bind(this), this);
-     
-        //뷰에 데이터 세팅해줌
-			  var oModel = new JSONModel(sap.ui.require.toUrl("chn/channel/model/data.json"));
-			  this.getView().setModel(oModel);
+        this._getRouter()
+          .getRoute("mainView")
+          .attachPatternMatched(this._onRouteMatched.bind(this), this);
 
-			  //미디어에 따라 화면 너비
-			  Device.media.attachHandler(this._handleMediaChange, this);
-			  this._handleMediaChange();
+        //뷰에 데이터 세팅해줌
+        var oModel = new JSONModel(
+          sap.ui.require.toUrl("chn/channel/model/data.json")
+        );
+        this.getView().setModel(oModel);
+
+        //미디어에 따라 화면 너비
+        Device.media.attachHandler(this._handleMediaChange, this);
+        this._handleMediaChange();
       },
-      
+
       //라우터 연결정보 가져오기
-      _getRouter:function () {
-        return sap.ui.core.UIComponent.getRouterFor(this);        
+      _getRouter: function () {
+        return sap.ui.core.UIComponent.getRouterFor(this);
       },
 
       //전달받은 파라미터 값 가져와서 대리점 조회하기
@@ -47,26 +51,26 @@ sap.ui.define(
         oModel.read("/Ch_headerSet('" + oEmpno + "')", {
           success: function (response) {
             oJsonModel.setData(response);
-            oChlno = response.getParameter("Chlno");
             this.getView().setModel(oJsonModel, "Ch_Model");
+            oChlno = response.Chlno;
           }.bind(this),
           error: function (response) {
             MessageToast.show("Error");
           },
-        })
+        });
       },
 
       //툴바 아이템 선택 함수
-		  onItemSelect: function (oEvent) {
-		  	//oEvent의 "item"의 파라미터값을 가져옴
-		  	var oItem = oEvent.getParameter("item");
-		  	//튤바 선택했을때 (id:pageContainer)NavContainer에 oItem의 키로 접근해서 해당하는 아이디의 내용을 넣음 (data.json에 저장된 key)
-		  	this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
-		  },
-    
+      onItemSelect: function (oEvent) {
+        //oEvent의 "item"의 파라미터값을 가져옴
+        var oItem = oEvent.getParameter("item");
+        //튤바 선택했을때 (id:pageContainer)NavContainer에 oItem의 키로 접근해서 해당하는 아이디의 내용을 넣음 (data.json에 저장된 key)
+        this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
+      },
+
       //화면 변경시
-		  _handleMediaChange: function () {
-			  var rangeName = Device.media.getCurrentRange("StdExt").name;
+      _handleMediaChange: function () {
+        var rangeName = Device.media.getCurrentRange("StdExt").name;
 
         switch (rangeName) {
           //데스크탑
@@ -111,23 +115,24 @@ sap.ui.define(
         }
       },
 
-      onExit: function() {
+      onExit: function () {
         Device.media.detachHandler(this._handleMediaChange, this);
       },
 
-      setText:function (oEvent) {
-        var oItem = oEvent.getSource().getSelectedItem();                  
+      setText: function (oEvent) {
+        var oItem = oEvent.getSource().getSelectedItem();
         oModcd = oItem.getKey();
       },
 
       //렌탈재고주문
-      onOrder:function() {
-        alert(oModcd);
-        alert(oChlno);
+      onOrder: function () {
+        let oModel = this.getView().getModel();
+        var oQuant = this.byId("quant").getValue();
 
         let oCrtData = {
           Modcd: oModcd,
-          Chlno: oChlno
+          Chlno: oChlno,
+          Quant: oQuant,
         };
 
         oModel.update(
@@ -136,11 +141,8 @@ sap.ui.define(
           null,
           oModel.refresh(),
           alert("발주 되었습니다.")
-      );
-
-      }
-
-
+        );
+      },
     });
   }
 );

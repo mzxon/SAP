@@ -7,6 +7,7 @@
 	xmlns:tnt="sap.tnt"
 	xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form"
+	xmlns:ff="sap.f"
 	xmlns:core="sap.ui.core"
 	xmlns:t="sap.ui.table"
 	xmlns:trm="sap.ui.table.rowmodes">
@@ -17,7 +18,7 @@
 				<Image height="1.5rem"
 					   class="sapUiSmallMarginBegin"
 					   src="https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg" />
-				<Title level="H1" text="Product Name" wrapping="false" id="productName">
+				<Title level="H1" text="{Ch_Model>/Chlname}" wrapping="false" id="productName">
 					<layoutData>
 						<OverflowToolbarLayoutData priority="Disappear"/>
 					</layoutData>
@@ -219,79 +220,173 @@
 							height="100%"
 							class="sapUiContentPadding">
 						<Text text="Provisioning" />
-                        <Page enableScrolling="true" title="Title" class="sapUiResponsivePadding--header sapUiResponsivePadding--footer">
-                            <content>
-                                <VBox fitContainer="true">
-                                    <f:SimpleForm id="SimpleFormDisplay480"
-                                        editable="false"
-                                        layout="ResponsiveGridLayout"
-                                        title="Address"
-                                        labelSpanL="4"
-                                        labelSpanM="4"
-                                        emptySpanL="0"
-                                        emptySpanM="0"
-                                        columnsL="2"
-                                        columnsM="2">
-                                        <f:content>
-                                            <core:Title text="Office" />
-                                            <Label text="Name" />
-                                            <Text text="Red Point Stores" />
-                                            <Label text="Street/No." />
-                                            <Text text="Main St 1618" />
-                                            <Label text="ZIP Code/City" />
-                                            <Text text="31415 Maintown" />
-                                            <Label text="Country" />
-                                            <Text text="Germany" />
-                                            <core:Title text="Online" />
-                                            <Label text="Web" />
-                                            <Text text="http://www.sap.com" />
-                                            <Label text="Twitter" />
-                                            <Text text="@sap" />
-                                        </f:content>
-                                        <f:layoutData>
-                                            <FlexItemData shrinkFactor="0" backgroundDesign="Solid" styleClass="sapContrastPlus"/>
-                                        </f:layoutData>
-                                    </f:SimpleForm>
-                                    <t:AnalyticalTable selectionMode="MultiToggle">
-                                        <t:rowMode>
-                                            <trm:Auto rowContentHeight="32"/>
-                                        </t:rowMode>
-                                        <t:toolbar>
-                                            <OverflowToolbar>
-                                                <Title text="Title Bar Here"/>
-                                                <ToolbarSpacer />
-                                                <SearchField width="12rem" />
-                                                <SegmentedButton>
-                                                    <buttons>
-                                                        <Button icon="sap-icon://table-view" />
-                                                        <Button icon="sap-icon://bar-chart" />
-                                                    </buttons>
-                                                </SegmentedButton>
-                                                <Button icon="sap-icon://group-2" type="Transparent" />
-                                                <Button icon="sap-icon://action-settings" type="Transparent" />
-                                            </OverflowToolbar>
-                                        </t:toolbar>
-                                        <t:columns>
-                                            <t:AnalyticalColumn />
-                                            <t:AnalyticalColumn />
-                                            <t:AnalyticalColumn />
-                                        </t:columns>
-                                        <t:layoutData>
-                                            <FlexItemData growFactor="1" baseSize="0%" styleClass="sapUiResponsiveContentPadding" />
-                                        </t:layoutData>
-                                    </t:AnalyticalTable>
-                                </VBox>
-                            </content>
-                            <footer>
-                                <OverflowToolbar>
-                                    <content>
-                                        <ToolbarSpacer />
-                                        <Button text="Grouped View" />
-                                        <Button text="Classical Table" />
-                                    </content>
-                                </OverflowToolbar>
-                            </footer>
-                        </Page>
+                        <ff:DynamicPage id="dynamicPageId" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="{/titleClickable}">
+                        <!-- DynamicPage Title -->
+                        <ff:title>
+                            <ff:DynamicPageTitle>
+                                <ff:heading>
+                                    <Title text="Header Title"/>
+                                </ff:heading>
+                                <ff:breadcrumbs>
+                                    <Breadcrumbs>
+                                        <Link text="Home" />
+                                        <Link text="Page 1" />
+                                        <Link text="Page 2" />
+                                        <Link text="Page 3" />
+                                        <Link text="Page 4" />
+                                        <Link text="Page 5" />
+                                    </Breadcrumbs>
+                                </ff:breadcrumbs>
+                                <ff:expandedContent>
+                                    <Label text="This is a subheading"/>
+                                </ff:expandedContent>
+                                <ff:snappedContent>
+                                    <Label text="This is a subheading"/>
+                                </ff:snappedContent>
+                                <ff:snappedTitleOnMobile>
+                                    <Title text="This is a subheading"/>
+                                </ff:snappedTitleOnMobile>
+                                <ff:content>
+                                    <OverflowToolbar>
+                                        <GenericTag text="SR"
+                                            status="Error"
+                                            press="onPressOpenPopover"
+                                            design="StatusIconHidden">
+                                            <ObjectNumber number="2"
+                                                unit="M"
+                                                emphasized="false"
+                                                state="Error"/>
+                                        </GenericTag>
+                                    </OverflowToolbar>
+                                </ff:content>
+                                <ff:actions>
+                                    <Button
+                                            text="Edit"
+                                            type="Emphasized"
+                                            press="toggleAreaPriority"/>
+                                    <Button
+                                            text="Delete"
+                                            type="Transparent"/>
+                                    <Button
+                                            text="Copy"
+                                            type="Transparent"/>
+                                    <Button
+                                            text="Toggle Footer"
+                                            type="Transparent"
+                                            press="onToggleFooter"/>
+                                    <Button
+                                            icon="sap-icon://action"
+                                            type="Transparent"/>
+                                    <Button
+                                            text="Button with layoutData"
+                                            type="Transparent"
+                                            press="onPressOpenPopover">
+                                        <layoutData>
+                                            <OverflowToolbarLayoutData priority="AlwaysOverflow" closeOverflowOnInteraction="false" />
+                                        </layoutData>
+                                    </Button>
+                                </ff:actions>
+                                <ff:navigationActions>
+                                    <Button
+                                            icon="sap-icon://full-screen"
+                                            type="Transparent" />
+                                    <Button
+                                            icon="sap-icon://decline"
+                                            type="Transparent" />
+                                </ff:navigationActions>
+                            </ff:DynamicPageTitle>
+                        </ff:title>
+                        <!-- DynamicPage Header -->
+                        <ff:header>
+                            <ff:DynamicPageHeader pinnable="true">
+                                <l:HorizontalLayout allowWrapping="true">
+                                    <l:VerticalLayout class="sapUiMediumMarginEnd">
+                                        <ObjectAttribute title="Location" text="Warehouse A"/>
+                                        <ObjectAttribute title="Halway" text="23L"/>
+                                        <ObjectAttribute title="Rack" text="34"/>
+                                    </l:VerticalLayout>
+
+                                    <l:VerticalLayout>
+                                        <ObjectAttribute title="Availability"/>
+                                        <ObjectStatus text="In Stock" state="Success" />
+                                    </l:VerticalLayout>
+                                </l:HorizontalLayout>
+                            </ff:DynamicPageHeader>
+                        </ff:header>
+                        <ff:content>
+                            <Table id="idProductsTable"
+                                    sticky="HeaderToolbar,ColumnHeaders"
+                                    inset="false"
+                                    items="{
+                                        path: '/ProductCollection',
+                                        sorter: {
+                                            path: 'Name'
+                                        }
+                                    }"
+                                class="sapFDynamicPageAlignContent"
+                                width="auto">
+                                <headerToolbar>
+                                    <Toolbar>
+                                        <Title text="Products" level="H2"/>
+                                    </Toolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column
+                                            width="12em">
+                                        <Text text="Product" />
+                                    </Column>
+                                    <Column
+                                            minScreenWidth="Tablet"
+                                            demandPopin="true">
+                                        <Text text="Supplier" />
+                                    </Column>
+                                    <Column
+                                            minScreenWidth="Tablet"
+                                            demandPopin="true"
+                                            hAlign="End">
+                                        <Text text="Dimensions" />
+                                    </Column>
+                                    <Column
+                                            hAlign="End">
+                                        <Text text="Price" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier
+                                                    title="{Name}"
+                                                    text="{ProductId}"/>
+                                            <Text
+                                                    text="{SupplierName}" />
+                                            <Text
+                                                    text="{Width} x {Depth} x {Height} {DimUnit}" />
+                                            <ObjectNumber
+                                                    number="{
+                                                        parts:[{path:'Price'},{path:'CurrencyCode'}],
+                                                        type: 'sap.ui.model.type.Currency',
+                                                        formatOptions: {showMeasure: false}
+                                                    }"
+                                                    unit="{CurrencyCode}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </ff:content>
+                        <!-- DynamicPage Footer -->
+                        <ff:footer>
+                            <OverflowToolbar>
+                                <Button icon="sap-icon://message-popup"
+                                        text="{/messagesLength}"
+                                        type="Emphasized"
+                                        press="onMessageButtonPress"
+                                        visible="{= !!${/messagesLength}}"/>
+                                <ToolbarSpacer/>
+                                <Button type="Accept" text="Accept"/>
+                                <Button type="Reject" text="Reject"/>
+                            </OverflowToolbar>
+                        </ff:footer>
+                    </ff:DynamicPage>
 					</ScrollContainer>
 					<ScrollContainer
 							id="page6"
