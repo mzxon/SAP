@@ -10,7 +10,8 @@
 	xmlns:ff="sap.f"
 	xmlns:core="sap.ui.core"
 	xmlns:t="sap.ui.table"
-	xmlns:trm="sap.ui.table.rowmodes">
+	xmlns:trm="sap.ui.table.rowmodes"
+    xmlns:html="http://www.w3.org/1999/xhtml">
     <!-- 테이블 -->
     <tnt:ToolPage id="toolPage">
 		<tnt:header>
@@ -139,6 +140,7 @@
                             </ColumnListItem>
 		                    </items>
                         </Table>
+                        <VBox id="map" class="myMap" height="500px" width="100%" afterRendering="onAfterRendering"></VBox>
 					</ScrollContainer>
 					<ScrollContainer
 						id="page2"

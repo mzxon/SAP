@@ -32,6 +32,21 @@ sap.ui.define(
         //미디어에 따라 화면 너비
         Device.media.attachHandler(this._handleMediaChange, this);
         this._handleMediaChange();
+        
+      },
+
+      onAfterRendering: function() {
+        this.initializeMap();
+      },
+
+      initializeMap: function() {
+        var mapOptions = {
+          center: {lat: 37.5665, lng: 126.9780},
+          zoom: 13
+        };
+  
+        var mapElement = document.getElementById(this.getView().byId("map").getId());
+        var map = new google.maps.Map(mapElement, mapOptions);
       },
 
       //라우터 연결정보 가져오기
