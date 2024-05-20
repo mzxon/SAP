@@ -6,7 +6,7 @@
 			"key": "page1"
 		},
 		{
-			"title": "Applications",
+			"title": "재고 발주",
 			"key": "page2"
 		},
 		{
@@ -80,3 +80,4 @@
 		}
 	]
 }
+

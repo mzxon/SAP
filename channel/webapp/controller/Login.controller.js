@@ -2,10 +2,7 @@ sap.ui.define(
   [
     "sap/m/MessageToast",
     "sap/ui/core/Fragment",
-    "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
+    "sap/ui/core/mvc/Controller"
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -70,32 +67,6 @@ sap.ui.define(
       //라우터 정보가져오기
       _getRouter:function () {
         return sap.ui.core.UIComponent.getRouterFor(this);        
-      },
-
-      //fragment 가져오기
-      _getFormFragment: function (sFragmentName) {
-        var pFormFragment = this._formFragments[sFragmentName],
-          oView = this.getView();
-
-        if (!pFormFragment) {
-          pFormFragment = Fragment.load({
-            id: oView.getId(),
-            name: "chn.channel.controller.Channel_Management." + sFragmentName,
-          });
-          this._formFragments[sFragmentName] = pFormFragment;
-        }
-
-        return pFormFragment;
-      },
-
-      //fragment 보여주기
-      _showFormFragment: function (sFragmentName) {
-        var oPage = this.byId("Login");
-
-        oPage.removeAllContent();
-        this._getFormFragment(sFragmentName).then(function (oVBox) {
-          oPage.insertContent(oVBox);
-        });
       },
     });
   }

@@ -84,41 +84,41 @@
         }
       ]
     },
-    "routing": {
-      "config": {
-        "routerClass": "sap.m.routing.Router",
-        "viewType": "XML",
-        "async": true,
-        "viewPath": "chn.channel.view",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "clearControlAggregation": false
+      "routing": {
+        "config": {
+          "routerClass": "sap.m.routing.Router",
+          "viewType": "XML",
+          "async": true,
+          "viewPath": "chn.channel.view",
+          "controlAggregation": "pages",
+          "controlId": "app",
+          "clearControlAggregation": false
+        },
+        "routes": [
+          {
+            "name": "loginView",
+            "pattern": "",
+            "target": "login"
+          },
+          {
+            "name": "mainView",
+            "pattern": "Main/{Empno}",
+            "target": "main"
+          }
+        ],
+        "targets": {
+          "login": {
+            "viewType": "XML",
+            "viewLevel": 1,
+            "viewName": "Login"
+          },
+          "main": {
+            "viewType": "XML",
+            "viewLevel": 1,
+            "viewName": "Main"
+          }
+        }
       },
-      "routes": [
-        {
-          "name": "loginView",
-          "pattern": "",
-          "target": "login"
-        },
-        {
-          "name": "mainView",
-          "pattern": "Main/{Empno}",
-          "target": "main"
-        }
-      ],
-      "targets": {
-        "login": {
-          "viewType": "XML",
-          "viewLevel": 1,
-          "viewName": "Login"
-        },
-        "main": {
-          "viewType": "XML",
-          "viewLevel": 1,
-          "viewName": "Main"
-        }
-      }
-    },
     "rootView": {
       "viewName": "chn.channel.view.App",
       "type": "XML",
@@ -133,7 +133,8 @@
           "Channel_Management.controller.js",
           "LoginView.view.xml",
           "Channel_main.fragment.xml",
-          "manifest.json"
+          "manifest.json",
+          "model/data.json"
         ]
       }
     }

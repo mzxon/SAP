@@ -2,20 +2,18 @@ sap.ui.define(
   [
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
-    "sap/ui/core/UIComponent",
-    "sap/ui/core/routing/Router",
-    "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
     "sap/ui/model/json/JSONModel",
     "sap/ui/Device",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, MessageToast, UIComponent, Router, Fliter, FilterOperator, JSONModel, Device) {
+  function (Controller, MessageToast, JSONModel, Device) {
     "use strict";
 
     let oEmpno;
+    let oChlno;
+    let oModcd;
     let otable;
 
     return Controller.extend("chn.channel.controller.Main", {
@@ -24,7 +22,7 @@ sap.ui.define(
         this._getRouter().getRoute("mainView").attachPatternMatched(this._onRouteMatched.bind(this), this);
      
         //뷰에 데이터 세팅해줌
-			  var oModel = new JSONModel(sap.ui.require.toUrl("sync4/channel/webapp/model/data.json"));
+			  var oModel = new JSONModel(sap.ui.require.toUrl("chn/channel/model/data.json"));
 			  this.getView().setModel(oModel);
 
 			  //미디어에 따라 화면 너비
@@ -48,13 +46,12 @@ sap.ui.define(
         //조회해서 JsonModel에 넣어서 View에서 사용하기
         oModel.read("/Ch_headerSet('" + oEmpno + "')", {
           success: function (response) {
-            debugger;
             oJsonModel.setData(response);
+            oChlno = response.getParameter("Chlno");
             this.getView().setModel(oJsonModel, "Ch_Model");
           }.bind(this),
           error: function (response) {
-            // MessageToast.show("Error");
-            debugger;
+            MessageToast.show("Error");
           },
         })
       },
@@ -80,7 +77,6 @@ sap.ui.define(
             this.byId("searchField").setVisible(true);
             this.byId("spacer").setVisible(true);
             this.byId("searchButton").setVisible(false);
-            MessageToast.show("Screen width is corresponding to Large Desktop");
             break;
 
           //태블릿
@@ -91,7 +87,6 @@ sap.ui.define(
             this.byId("searchField").setVisible(true);
             this.byId("spacer").setVisible(true);
             this.byId("searchButton").setVisible(false);
-            MessageToast.show("Screen width is corresponding to Desktop");
             break;
 
           // Tablet - Portrait
@@ -101,7 +96,6 @@ sap.ui.define(
             this.byId("searchButton").setVisible(true);
             this.byId("searchField").setVisible(false);
             this.byId("spacer").setVisible(false);
-            MessageToast.show("Screen width is corresponding to Tablet");
             break;
 
           //폰
@@ -111,7 +105,6 @@ sap.ui.define(
             this.byId("spacer").setVisible(false);
             this.byId("productName").setVisible(false);
             this.byId("secondTitle").setVisible(false);
-            MessageToast.show("Screen width is corresponding to Phone");
             break;
           default:
             break;
@@ -121,6 +114,32 @@ sap.ui.define(
       onExit: function() {
         Device.media.detachHandler(this._handleMediaChange, this);
       },
+
+      setText:function (oEvent) {
+        var oItem = oEvent.getSource().getSelectedItem();                  
+        oModcd = oItem.getKey();
+      },
+
+      //렌탈재고주문
+      onOrder:function() {
+        alert(oModcd);
+        alert(oChlno);
+
+        let oCrtData = {
+          Modcd: oModcd,
+          Chlno: oChlno
+        };
+
+        oModel.update(
+          "/Rental_reqSet",
+          oCrtData,
+          null,
+          oModel.refresh(),
+          alert("발주 되었습니다.")
+      );
+
+      }
+
 
     });
   }
