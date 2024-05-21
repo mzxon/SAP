@@ -148,97 +148,13 @@
 						vertical="true"
 						height="100%"
 						class="sapUiContentPadding">
-                        <VBox class="sapUiSmallMargin">
-                            <f:Form id="FormChange354"
-                                editable="true">
-                                <f:title>
-				                    <core:Title text="재고발주" />
-                                </f:title>
-                                <f:layout>
-                                    <f:ResponsiveGridLayout
-                                        labelSpanXL="3"
-                                        labelSpanL="3"
-                                        labelSpanM="3"
-                                        labelSpanS="12"
-                                        adjustLabelSpan="false"
-                                        emptySpanXL="4"
-                                        emptySpanL="4"
-                                        emptySpanM="4"
-                                        emptySpanS="0"
-                                        columnsXL="1"
-                                        columnsL="1"
-                                        columnsM="1"
-                                        singleContainerFullSize="false" />
-                                </f:layout>
-                                <f:formContainers>
-                                    <f:FormContainer>
-                                        <f:formElements>
-                                            <f:FormElement label="제품명">  
-                                                <f:fields>
-                                                    <Select 
-                                                        id="name"
-                                                        change="setText">
-                                                    <!-- <Select id="country" selectedKey="{Country}"> -->
-                                                        <items>
-                                                            <!-- <core:Item text="England" key="England"/> -->
-                                                            <core:Item text="부릉이 베이직" key="BEAL24"/>
-                                                            <core:Item text="부릉이 울트라 맥스" key="BETT24"/>
-                                                        </items>
-                                                    </Select>
-                                                </f:fields>
-                                            </f:FormElement>
-                                            <f:FormElement label="수량">
-                                                <f:fields>
-                                                    <Input id="quant" />
-                                                </f:fields>
-                                            </f:FormElement>
-                                        </f:formElements>
-                                    </f:FormContainer>
-                                </f:formContainers>
-                            </f:Form>
-                            <Button id="order" text="발주" press="onOrder" /> 
-                        </VBox>
-					</ScrollContainer>
-					<ScrollContainer
-						id="page3"
-						horizontal="false"
-						vertical="true"
-						height="100%"
-						class="sapUiContentPadding">
-						<Text text="Users and Groups" />
-                    </ScrollContainer>
-					<ScrollContainer
-						id="page4"
-						horizontal="false"
-						vertical="true"
-						height="100%"
-						class="sapUiContentPadding">
-						<Text text="Identity" />
-					</ScrollContainer>
-					<ScrollContainer
-							id="page5"
-							horizontal="false"
-							vertical="true"
-							height="100%"
-							class="sapUiContentPadding">
-						<Text text="Provisioning" />
                         <ff:DynamicPage id="dynamicPageId" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="{/titleClickable}">
                         <!-- DynamicPage Title -->
                         <ff:title>
                             <ff:DynamicPageTitle>
                                 <ff:heading>
-                                    <Title text="Header Title"/>
+                                    <Title text="재고현황"/>
                                 </ff:heading>
-                                <ff:breadcrumbs>
-                                    <Breadcrumbs>
-                                        <Link text="Home" />
-                                        <Link text="Page 1" />
-                                        <Link text="Page 2" />
-                                        <Link text="Page 3" />
-                                        <Link text="Page 4" />
-                                        <Link text="Page 5" />
-                                    </Breadcrumbs>
-                                </ff:breadcrumbs>
                                 <ff:expandedContent>
                                     <Label text="This is a subheading"/>
                                 </ff:expandedContent>
@@ -263,19 +179,15 @@
                                 </ff:content>
                                 <ff:actions>
                                     <Button
-                                            text="Edit"
+                                            text="발주"
                                             type="Emphasized"
                                             press="toggleAreaPriority"/>
                                     <Button
-                                            text="Delete"
+                                            text="입고"
                                             type="Transparent"/>
                                     <Button
-                                            text="Copy"
+                                            text="검수"
                                             type="Transparent"/>
-                                    <Button
-                                            text="Toggle Footer"
-                                            type="Transparent"
-                                            press="onToggleFooter"/>
                                     <Button
                                             icon="sap-icon://action"
                                             type="Transparent"/>
@@ -389,6 +301,30 @@
                             </OverflowToolbar>
                         </ff:footer>
                     </ff:DynamicPage>
+					</ScrollContainer>
+					<ScrollContainer
+						id="page3"
+						horizontal="false"
+						vertical="true"
+						height="100%"
+						class="sapUiContentPadding">
+						<Text text="Users and Groups" />
+                    </ScrollContainer>
+					<ScrollContainer
+						id="page4"
+						horizontal="false"
+						vertical="true"
+						height="100%"
+						class="sapUiContentPadding">
+						<Text text="Identity" />
+					</ScrollContainer>
+					<ScrollContainer
+							id="page5"
+							horizontal="false"
+							vertical="true"
+							height="100%"
+							class="sapUiContentPadding">
+						<Text text="Provisioning" />
 					</ScrollContainer>
 					<ScrollContainer
 							id="page6"
