@@ -1,20 +1,49 @@
 sap.ui.define(
   [
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast",
+    "sap/ui/core/Element",
     "sap/ui/model/json/JSONModel",
     "sap/ui/Device",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/m/Dialog",
+    "sap/m/Button",
+    "sap/m/Label",
+    "sap/m/library",
+    "sap/m/MessageToast",
+    "sap/m/TextArea",
+    "sap/m/Input",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, MessageToast, JSONModel, Device) {
+  function (
+    Controller,
+    Element,
+    JSONModel,
+    Device,
+    Filter,
+    FilterOperator,
+    Dialog,
+    Button,
+    Label,
+    mobileLibrary,
+    MessageToast,
+    TextArea,
+    Input
+  ) {
     "use strict";
 
     let oEmpno;
     let oChlno;
     let oModcd;
-    let otable;
+    // let oTable;
+
+    // shortcut for sap.m.ButtonType
+    var ButtonType = mobileLibrary.ButtonType;
+
+    // shortcut for sap.m.DialogType
+    var DialogType = mobileLibrary.DialogType;
 
     return Controller.extend("chn.channel.controller.Main", {
       onInit: function () {
@@ -32,21 +61,8 @@ sap.ui.define(
         //미디어에 따라 화면 너비
         Device.media.attachHandler(this._handleMediaChange, this);
         this._handleMediaChange();
-        
-      },
 
-      onAfterRendering: function() {
-        this.initializeMap();
-      },
-
-      initializeMap: function() {
-        var mapOptions = {
-          center: {lat: 37.5665, lng: 126.9780},
-          zoom: 13
-        };
-  
-        var mapElement = document.getElementById(this.getView().byId("map").getId());
-        var map = new google.maps.Map(mapElement, mapOptions);
+        // oTable = this.byId("Ch_item");
       },
 
       //라우터 연결정보 가져오기
@@ -68,11 +84,51 @@ sap.ui.define(
             oJsonModel.setData(response);
             this.getView().setModel(oJsonModel, "Ch_Model");
             oChlno = response.Chlno;
+            // this._getTable();
           }.bind(this),
           error: function (response) {
             MessageToast.show("Error");
           },
         });
+      },
+
+      _getTable: function () {
+        alert("DJFDK");
+        let oTable = this.byId("Ch_item");
+        let oBinding = oTable.getBinding("rows"),
+          oFilter = null,
+          aFilters = [];
+
+        if (!oBinding) {
+          console.error("Binding not found on the table");
+          return;
+        }
+
+        oFilter = new Filter({
+          path: "Chlno",
+          operator: FilterOperator.EQ,
+          value1: oChlno,
+        });
+        aFilters.push(oFilter);
+        oBinding.filter(aFilters);
+      },
+
+      //지도 렌더링
+      onAfterRendering: function () {
+        this.initializeMap();
+      },
+
+      //지도 초기화
+      initializeMap: function () {
+        var mapOptions = {
+          center: { lat: 37.5665, lng: 126.978 },
+          zoom: 13,
+        };
+
+        var mapElement = document.getElementById(
+          this.getView().byId("map").getId()
+        );
+        var map = new google.maps.Map(mapElement, mapOptions);
       },
 
       //툴바 아이템 선택 함수
@@ -81,6 +137,54 @@ sap.ui.define(
         var oItem = oEvent.getParameter("item");
         //튤바 선택했을때 (id:pageContainer)NavContainer에 oItem의 키로 접근해서 해당하는 아이디의 내용을 넣음 (data.json에 저장된 key)
         this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
+      },
+
+      //발주버튼 팝업
+      onOrdStd: function () {
+        if (!this.oSubmitDialog) {
+          this.oSubmitDialog = new Dialog({
+            type: DialogType.Message,
+            title: "대리점 재고 발주",
+            content: [
+              new Label({
+                text: "발주하시겠습니까?",
+                labelFor: "submissionNote",
+              }),
+              new Input({
+                maxLength: 20,
+                id: "Input",
+              }),
+              new TextArea("submissionNote", {
+                width: "100%",
+                placeholder: "Add note (required)",
+                liveChange: function (oEvent) {
+                  var sText = oEvent.getParameter("value");
+                  this.oSubmitDialog
+                    .getBeginButton()
+                    .setEnabled(sText.length > 0);
+                }.bind(this),
+              }),
+            ],
+            beginButton: new Button({
+              type: ButtonType.Emphasized,
+              text: "Submit",
+              enabled: false,
+              press: function () {
+                var sText = Element.getElementById("submissionNote").getValue();
+                MessageToast.show("Note is: " + sText);
+                this.oSubmitDialog.close();
+              }.bind(this),
+            }),
+            endButton: new Button({
+              text: "Cancel",
+              press: function () {
+                this.oSubmitDialog.close();
+              }.bind(this),
+            }),
+          });
+        }
+
+        this.oSubmitDialog.open();
       },
 
       //화면 변경시

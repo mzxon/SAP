@@ -4,7 +4,6 @@
         <Schema Namespace="ZC102GWSD001_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
             <EntityType Name="Ch_item" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="Serno"/>
                     <PropertyRef Name="Chlno"/>
                     <PropertyRef Name="Modcd"/>
                 </Key>
