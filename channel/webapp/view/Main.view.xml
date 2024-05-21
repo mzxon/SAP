@@ -18,13 +18,13 @@
 			<tnt:ToolHeader>
 				<Image height="1.5rem"
 					   class="sapUiSmallMarginBegin"
-					   src="https://www.sap.com/dam/application/shared/logos/sap-logo-svg.svg" />
+					   src="image/electric-bike_1545981.png" />
 				<Title level="H1" text="{Ch_Model>/Chlname}" wrapping="false" id="productName">
 					<layoutData>
 						<OverflowToolbarLayoutData priority="Disappear"/>
 					</layoutData>
 				</Title>
-				<Text text="Second Тitle" wrapping="false" id="secondTitle">
+				<Text text="부릉e" wrapping="false" id="secondTitle">
 					<layoutData>
 						<OverflowToolbarLayoutData priority="Disappear"/>
 					</layoutData>
@@ -74,8 +74,8 @@
 		<tnt:subHeader>
 			<tnt:ToolHeader>
 				<IconTabHeader
-						selectedKey="{/selectedKey}"
-						items="{path: '/navigation'}"
+						selectedKey="{Data>/selectedKey}"
+						items="{path: 'Data>/navigation'}"
 						select=".onItemSelect"
 						mode="Inline">
 					<layoutData>
@@ -83,14 +83,14 @@
 					</layoutData>
 					<items>
 						<IconTabFilter
-								items="{items}"
-								text="{title}"
-								key="{key}"
+								items="{Data>items}"
+								text="{Data>title}"
+								key="{Data>key}"
 								interactionMode="SelectLeavesOnly">
 							<items>
 								<IconTabFilter
-										text="{title}"
-										key="{key}">
+										text="{Data>title}"
+										key="{Data>key}">
 								</IconTabFilter>
 							</items>
 						</IconTabFilter>
@@ -157,7 +157,7 @@
                             <ff:title>
                                 <ff:DynamicPageTitle>
                                     <ff:heading>
-                                        <Title text="재고현황"/>
+                                        <Title text="재고내역"/>
                                     </ff:heading>
                                     <ff:expandedContent>
                                         <Label text="This is a subheading"/>
@@ -225,19 +225,19 @@
                                                 <t:columns>
                                                     <t:Column width="5rem">
                                                         <Label text="시리얼번호" />
-                                                        <t:template>
+                                                        <t:template templateShareable="false">
                                                             <Text text="{Serno}" wrapping="false" />
                                                         </t:template>
                                                     </t:Column>
                                                     <t:Column width="5rem">
                                                         <Label text="모델명" />
-                                                        <t:template>
+                                                        <t:template templateShareable="false">
                                                             <Text text="{Modcd}" wrapping="false" />
-                                                        </t:template>
+                                                        </t:template >
                                                     </t:Column>
                                                     <t:Column width="5rem">
                                                         <Label text="상태" />
-                                                        <t:template>
+                                                        <t:template templateShareable="false">
                                                             <Text text="{Itmst}" wrapping="false" />
                                                         </t:template>
                                                     </t:Column>
@@ -245,7 +245,46 @@
                                             </t:Table>
                                         </IconTabFilter>
                                         <IconTabFilter text="발주내역">
-                                            <Text text="Attachments go here ..." />
+                                            <t:Table
+                                                id="req"
+                                                rows="{/Rental_reqSet}"
+                                                selectionMode="MultiToggle"
+                                                selectionBehavior="Row"
+                                                paste="onPaste"
+                                                ariaLabelledBy="title">
+                                                <t:columns>
+                                                    <t:Column width="5rem">
+                                                        <Label text="요청번호" />
+                                                        <t:template templateShareable="false">
+                                                            <Text text="{Reqno}" wrapping="false" />
+                                                        </t:template>
+                                                    </t:Column>
+                                                    <t:Column width="5rem">
+                                                        <Label text="모델명" />
+                                                        <t:template templateShareable="false">
+                                                            <Text text="{Modcd}" wrapping="false" />
+                                                        </t:template>
+                                                    </t:Column>
+                                                    <t:Column width="5rem">
+                                                        <Label text="수량" />
+                                                        <t:template templateShareable="false">
+                                                            <Text text="{Quant}" wrapping="false" />
+                                                        </t:template>
+                                                    </t:Column>
+                                                    <t:Column width="5rem">
+                                                        <Label text="단위" />
+                                                        <t:template templateShareable="false">
+                                                            <Text text="{Unit}" wrapping="false" />
+                                                        </t:template>
+                                                    </t:Column>
+                                                    <t:Column width="5rem">
+                                                        <Label text="요청일" />
+                                                        <t:template templateShareable="false">
+                                                            <Text text="{ReqDate}" wrapping="false" />
+                                                        </t:template>
+                                                    </t:Column>
+                                                </t:columns>
+                                            </t:Table>
                                         </IconTabFilter>
                                         <IconTabFilter text="Notes">
                                             <Text text="Notes go here ..." />

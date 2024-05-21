@@ -6,8 +6,12 @@
     xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form"
     xmlns="sap.m">
-    <Page id="Login" title="{i18n>Login_title}">        
-    <l:VerticalLayout class="sapUiContentPadding">
+    <Page id="Login" title="{i18n>Login_title}">   
+    <FlexBox
+            height="100%"
+            alignItems="Center"
+            justifyContent="Center">     
+    <l:VerticalLayout class="sapUiContentPadding" >
     <!-- Form -->
         <f:SimpleForm id="SimpleFormDisplay354"
             editable="false"
@@ -40,5 +44,6 @@
 		</f:content>
         </f:SimpleForm>
     </l:VerticalLayout>
+    </FlexBox>
     </Page>
 </mvc:View>

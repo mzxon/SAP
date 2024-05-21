@@ -6,13 +6,8 @@ sap.ui.define(
     "sap/ui/Device",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/m/Dialog",
-    "sap/m/Button",
-    "sap/m/Label",
     "sap/m/library",
     "sap/m/MessageToast",
-    "sap/m/TextArea",
-    "sap/m/Input",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -24,20 +19,15 @@ sap.ui.define(
     Device,
     Filter,
     FilterOperator,
-    Dialog,
-    Button,
-    Label,
     mobileLibrary,
-    MessageToast,
-    TextArea,
-    Input
+    MessageToast
   ) {
     "use strict";
 
     let oEmpno;
     let oChlno;
     let oModcd;
-    // let oTable;
+    let oTable;
 
     // shortcut for sap.m.ButtonType
     var ButtonType = mobileLibrary.ButtonType;
@@ -56,13 +46,13 @@ sap.ui.define(
         var oModel = new JSONModel(
           sap.ui.require.toUrl("chn/channel/model/data.json")
         );
-        this.getView().setModel(oModel);
+        this.getView().setModel(oModel, "Data");
 
         //미디어에 따라 화면 너비
         Device.media.attachHandler(this._handleMediaChange, this);
         this._handleMediaChange();
 
-        // oTable = this.byId("Ch_item");
+        oTable = this.byId("Ch_item");
       },
 
       //라우터 연결정보 가져오기
@@ -84,7 +74,7 @@ sap.ui.define(
             oJsonModel.setData(response);
             this.getView().setModel(oJsonModel, "Ch_Model");
             oChlno = response.Chlno;
-            // this._getTable();
+            this._getTable();
           }.bind(this),
           error: function (response) {
             MessageToast.show("Error");
@@ -93,7 +83,6 @@ sap.ui.define(
       },
 
       _getTable: function () {
-        alert("DJFDK");
         let oTable = this.byId("Ch_item");
         let oBinding = oTable.getBinding("rows"),
           oFilter = null,
@@ -142,30 +131,42 @@ sap.ui.define(
       //발주버튼 팝업
       onOrdStd: function () {
         if (!this.oSubmitDialog) {
-          this.oSubmitDialog = new Dialog({
-            type: DialogType.Message,
+          this.oSubmitDialog = new sap.m.Dialog({
+            type: sap.m.DialogType.Message,
             title: "대리점 재고 발주",
             content: [
-              new Label({
-                text: "발주하시겠습니까?",
-                labelFor: "submissionNote",
-              }),
-              new Input({
-                maxLength: 20,
-                id: "Input",
-              }),
-              new TextArea("submissionNote", {
-                width: "100%",
-                placeholder: "Add note (required)",
-                liveChange: function (oEvent) {
-                  var sText = oEvent.getParameter("value");
-                  this.oSubmitDialog
-                    .getBeginButton()
-                    .setEnabled(sText.length > 0);
-                }.bind(this),
+              new sap.m.VBox({
+                items: [
+                  new sap.m.Label({
+                    text: "발주하시겠습니까?",
+                    labelFor: "submissionNote",
+                  }),
+                  new sap.m.ComboBox("In_modcd", {
+                    items: [
+                      new sap.ui.core.Item({ text: "부릉이1", key: "1" }),
+                      new sap.ui.core.Item({ text: "부릉이2", key: "2" }),
+                      new sap.ui.core.Item({ text: "부릉이3", key: "3" }),
+                    ],
+                    placeholder: "Select an option",
+                  }),
+                  new sap.m.Input({
+                    maxLength: 20,
+                    id: "In_qua",
+                  }),
+                  new sap.m.TextArea("submissionNote", {
+                    width: "100%",
+                    placeholder: "Add note (required)",
+                    liveChange: function (oEvent) {
+                      var sText = oEvent.getParameter("value");
+                      this.oSubmitDialog
+                        .getBeginButton()
+                        .setEnabled(sText.length > 0);
+                    }.bind(this),
+                  }),
+                ],
               }),
             ],
-            beginButton: new Button({
+            beginButton: new sap.m.Button({
               type: ButtonType.Emphasized,
               text: "Submit",
               enabled: false,
@@ -175,7 +176,7 @@ sap.ui.define(
                 this.oSubmitDialog.close();
               }.bind(this),
             }),
-            endButton: new Button({
+            endButton: new sap.m.Button({
               text: "Cancel",
               press: function () {
                 this.oSubmitDialog.close();
@@ -238,30 +239,30 @@ sap.ui.define(
         Device.media.detachHandler(this._handleMediaChange, this);
       },
 
-      setText: function (oEvent) {
-        var oItem = oEvent.getSource().getSelectedItem();
-        oModcd = oItem.getKey();
-      },
+      // setText: function (oEvent) {
+      //   var oItem = oEvent.getSource().getSelectedItem();
+      //   oModcd = oItem.getKey();
+      // },
 
       //렌탈재고주문
-      onOrder: function () {
-        let oModel = this.getView().getModel();
-        var oQuant = this.byId("quant").getValue();
+      // onOrder: function () {
+      //   let oModel = this.getView().getModel();
+      //   var oQuant = this.byId("quant").getValue();
 
-        let oCrtData = {
-          Modcd: oModcd,
-          Chlno: oChlno,
-          Quant: oQuant,
-        };
+      //   let oCrtData = {
+      //     Modcd: oModcd,
+      //     Chlno: oChlno,
+      //     Quant: oQuant,
+      //   };
 
-        oModel.update(
-          "/Rental_reqSet",
-          oCrtData,
-          null,
-          oModel.refresh(),
-          alert("발주 되었습니다.")
-        );
-      },
+      //   oModel.update(
+      //     "/Rental_reqSet",
+      //     oCrtData,
+      //     null,
+      //     oModel.refresh(),
+      //     alert("발주 되었습니다.")
+      //   );
+      // },
     });
   }
 );
