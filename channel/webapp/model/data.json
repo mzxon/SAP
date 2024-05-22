@@ -11,35 +11,22 @@
     },
     {
       "title": "주문 관리",
-      "items": [
-        {
-          "title": "User 1",
-          "key": "page3"
-        },
-        {
-          "title": "User 2",
-          "key": "page3"
-        },
-        {
-          "title": "User 3",
-          "key": "page3"
-        }
-      ]
+      "key": "page3"
     },
     {
       "title": "검수 관리",
       "items": [
         {
-          "title": "Identity 1",
+          "title": "검수요청",
           "key": "page4"
         },
         {
-          "title": "Identity 2",
-          "key": "page4"
+          "title": "폐기내역",
+          "key": "page5"
         },
         {
-          "title": "Identity 3",
-          "key": "page4"
+          "title": "검수이력",
+          "key": "page6"
         }
       ]
     },

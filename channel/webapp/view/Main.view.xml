@@ -162,12 +162,6 @@
                                     <ff:expandedContent>
                                         <Label text="This is a subheading"/>
                                     </ff:expandedContent>
-                                    <ff:snappedContent>
-                                        <Label text="This is a subheading"/>
-                                    </ff:snappedContent>
-                                    <ff:snappedTitleOnMobile>
-                                        <Title text="This is a subheading"/>
-                                    </ff:snappedTitleOnMobile>
                                     <ff:content>
                                         <OverflowToolbar>
                                             <GenericTag text="SR"
@@ -185,7 +179,6 @@
                                         <Button text="발주" type="Emphasized" press=".onOrdStd" ariaHasPopup="Dialog"/>
                                         <Button text="입고" type="Transparent"/>
                                         <Button text="검수" type="Transparent"/>
-                                        <Button text="Toggle Footer" type="Transparent" press="onToggleFooter"/>
                                         <Button icon="sap-icon://action" type="Transparent"/>
                                     </ff:actions>
                                     <ff:navigationActions>
@@ -223,19 +216,19 @@
                                                 paste="onPaste"
                                                 ariaLabelledBy="title">
                                                 <t:columns>
-                                                    <t:Column width="5rem">
+                                                    <t:Column width="11rem">
                                                         <Label text="시리얼번호" />
                                                         <t:template templateShareable="false">
                                                             <Text text="{Serno}" wrapping="false" />
                                                         </t:template>
                                                     </t:Column>
-                                                    <t:Column width="5rem">
+                                                    <t:Column width="11rem">
                                                         <Label text="모델명" />
                                                         <t:template templateShareable="false">
                                                             <Text text="{Modcd}" wrapping="false" />
                                                         </t:template >
                                                     </t:Column>
-                                                    <t:Column width="5rem">
+                                                    <t:Column width="9rem">
                                                         <Label text="상태" />
                                                         <t:template templateShareable="false">
                                                             <Text text="{Itmst}" wrapping="false" />
@@ -249,42 +242,67 @@
                                                 id="req"
                                                 rows="{/Rental_reqSet}"
                                                 selectionMode="MultiToggle"
-                                                selectionBehavior="Row"
-                                                paste="onPaste"
-                                                ariaLabelledBy="title">
-                                                <t:columns>
-                                                    <t:Column width="5rem">
+                                                rowMode="Auto">
+                                            <t:extension>
+                                                <OverflowToolbar style="Clear">
+                                                    <Title text="Products"/>
+                                                </OverflowToolbar>
+                                            </t:extension>
+                                            <t:columns>
+                                                    <t:Column width="11rem">
                                                         <Label text="요청번호" />
                                                         <t:template templateShareable="false">
                                                             <Text text="{Reqno}" wrapping="false" />
                                                         </t:template>
                                                     </t:Column>
-                                                    <t:Column width="5rem">
+                                                    <t:Column width="11rem">
                                                         <Label text="모델명" />
                                                         <t:template templateShareable="false">
                                                             <Text text="{Modcd}" wrapping="false" />
-                                                        </t:template>
+                                                        </t:template >
                                                     </t:Column>
-                                                    <t:Column width="5rem">
+                                                    <t:Column width="6rem" hAlign="End">
                                                         <Label text="수량" />
-                                                        <t:template templateShareable="false">
-                                                            <Text text="{Quant}" wrapping="false" />
+                                                        <t:template>
+                                                            <Label text="{Quant}" />
                                                         </t:template>
                                                     </t:Column>
-                                                    <t:Column width="5rem">
-                                                        <Label text="단위" />
+                                                    <t:Column width="9rem">
+                                                        <Label text="상태" />
                                                         <t:template templateShareable="false">
-                                                            <Text text="{Unit}" wrapping="false" />
+                                                            <Text text="{Status}" wrapping="false" />
                                                         </t:template>
                                                     </t:Column>
-                                                    <t:Column width="5rem">
-                                                        <Label text="요청일" />
-                                                        <t:template templateShareable="false">
-                                                            <Text text="{ReqDate}" wrapping="false" />
-                                                        </t:template>
+                                                    <t:Column width="11rem">
+                                                            <Label text="요청일" />
+                                                            <t:template templateShareable="false">
+                                                                <Text text="{ReqDate}" wrapping="false" />
+                                                            </t:template >
+                                                    </t:Column>
+                                                    <t:Column width="11rem">
+                                                            <Label text="입고일" />
+                                                            <t:template templateShareable="false">
+                                                                <Text text="{IssDate}" wrapping="false" />
+                                                            </t:template >
+                                                    </t:Column>
+                                                    <t:Column width="11rem">
+                                                            <Label text="입고확정일" />
+                                                            <t:template templateShareable="false">
+                                                                <Text text="{ArrDate}" wrapping="false" />
+                                                            </t:template >
                                                     </t:Column>
                                                 </t:columns>
-                                            </t:Table>
+                                        </t:Table>
+                                        <OverflowToolbar>
+                                            <Button icon="sap-icon://message-popup"
+                                                    text="{/messagesLength}"
+                                                    type="Emphasized"
+                                                    press="onMessageButtonPress"
+                                                    visible="{= !!${/messagesLength}}"/>
+                                            <ToolbarSpacer/> 
+                                            <Button type="Accept" text="Accept"/>
+                                            <Button type="Reject" text="Reject"/>
+                                        </OverflowToolbar>
                                         </IconTabFilter>
                                         <IconTabFilter text="Notes">
                                             <Text text="Notes go here ..." />
@@ -310,7 +328,7 @@
                             </ff:footer>
                         </ff:DynamicPage>
 					</ScrollContainer>
-
+                    <!-- 주문관리 -->
 					<ScrollContainer
 						id="page3"
 						horizontal="false"
