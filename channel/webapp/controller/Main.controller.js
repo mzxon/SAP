@@ -110,8 +110,8 @@ sap.ui.define(
       //지도 초기화
       initializeMap: function () {
         var mapOptions = {
-          center: { lat: 37.5665, lng: 126.978 },
-          zoom: 13,
+          center: { lat: 37.5452752, lng: 127.0408373 },
+          zoom: 16,
         };
 
         var mapElement = document.getElementById(
@@ -137,25 +137,22 @@ sap.ui.define(
             content: [
               new sap.m.VBox({
                 items: [
-                  new sap.m.Label({
-                    text: "발주하시겠습니까?",
-                    labelFor: "submissionNote",
-                  }),
                   new sap.m.ComboBox("In_modcd", {
                     items: [
-                      new sap.ui.core.Item({ text: "부릉이1", key: "1" }),
-                      new sap.ui.core.Item({ text: "부릉이2", key: "2" }),
-                      new sap.ui.core.Item({ text: "부릉이3", key: "3" }),
+                      new sap.ui.core.Item({
+                        text: "부릉이 베이직",
+                        key: "BEAL24",
+                      }),
+                      new sap.ui.core.Item({
+                        text: "부릉이 울트라 맥스",
+                        key: "BETT24",
+                      }),
                     ],
-                    placeholder: "Select an option",
+                    placeholder: "제품을 선택하세요",
                   }),
                   new sap.m.Input({
-                    maxLength: 20,
+                    maxLength: 10,
                     id: "In_qua",
-                  }),
-                  new sap.m.TextArea("submissionNote", {
-                    width: "100%",
-                    placeholder: "Add note (required)",
                     liveChange: function (oEvent) {
                       var sText = oEvent.getParameter("value");
                       this.oSubmitDialog
@@ -163,29 +160,138 @@ sap.ui.define(
                         .setEnabled(sText.length > 0);
                     }.bind(this),
                   }),
+                  // new sap.m.TextArea("submissionNote", {
+                  //   width: "100%",
+                  //   placeholder: "Add note (required)",
+                  //   liveChange: function (oEvent) {
+                  //     var sText = oEvent.getParameter("value");
+                  //     this.oSubmitDialog
+                  //       .getBeginButton()
+                  //       .setEnabled(sText.length > 0);
+                  //   }.bind(this),
+                  // }),
                 ],
               }),
             ],
             beginButton: new sap.m.Button({
               type: ButtonType.Emphasized,
-              text: "Submit",
+              text: "발주",
               enabled: false,
               press: function () {
-                var sText = Element.getElementById("submissionNote").getValue();
-                MessageToast.show("Note is: " + sText);
+                var sModcd = sap.ui.getCore().byId("In_modcd").getSelectedKey();
+                var sQuant = sap.ui.getCore().byId("In_qua").getValue();
+
+                let oCrtData = {
+                  Modcd: sModcd,
+                  Chlno: oChlno,
+                  Quant: sQuant,
+                };
+
+                // 모델 업데이트
+                var oModel = this.getView().getModel();
+                oModel.create(
+                  "/Rental_reqSet",
+                  oCrtData,
+                  {
+                    success: function () {
+                      sap.m.MessageToast.show("발주되었습니다.");
+                    },
+                    error: function () {
+                      sap.m.MessageToast.show("발주에 실패했습니다.");
+                    },
+                  },
+                  oModel.refresh()
+                );
                 this.oSubmitDialog.close();
               }.bind(this),
             }),
+
             endButton: new sap.m.Button({
-              text: "Cancel",
+              text: "취소",
               press: function () {
                 this.oSubmitDialog.close();
               }.bind(this),
             }),
           });
+          this.getView().addDependent(this.oSubmitDialog);
+        }
+        this.oSubmitDialog.open();
+      },
+
+      onPutStd: function () {
+        if (!this.oApproveDialog) {
+          this.oApproveDialog = new sap.m.Dialog({
+            type: sap.m.DialogType.Message,
+            title: "입고확정",
+            content: new sap.m.Text({ text: "입고확정 하시겠습니까?" }),
+            beginButton: new sap.m.Button({
+              type: ButtonType.Emphasized,
+              text: "Submit",
+              press: function () {
+                let oTable_req = this.byId("req");
+                let lv_tabix = oTable_req.getSelectedIndices();
+                let oContext = [];
+                let oData = null;
+                let oModel = this.getView().getModel();
+
+                if (lv_tabix == "") {
+                  alert("행을 선택하세요");
+                  this.oApproveDialog.close();
+                }
+
+                for (let index = 0; index < lv_tabix.length; index++) {
+                  oContext = oTable_req.getContextByIndex(lv_tabix[index]);
+                  oData = oContext.getObject();
+
+                  let lv_reqno = oData.Reqno;
+                  let lv_chlno = oData.Chlno;
+
+                  let oUdaData = {
+                    Reqno: oData.Reqno,
+                    Modcd: oData.Modcd,
+                    Chlno: oData.Chlno,
+                    Quant: oData.Quant,
+                    Unit: oData.Unit,
+                    Status: oData.Status,
+                    ReqDate: oData.ReqDate,
+                    IssDate: oData.IssDate,
+                    ArrDate: oData.ArrDate,
+                  };
+
+                  alert(oUdaData);
+                  debugger;
+
+                  oModel.update(
+                    "/Rental_reqSet(Reqno='" +
+                      lv_reqno +
+                      "',Chlno='" +
+                      lv_chlno +
+                      "')",
+                    oData,
+                    {
+                      success: function () {
+                        sap.m.MessageToast.show("입고되었습니다.");
+                      },
+                      error: function () {
+                        sap.m.MessageToast.show("입고에 실패했습니다.");
+                      },
+                    },
+                    oModel.refresh()
+                  );
+                }
+                this.oApproveDialog.close();
+              }.bind(this),
+            }),
+            endButton: new sap.m.Button({
+              text: "Cancel",
+              press: function () {
+                this.oApproveDialog.close();
+              }.bind(this),
+            }),
+          });
         }
 
-        this.oSubmitDialog.open();
+        this.oApproveDialog.open();
       },
 
       //화면 변경시
@@ -238,31 +344,6 @@ sap.ui.define(
       onExit: function () {
         Device.media.detachHandler(this._handleMediaChange, this);
       },
-
-      // setText: function (oEvent) {
-      //   var oItem = oEvent.getSource().getSelectedItem();
-      //   oModcd = oItem.getKey();
-      // },
-
-      //렌탈재고주문
-      // onOrder: function () {
-      //   let oModel = this.getView().getModel();
-      //   var oQuant = this.byId("quant").getValue();
-
-      //   let oCrtData = {
-      //     Modcd: oModcd,
-      //     Chlno: oChlno,
-      //     Quant: oQuant,
-      //   };
-
-      //   oModel.update(
-      //     "/Rental_reqSet",
-      //     oCrtData,
-      //     null,
-      //     oModel.refresh(),
-      //     alert("발주 되었습니다.")
-      //   );
-      // },
     });
   }
 );
