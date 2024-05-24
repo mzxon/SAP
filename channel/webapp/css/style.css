@@ -1,1 +1,12 @@
-/* Enter your custom styles here */
+html,
+body,
+body > div,
+#container,
+#container-uiarea {
+  height: 100%;
+}
+.myMap {
+  height: 500px;
+  width: 100%;
+  border: 1px solid black;
+}

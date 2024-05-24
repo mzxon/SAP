@@ -3,7 +3,7 @@
 	xmlns:core="sap.ui.core">
 	<BusyDialog
 		title="Loading Data"
-		text="... 로그인중 ..."
+		text=" 로그인중 "
 		showCancelButton="true"
 		close="onDialogClosed" />
 </core:FragmentDefinition>

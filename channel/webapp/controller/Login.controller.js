@@ -14,6 +14,7 @@ sap.ui.define(
     //Custno
     let Custno;
     var iTimeoutId;
+    var oCheck;
 
     return Controller.extend("chn.channel.controller.Login", {
       onInit: function () {},
@@ -35,13 +36,6 @@ sap.ui.define(
           oModel.read("/MemberSet('" + lv_id + "')", {
             success: function (oData) {
               if (lv_pw == oData.Custpw) {
-                alert("로그인에 성공했습니다.");
-
-                console.log(
-                  "Before if (!this._pBusyDialog):",
-                  this._pBusyDialog
-                );
-
                 if (!this._pBusyDialog) {
                   this._pBusyDialog = Fragment.load({
                     name: "chn.channel.view.Login",
@@ -62,25 +56,23 @@ sap.ui.define(
                 this._pBusyDialog.then(
                   function (oBusyDialog) {
                     oBusyDialog.open();
-                    this.simulateServerRequest();
+                    this.simulateServerRequest(oData);
                   }.bind(this)
                 );
-
-                this.onSet(oData);
               } else {
                 alert("비밀번호가 맞지 않습니다.");
               }
             }.bind(this),
             error: function (oData) {
-              MessageToast.show("Error");
+              MessageToast.show("로그인에 실패했습니다.");
             },
           });
         }
       },
 
       //로그인 성공 시 Custno 가져오기
-      onSet: function (oDataSet) {
-        Custno = oDataSet.Custno;
+      onSet: function (oData) {
+        Custno = oData.Custno;
 
         this._getRouter().navTo("mainView", {
           Empno: Custno,
@@ -91,15 +83,19 @@ sap.ui.define(
       _getRouter: function () {
         return sap.ui.core.UIComponent.getRouterFor(this);
       },
-      simulateServerRequest: function () {
-        // simulate a longer running operation
+
+      //로그인 로딩 팝업창
+      simulateServerRequest: function (oData) {
         iTimeoutId = setTimeout(
           function () {
-            this._pBusyDialog.then(function (oBusyDialog) {
-              oBusyDialog.close();
-            });
+            this._pBusyDialog.then(
+              function (oBusyDialog) {
+                oBusyDialog.close();
+                this.onSet(oData);
+              }.bind(this)
+            );
           }.bind(this),
-          3000
+          1000
         );
       },
 
@@ -107,9 +103,9 @@ sap.ui.define(
         clearTimeout(iTimeoutId);
 
         if (oEvent.getParameter("cancelPressed")) {
-          MessageToast.show("The operation has been cancelled");
+          MessageToast.show("로그인이 취소되었습니다.");
         } else {
-          MessageToast.show("The operation has been completed");
+          MessageToast.show("로그인되었습니다.");
         }
       },
     });

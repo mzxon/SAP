@@ -53,6 +53,28 @@ sap.ui.define(
         this._handleMediaChange();
 
         oTable = this.byId("Ch_item");
+
+        // 오늘 날짜 가져오기
+        var today = new Date();
+        // DatePicker의 maxDate 설정
+        var oEndDatePicker = this.byId("endate");
+        oEndDatePicker.setMaxDate(today);
+
+        // Sample data
+        var monthlySalesData = [
+          { Month: "1월", Sales: 100 },
+          { Month: "2월", Sales: 200 },
+          { Month: "3월", Sales: 150 },
+          // Add more data for other months...
+        ];
+
+        // Create a JSON model
+        var oModel = new JSONModel({
+          monthlySales: monthlySalesData,
+        });
+
+        // Set the model to the view
+        this.getView().setModel(oModel, "Chart");
       },
 
       //라우터 연결정보 가져오기
@@ -218,6 +240,7 @@ sap.ui.define(
         this.oSubmitDialog.open();
       },
 
+      //입고확정버튼
       onPutStd: function () {
         if (!this.oApproveDialog) {
           this.oApproveDialog = new sap.m.Dialog({
@@ -292,6 +315,80 @@ sap.ui.define(
         }
 
         this.oApproveDialog.open();
+      },
+
+      //검색버튼
+      onSearch: function () {
+        let oTable_req_list = this.byId("Ren_list");
+        let oBinding = oTable_req_list.getBinding("rows"),
+          oFilter = null,
+          aFilters = [];
+
+        let oRen_st = null;
+        let stdate = this.byId("stdate").getValue().replace(/\./g, "");
+        let endate = this.byId("endate").getValue().replace(/\./g, "");
+
+        if (endate == "") {
+          endate = "X";
+        } else if (endate < stdate) {
+          alert("종료날짜가 시작날짜보다 앞설 수 없습니다.");
+        }
+
+        var oRadioButtonGroup = this.getView().byId("radioButtonGroup");
+        var sSelectedValue = oRadioButtonGroup.getSelectedButton().getText();
+
+        switch (sSelectedValue) {
+          case "이용중":
+            oRen_st = "R";
+            break;
+
+          case "연체중":
+            oRen_st = "O";
+            break;
+
+          default:
+            break;
+        }
+
+        //라디오 버튼
+        if (oRen_st != "") {
+          oFilter = new Filter({
+            path: "Renst",
+            operator: FilterOperator.Contains,
+            value1: oRen_st,
+          });
+
+          aFilters.push(oFilter);
+        }
+
+        oFilter = null;
+
+        //앞날짜 선택
+        if (stdate != "") {
+          oFilter = new Filter({
+            path: "Stdat",
+            operator: FilterOperator.EQ,
+            value1: stdate,
+          });
+
+          aFilters.push(oFilter);
+        }
+
+        oFilter = null;
+
+        //뒷날짜 선택
+        if (endate != "") {
+          oFilter = new Filter({
+            path: "Endat",
+            operator: FilterOperator.EQ,
+            value1: endate,
+          });
+
+          aFilters.push(oFilter);
+        }
+
+        //Get_EntitySet 메소드 호출
+        oBinding.filter(aFilters);
       },
 
       //화면 변경시
