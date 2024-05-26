@@ -1,26 +1,32 @@
 sap.ui.define(
   [
     "sap/ui/core/mvc/Controller",
-    "sap/ui/core/Element",
     "sap/ui/model/json/JSONModel",
     "sap/ui/Device",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/m/library",
     "sap/m/MessageToast",
+    "sap/viz/ui5/data/FlattenedDataset",
+    "sap/viz/ui5/controls/common/feeds/FeedItem",
+    "sap/ndc/BarcodeScanner",
+    "sap/m/MessageBox"
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
   function (
     Controller,
-    Element,
     JSONModel,
     Device,
     Filter,
     FilterOperator,
     mobileLibrary,
-    MessageToast
+    MessageToast,
+    FlattenedDataset, 
+    FeedItem,
+    BarcodeScanner,
+    MessageBox
   ) {
     "use strict";
 
@@ -28,6 +34,7 @@ sap.ui.define(
     let oChlno;
     let oModcd;
     let oTable;
+    let cYear;
 
     // shortcut for sap.m.ButtonType
     var ButtonType = mobileLibrary.ButtonType;
@@ -37,73 +44,46 @@ sap.ui.define(
 
     return Controller.extend("chn.channel.controller.Main", {
       onInit: function () {
-        //mainView(routes name)의 라우터에 연결
-        this._getRouter()
-          .getRoute("mainView")
-          .attachPatternMatched(this._onRouteMatched.bind(this), this);
-
-        //뷰에 데이터 세팅해줌
-        var oModel = new JSONModel(
+        //툴바관련 데이터 정의
+        var oModel_page1 = new JSONModel(
           sap.ui.require.toUrl("chn/channel/model/data.json")
         );
-        this.getView().setModel(oModel, "Data");
-
-        //미디어에 따라 화면 너비
-        Device.media.attachHandler(this._handleMediaChange, this);
-        this._handleMediaChange();
+        this.getView().setModel(oModel_page1, "Data"); //entityset이 기본세팅이라 새로 만든 모델은 별명 붙여줘야 안겹침
 
         oTable = this.byId("Ch_item");
 
-        // 오늘 날짜 가져오기
-        var today = new Date();
-        // DatePicker의 maxDate 설정
+        //데이트피커관련
+        var today = new Date(); //오늘 날짜 가져오기
+        cYear = today.getFullYear();
         var oEndDatePicker = this.byId("endate");
-        oEndDatePicker.setMaxDate(today);
+        oEndDatePicker.setMaxDate(today); // DatePicker의 maxDate 설정
 
-        // Sample data
-        var monthlySalesData = [
-          { Month: "1월", Sales: 100 },
-          { Month: "2월", Sales: 200 },
-          { Month: "3월", Sales: 150 },
-          // Add more data for other months...
-        ];
-
-        // Create a JSON model
-        var oModel = new JSONModel({
-          monthlySales: monthlySalesData,
-        });
-
-        // Set the model to the view
-        this.getView().setModel(oModel, "Chart");
+        //디바이스에 따른 화면 너비 조정
+        Device.media.attachHandler(this._handleMediaChange, this);
+        this._handleMediaChange();
+        
       },
 
-      //라우터 연결정보 가져오기
-      _getRouter: function () {
-        return sap.ui.core.UIComponent.getRouterFor(this);
-      },
+      onScan: function (oEvent) {
+        var that = this;
+        BarcodeScanner.scan(
+          function (mResult) {
+            if (!mResult.cancelled) {
+              that.getView().byId("number").setValue(mResult.text);
+              MessageBox.show("We got a QR code\n" +
+                  "Result: " + mResult.text + "\n" +
+                  "Format: " + mResult.format + " \n");
+            }
 
-      //전달받은 파라미터 값 가져와서 대리점 조회하기
-      _onRouteMatched: function (oEvent) {
-        let oModel = this.getOwnerComponent().getModel();
-        let oJsonModel = new sap.ui.model.json.JSONModel();
-
-        //empno 받아오기
-        oEmpno = oEvent.getParameter("arguments").Empno;
-
-        //조회해서 JsonModel에 넣어서 View에서 사용하기
-        oModel.read("/Ch_headerSet('" + oEmpno + "')", {
-          success: function (response) {
-            oJsonModel.setData(response);
-            this.getView().setModel(oJsonModel, "Ch_Model");
-            oChlno = response.Chlno;
-            this._getTable();
-          }.bind(this),
-          error: function (response) {
-            MessageToast.show("Error");
           },
-        });
+          function (Error){
+            alert("Scanning failed:" + Error);
+          }
+        );
+        
       },
 
+      //테이블 바인딩(Ch_item)
       _getTable: function () {
         let oTable = this.byId("Ch_item");
         let oBinding = oTable.getBinding("rows"),
@@ -126,20 +106,88 @@ sap.ui.define(
 
       //지도 렌더링
       onAfterRendering: function () {
-        this.initializeMap();
+        //라우터관련
+        this._getRouter()
+          .getRoute("mainView")
+          .attachPatternMatched(this._onRouteMatched.bind(this), this);
+
+      },
+
+      //라우터 연결정보 가져오기
+      _getRouter: function () {
+        return sap.ui.core.UIComponent.getRouterFor(this);
+      },
+
+      //전달받은 파라미터 값 가져와서 대리점 조회하기
+      _onRouteMatched: function (oEvent) {
+        let oModel = this.getOwnerComponent().getModel();
+        let oJsonModel = new sap.ui.model.json.JSONModel();
+
+        //empno 받아오기
+        oEmpno = oEvent.getParameter("arguments").Empno;
+
+        //조회해서 JsonModel에 넣어서 View에서 사용하기
+        oModel.read("/Ch_headerSet('" + oEmpno + "')", {
+          success: function (response) {
+            oJsonModel.setData(response);
+            this.getView().setModel(oJsonModel, "Ch_Model");
+            oChlno = response.Chlno;
+            this._getTable();
+            this.initializeMap(response);
+          }.bind(this),
+          error: function (response) {
+            MessageToast.show("Error");
+          },
+        });
       },
 
       //지도 초기화
-      initializeMap: function () {
+      initializeMap: function (response) {
+        var geocoder = new google.maps.Geocoder();
+        var address = response.Chladdr;
+        var lat = null,
+            lng = null;
+
+        geocoder.geocode({ 'address': address }, (results, status) => { 
+          if (status === 'OK') {
+            const lat = results[0].geometry.location.lat();
+            const lng = results[0].geometry.location.lng();
+
+            this._creatMap(lat, lng, response);
+
+          } else {
+              alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      },
+      
+      _creatMap: function (lat, lng, response) {
+        
         var mapOptions = {
-          center: { lat: 37.5452752, lng: 127.0408373 },
+          center: { lat: lat, lng: lng },
           zoom: 16,
         };
 
         var mapElement = document.getElementById(
           this.getView().byId("map").getId()
         );
+
         var map = new google.maps.Map(mapElement, mapOptions);
+
+        // 새로운 마커 생성
+        var marker = new google.maps.Marker({
+          position: { lat: lat, lng: lng },
+          map: map, // 마커를 지도에 추가
+          title: response.Chlname // 마커에 표시할 툴팁
+        });
+
+        // 인포윈도우 생성
+        var infowindow = new google.maps.InfoWindow({
+          content: response.Chlname
+        });
+
+        infowindow.open(map, marker); // 인포윈도우를 지도와 마커에 연결
+
       },
 
       //툴바 아이템 선택 함수
@@ -319,7 +367,7 @@ sap.ui.define(
 
       //검색버튼
       onSearch: function () {
-        let oTable_req_list = this.byId("Ren_list");
+        let oTable_req_list = this.byId("ren_table");
         let oBinding = oTable_req_list.getBinding("rows"),
           oFilter = null,
           aFilters = [];
@@ -390,6 +438,91 @@ sap.ui.define(
         //Get_EntitySet 메소드 호출
         oBinding.filter(aFilters);
       },
+
+    onViewChange: function (event) {
+      var viewMode = event.getSource().getText();
+      console.log(viewMode);
+      var table = this.getView().byId("ren_table"); // 테이블 ID
+      var chart = this.getView().byId("ren_chart"); // 테이블 ID
+      var vBox = this.getView().byId("ren_vbox"); // VBox ID
+  
+      vBox.removeAllItems(); // 기존 항목 제거
+
+      if (viewMode === "table") {
+          table.setVisible(true);
+          chart.setVisible(false);
+      } else if (viewMode === "chart") {
+          // 테이블 숨기기
+          table.setVisible(false);
+          chart.setVisible(true);
+  
+          // 테이블 데이터 가져오기
+          var oBinding = table.getBinding("rows"); // 테이블에 바인딩된 모델 가져오기
+  
+          // 테이블 데이터를 JSON 형식으로 변환
+          var chartData = [];
+  
+          // 배열 초기화
+          var cYear = new Date().getFullYear().toString();
+          for (var i = 1; i <= 12; i++) {
+              var month = i < 10 ? "0" + i : "" + i; // 한 자리 월을 두 자리 문자열로 변환
+              chartData.push({ 월별: month, 거래금액: 0 });
+          }
+  
+          if (oBinding) {
+              oBinding.getContexts().forEach(function (oContext) {
+                  var rowData = oContext.getObject();
+                  var reqdate = rowData.Reqdat;
+                  if (reqdate.substring(0, 4) === cYear) { // 올해년도
+                      var month = reqdate.substring(5, 7); // 월 추출
+  
+                      // 해당 월의 데이터를 차트 데이터에 추가
+                      chartData.forEach(function (data) {
+                          if (data.월별 === month) {
+                              data.거래금액 += parseInt(rowData.TotPrice, 10);
+                          }
+                      });
+                  }
+              });
+          }
+  
+          
+          // 차트 데이터 확인
+          console.log("Chart Data:", chartData);
+  
+          var oModel = new sap.ui.model.json.JSONModel(chartData);
+          console.log(oModel.getData());
+  
+          var oVizFrame = new sap.viz.ui5.controls.VizFrame({
+              vizType: "column",
+              width: "800px",
+              height: "500px"
+          });
+  
+          var oDataset = new sap.viz.ui5.data.FlattenedDataset({
+              dimensions: [{
+                  name: "월별",
+                  value: "{월별}"
+              }],
+              measures: [{
+                  name: "거래금액",
+                  value: "{거래금액}"
+              }],
+              data: {
+                  path: "/"
+              }
+          });
+  
+          oVizFrame.setDataset(oDataset);
+          oVizFrame.setModel(oModel);
+  
+          // VizFrame을 VBox에 추가
+          vBox.addItem(oVizFrame); // VBox에 VizFrame 추가
+
+        // VizFrame이 VBox에 추가되었는지 확인
+        console.log("VizFrame added to VBox:", vBox.getItems());
+      }
+    },
 
       //화면 변경시
       _handleMediaChange: function () {

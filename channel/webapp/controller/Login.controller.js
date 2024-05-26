@@ -14,7 +14,6 @@ sap.ui.define(
     //Custno
     let Custno;
     var iTimeoutId;
-    var oCheck;
 
     return Controller.extend("chn.channel.controller.Login", {
       onInit: function () {},
