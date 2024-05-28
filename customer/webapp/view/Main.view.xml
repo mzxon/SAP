@@ -1,7 +1,63 @@
 <mvc:View controllerName="cust.customer.controller.Main"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
-    </Page>
+    displayBlock="true"
+    xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:tnt="sap.tnt" 
+	height="100%">
+    <tnt:ToolPage
+		id="app"
+		class="sapUiDemoToolPage">
+        <tnt:header>
+			<tnt:ToolHeader>
+                <Button
+					id="sideNavigationToggleButton"
+					icon="sap-icon://menu2"
+					type="Transparent"
+					press=".onSideNavButtonPress">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+                <ToolbarSpacer/>
+                <Title
+                    text="♥ 부릉e ♥"
+                    level="H2"/>
+                <ToolbarSpacer/>
+                <Avatar src="image/chin2.png" displaySize="XS" press=".onUserNamePress" tooltip="Profile">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+					</layoutData>
+				</Avatar>
+			</tnt:ToolHeader>
+		</tnt:header>
+        <tnt:sideContent>
+		<tnt:SideNavigation id="sideNavigation" selectedKey="walked" expanded="true">
+			<tnt:NavigationList>
+				<tnt:NavigationListItem text="Home" icon="sap-icon://home" />
+				<tnt:NavigationListGroup text="New">
+					<tnt:NavigationListItem text="마이페이지" icon="sap-icon://people-connected" />
+					<tnt:NavigationListItem text="Building" icon="sap-icon://building" />
+					<tnt:NavigationListItem text="Mileage" icon="sap-icon://mileage">
+						<tnt:NavigationListItem text="Driven" />
+						<tnt:NavigationListItem text="Walked" id="walked" />
+					</tnt:NavigationListItem>
+				</tnt:NavigationListGroup>
+				<tnt:NavigationListGroup text="Recently used">
+					<tnt:NavigationListItem text="Managing My Area" icon="sap-icon://kpi-managing-my-area" />
+					<tnt:NavigationListItem text="Flight" icon="sap-icon://flight" />
+					<tnt:NavigationListItem text="Map" icon="sap-icon://map-2" />
+				</tnt:NavigationListGroup>
+			</tnt:NavigationList>
+			<tnt:fixedItem>
+				<tnt:NavigationList>
+					<tnt:NavigationListItem text="공지사항" selectable="false" href="https://sap.com" target="_blank" icon="sap-icon://marketing-campaign" />
+					<tnt:NavigationListItem text="고객센터" icon="sap-icon://headset" />
+				</tnt:NavigationList>
+			</tnt:fixedItem>
+			</tnt:SideNavigation>
+		</tnt:sideContent>
+		<tnt:mainContents>
+            <VBox id="map" class="myMap" height="500px" width="100%"></VBox>
+		</tnt:mainContents>
+	</tnt:ToolPage>
 </mvc:View>

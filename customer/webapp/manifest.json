@@ -44,9 +44,9 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
-      "minUI5Version": "1.124.0",
+      "minUI5Version": "1.123.1",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
@@ -94,19 +94,25 @@
       },
       "routes": [
         {
-          "name": "RouteMain",
-          "pattern": ":?query:",
-          "target": [
-            "TargetMain"
-          ]
+          "name": "loginView",
+          "pattern": "",
+          "target": "login"
+        },
+        {
+          "name": "mainView",
+          "pattern": "Main/{Custno}",
+          "target": "main"
         }
       ],
       "targets": {
-        "TargetMain": {
+        "login": {
           "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "Main",
+          "viewLevel": 1,
+          "viewName": "Login"
+        },
+        "main": {
+          "viewType": "XML",
+          "viewLevel": 1,
           "viewName": "Main"
         }
       }
@@ -116,6 +122,19 @@
       "type": "XML",
       "async": true,
       "id": "App"
+    },
+    "config": {
+      "sample": {
+        "stretch": true,
+        "files": [
+          "MainView.view.xml",
+          "LoginView.view.xml",
+          "Login.controller.js",
+          "Main.controller.js",
+          "Login.fragment.xml",
+          "manifest.json"
+        ]
+      }
     }
   }
 }

@@ -1,0 +1,49 @@
+<mvc:View 
+    controllerName="cust.customer.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc" 
+    displayBlock="true"
+    height="100%"
+    xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m">
+    <Page id="Login" title="{i18n>Login_title}">   
+    <FlexBox
+            height="100%"
+            alignItems="Center"
+            justifyContent="Center">     
+    <l:VerticalLayout class="sapUiContentPadding" >
+    <!-- Form -->
+        <f:SimpleForm id="SimpleFormDisplay354"
+            editable="false"    
+            layout="ResponsiveGridLayout"
+            title="로그인"
+            labelSpanXL="3"
+            labelSpanL="3"
+            labelSpanM="3"
+            labelSpanS="12"
+            adjustLabelSpan="false"
+            emptySpanXL="4"
+            emptySpanL="4"
+            emptySpanM="4"
+            emptySpanS="0"
+            columnsXL="1"
+            columnsL="1"
+            columnsM="1"
+            singleContainerFullSize="false" >
+        <f:content>
+		<Label text="아이디" labelFor="custid" />
+        <Input
+			id="custid"
+			placeholder="아이디 입력" />
+        <Label text="비밀번호" labelFor="custpw" />
+        <Input
+			id="custpw"
+			type="Password"
+			placeholder="Enter password" />        
+        <Button id="login" text="로그인" press="Login" />   
+		</f:content>
+        </f:SimpleForm>
+    </l:VerticalLayout>
+    </FlexBox>
+    </Page>
+</mvc:View>

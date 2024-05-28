@@ -166,6 +166,14 @@ sap.ui.define(
       },
 
       _creatMap: function (lat, lng, response) {
+        const styledMapType = new google.maps.StyledMapType([
+          {
+            featureType: "poi",
+            elementType: "labels.icon",
+            stylers: [{ visibility: "off" }],
+          },
+        ]);
+
         var mapOptions = {
           center: { lat: lat, lng: lng },
           zoom: 16,
@@ -177,11 +185,15 @@ sap.ui.define(
 
         var map = new google.maps.Map(mapElement, mapOptions);
 
+        map.mapTypes.set("styled_map", styledMapType);
+        map.setMapTypeId("styled_map");
+
         // 새로운 마커 생성
         var marker = new google.maps.Marker({
           position: { lat: lat, lng: lng },
           map: map, // 마커를 지도에 추가
           title: response.Chlname, // 마커에 표시할 툴팁
+          icon: markerIcon,
         });
 
         // 인포윈도우 생성

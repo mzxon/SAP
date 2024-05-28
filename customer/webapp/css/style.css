@@ -1,1 +1,5 @@
-/* Enter your custom styles here */
+.customButton {
+  font-weight: bold; /* 텍스트를 볼드체로 설정 */
+  padding: 5px; /* 버튼 내부 여백 설정 */
+  border-radius: 4px; /* 테두리 모서리 둥글게 설정 */
+}
