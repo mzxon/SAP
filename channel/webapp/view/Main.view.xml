@@ -533,14 +533,115 @@
 						vertical="true"
 						height="100%"
 						class="sapUiContentPadding">
-						<Text text="검수요청" />
-                        <content>
-                            <VBox>
-                                <Button icon="sap-icon://qr-code" text="Scan" press="onScan" />
-                                <Label text="QR 스캔"/>
-                                <Input id="number" value=""/>
-                            </VBox>
-                        </content>
+                        <ff:DynamicPage id="dynamicPageI3"
+                            stickySubheaderProvider="iconTabBar"
+                            class="sapUiNoContentPadding"
+                            toggleHeaderOnTitleClick="false">
+                            <!-- DynamicPage Title -->
+                            <ff:title>
+                                <ff:DynamicPageTitle >
+                                    <ff:heading>
+                                        <Title text="검수요청목록"/>
+                                    </ff:heading>
+                                    <ff:expandedContent>
+                                        <Label text="This is a subheading"/>
+                                    </ff:expandedContent>
+                                    <ff:actions>
+                                    <ToolbarSpacer width="1rem" />
+                                            <SegmentedButton>
+                                                <buttons>
+                                                    <Button icon="sap-icon://qr-code" text="QRScan" press="onScan" />
+                                                </buttons>
+                                            </SegmentedButton>
+                                            <Input id="number" value="" />
+                                    </ff:actions>
+                                    <ff:navigationActions>
+                                        <Button icon="sap-icon://action" type="Transparent"/>
+                                        <Button icon="sap-icon://full-screen" type="Transparent" />
+                                    </ff:navigationActions>
+                                    <ff:content>
+                                        <OverflowToolbar>
+                                            <GenericTag text="SR"
+                                                status="Error"
+                                                press="onGenericTagPress"
+                                                design="StatusIconHidden">
+                                                <ObjectNumber number="2"
+                                                    unit="M"
+                                                    emphasized="false"
+                                                    state="Error"/>
+                                            </GenericTag>
+                                        </OverflowToolbar>
+                                    </ff:content>
+                                </ff:DynamicPageTitle>
+                            </ff:title>
+                            <!-- DynamicPage Header -->
+                            <ff:header>
+                                <ff:DynamicPageHeader pinnable="false">
+                                    <l:HorizontalLayout allowWrapping="true">
+                                        <l:VerticalLayout class="sapUiMediumMarginEnd">
+                                            <ObjectAttribute title="Location" text="Warehouse A"/>
+                                            <ObjectAttribute title="Halway" text="23L"/>
+                                            <ObjectAttribute title="Rack" text="34"/>
+                                        </l:VerticalLayout>
+                                        <l:VerticalLayout>
+                                            <ObjectAttribute title="Availability"/>
+                                            <ObjectStatus text="In Stock" state="Success" />
+                                        </l:VerticalLayout>
+                                    </l:HorizontalLayout>
+                                </ff:DynamicPageHeader>
+                            </ff:header>
+                            <ff:content>
+                                <VBox class="sapUiSmallMarginTop">
+                                    <t:Table
+                                        id="Check"
+                                        rows="{/Rental_checkSet}"
+                                        selectionBehavior="Row"
+                                        selectionMode="Single"
+                                        paste="onPaste"
+                                        ariaLabelledBy="title">
+                                        <t:extension>
+                                                <OverflowToolbar style="Clear">
+                                                    <Title text="Products"/>
+                                                    <Button icon="sap-icon://message-popup"
+                                                        text="{/messagesLength}"
+                                                        type="Emphasized"
+                                                        press="onMessageButtonPress"
+                                                        visible="{= !!${/messagesLength}}"/>
+                                                    <ToolbarSpacer/> 
+                                                    <Button type="Accept" text="정상" press=".onGo"/>
+                                                    <Button type="Reject" text="폐기" press=".onGo"/>
+                                                </OverflowToolbar>
+                                            </t:extension>
+                                        <t:columns>
+                                            <t:Column width="11rem">
+                                                <Label text="검수번호" />
+                                                <t:template templateShareable="false">
+                                                    <Text text="{Chkno}" wrapping="false" />
+                                                </t:template>
+                                            </t:Column>
+                                            <t:Column width="11rem">
+                                                <Label text="시리얼번호" />
+                                                <t:template templateShareable="false">
+                                                    <Text text="{Serno}" wrapping="false" />
+                                                </t:template>
+                                            </t:Column>
+                                            <t:Column width="11rem">
+                                                <Label text="검수상태" />
+                                                <t:template templateShareable="false">
+                                                    <Text text="{Chkst}" wrapping="false" />
+                                                </t:template >
+                                            </t:Column>
+                                            <t:Column width="9rem">
+                                                <Label text="검수요청일" />
+                                                <t:template templateShareable="false">
+                                                    <Text text="{Chkdat}" wrapping="false" />
+                                                </t:template>
+                                            </t:Column>
+                                        </t:columns>
+                                    </t:Table>
+                                </VBox>
+                            </ff:content>
+                        </ff:DynamicPage>
 					</ScrollContainer>
 					<ScrollContainer
 							id="page5"

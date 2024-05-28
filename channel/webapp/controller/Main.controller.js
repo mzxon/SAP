@@ -10,7 +10,7 @@ sap.ui.define(
     "sap/viz/ui5/data/FlattenedDataset",
     "sap/viz/ui5/controls/common/feeds/FeedItem",
     "sap/ndc/BarcodeScanner",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -23,7 +23,7 @@ sap.ui.define(
     FilterOperator,
     mobileLibrary,
     MessageToast,
-    FlattenedDataset, 
+    FlattenedDataset,
     FeedItem,
     BarcodeScanner,
     MessageBox
@@ -35,6 +35,7 @@ sap.ui.define(
     let oModcd;
     let oTable;
     let cYear;
+    let oBinding;
 
     // shortcut for sap.m.ButtonType
     var ButtonType = mobileLibrary.ButtonType;
@@ -61,7 +62,8 @@ sap.ui.define(
         //디바이스에 따른 화면 너비 조정
         Device.media.attachHandler(this._handleMediaChange, this);
         this._handleMediaChange();
-        
+
+        oBinding = this.getView().byId("ren_table").getBinding("rows");
       },
 
       onScan: function (oEvent) {
@@ -70,17 +72,21 @@ sap.ui.define(
           function (mResult) {
             if (!mResult.cancelled) {
               that.getView().byId("number").setValue(mResult.text);
-              MessageBox.show("We got a QR code\n" +
-                  "Result: " + mResult.text + "\n" +
-                  "Format: " + mResult.format + " \n");
+              MessageBox.show(
+                "We got a QR code\n" +
+                  "Result: " +
+                  mResult.text +
+                  "\n" +
+                  "Format: " +
+                  mResult.format +
+                  " \n"
+              );
             }
-
           },
-          function (Error){
+          function (Error) {
             alert("Scanning failed:" + Error);
           }
         );
-        
       },
 
       //테이블 바인딩(Ch_item)
@@ -110,7 +116,6 @@ sap.ui.define(
         this._getRouter()
           .getRoute("mainView")
           .attachPatternMatched(this._onRouteMatched.bind(this), this);
-
       },
 
       //라우터 연결정보 가져오기
@@ -145,24 +150,22 @@ sap.ui.define(
       initializeMap: function (response) {
         var geocoder = new google.maps.Geocoder();
         var address = response.Chladdr;
-        var lat = null,
-            lng = null;
 
-        geocoder.geocode({ 'address': address }, (results, status) => { 
-          if (status === 'OK') {
+        geocoder.geocode({ address: address }, (results, status) => {
+          if (status === "OK") {
             const lat = results[0].geometry.location.lat();
             const lng = results[0].geometry.location.lng();
 
             this._creatMap(lat, lng, response);
-
           } else {
-              alert('Geocode was not successful for the following reason: ' + status);
+            alert(
+              "Geocode was not successful for the following reason: " + status
+            );
           }
         });
       },
-      
+
       _creatMap: function (lat, lng, response) {
-        
         var mapOptions = {
           center: { lat: lat, lng: lng },
           zoom: 16,
@@ -178,16 +181,15 @@ sap.ui.define(
         var marker = new google.maps.Marker({
           position: { lat: lat, lng: lng },
           map: map, // 마커를 지도에 추가
-          title: response.Chlname // 마커에 표시할 툴팁
+          title: response.Chlname, // 마커에 표시할 툴팁
         });
 
         // 인포윈도우 생성
         var infowindow = new google.maps.InfoWindow({
-          content: response.Chlname
+          content: response.Chlname,
         });
 
         infowindow.open(map, marker); // 인포윈도우를 지도와 마커에 연결
-
       },
 
       //툴바 아이템 선택 함수
@@ -368,8 +370,8 @@ sap.ui.define(
       //검색버튼
       onSearch: function () {
         let oTable_req_list = this.byId("ren_table");
-        let oBinding = oTable_req_list.getBinding("rows"),
-          oFilter = null,
+        oBinding = oTable_req_list.getBinding("rows");
+        let oFilter = null,
           aFilters = [];
 
         let oRen_st = null;
@@ -387,7 +389,7 @@ sap.ui.define(
 
         switch (sSelectedValue) {
           case "이용중":
-            oRen_st = "R";
+            oRen_st = "L";
             break;
 
           case "연체중":
@@ -439,90 +441,152 @@ sap.ui.define(
         oBinding.filter(aFilters);
       },
 
-    onViewChange: function (event) {
-      var viewMode = event.getSource().getText();
-      console.log(viewMode);
-      var table = this.getView().byId("ren_table"); // 테이블 ID
-      var chart = this.getView().byId("ren_chart"); // 테이블 ID
-      var vBox = this.getView().byId("ren_vbox"); // VBox ID
-  
-      vBox.removeAllItems(); // 기존 항목 제거
+      onViewChange: function (event) {
+        var viewMode = event.getSource().getText();
+        console.log(viewMode);
+        var table = this.getView().byId("ren_table"); // 테이블 ID
+        var chart = this.getView().byId("ren_chart"); // 테이블 ID
+        // var vBox = this.getView().byId("ren_vbox"); // VBox ID
 
-      if (viewMode === "table") {
+        // vBox.removeAllItems(); // 기존 항목 제거
+
+        if (viewMode === "table") {
           table.setVisible(true);
           chart.setVisible(false);
-      } else if (viewMode === "chart") {
+        } else if (viewMode === "chart") {
           // 테이블 숨기기
           table.setVisible(false);
           chart.setVisible(true);
-  
+
           // 테이블 데이터 가져오기
           var oBinding = table.getBinding("rows"); // 테이블에 바인딩된 모델 가져오기
-  
+
           // 테이블 데이터를 JSON 형식으로 변환
           var chartData = [];
-  
+
           // 배열 초기화
           var cYear = new Date().getFullYear().toString();
           for (var i = 1; i <= 12; i++) {
-              var month = i < 10 ? "0" + i : "" + i; // 한 자리 월을 두 자리 문자열로 변환
-              chartData.push({ 월별: month, 거래금액: 0 });
+            var month = i < 10 ? "0" + i : "" + i; // 한 자리 월을 두 자리 문자열로 변환
+            chartData.push({ 월별: month, 거래금액: 0 });
           }
-  
-          if (oBinding) {
-              oBinding.getContexts().forEach(function (oContext) {
-                  var rowData = oContext.getObject();
-                  var reqdate = rowData.Reqdat;
-                  if (reqdate.substring(0, 4) === cYear) { // 올해년도
-                      var month = reqdate.substring(5, 7); // 월 추출
-  
-                      // 해당 월의 데이터를 차트 데이터에 추가
-                      chartData.forEach(function (data) {
-                          if (data.월별 === month) {
-                              data.거래금액 += parseInt(rowData.TotPrice, 10);
-                          }
-                      });
-                  }
-              });
-          }
-  
-          
-          // 차트 데이터 확인
-          console.log("Chart Data:", chartData);
-  
-          var oModel = new sap.ui.model.json.JSONModel(chartData);
-          console.log(oModel.getData());
-  
-          var oVizFrame = new sap.viz.ui5.controls.VizFrame({
-              vizType: "column",
-              width: "800px",
-              height: "500px"
-          });
-  
-          var oDataset = new sap.viz.ui5.data.FlattenedDataset({
-              dimensions: [{
-                  name: "월별",
-                  value: "{월별}"
-              }],
-              measures: [{
-                  name: "거래금액",
-                  value: "{거래금액}"
-              }],
-              data: {
-                  path: "/"
-              }
-          });
-  
-          oVizFrame.setDataset(oDataset);
-          oVizFrame.setModel(oModel);
-  
-          // VizFrame을 VBox에 추가
-          vBox.addItem(oVizFrame); // VBox에 VizFrame 추가
 
-        // VizFrame이 VBox에 추가되었는지 확인
-        console.log("VizFrame added to VBox:", vBox.getItems());
-      }
-    },
+          if (oBinding) {
+            oBinding.getContexts().forEach(function (oContext) {
+              var rowData = oContext.getObject();
+              var reqdate = rowData.Reqdat;
+              if (reqdate.substring(0, 4) === cYear) {
+                // 올해년도
+                var month = reqdate.substring(5, 7); // 월 추출
+
+                // 해당 월의 데이터를 차트 데이터에 추가
+                chartData.forEach(function (data) {
+                  if (data.월별 === month) {
+                    data.거래금액 += parseInt(rowData.TotPrice, 10);
+                  }
+                });
+              }
+            });
+          }
+
+          var oModel = new sap.ui.model.json.JSONModel(chartData);
+
+          var oDataset = new sap.viz.ui5.data.FlattenedDataset({
+            dimensions: [
+              {
+                name: "월별",
+                value: "{월별}",
+              },
+            ],
+            measures: [
+              {
+                name: "거래금액",
+                value: "{거래금액}",
+              },
+            ],
+            data: {
+              path: "/",
+            },
+          });
+
+          chart.removeAllFeeds();
+          chart.setDataset(oDataset);
+          chart.setModel(oModel);
+
+          chart.addFeed(
+            new FeedItem({
+              uid: "categoryAxis",
+              type: "Dimension",
+              values: ["월별"],
+            })
+          );
+
+          chart.addFeed(
+            new FeedItem({
+              uid: "valueAxis",
+              type: "Measure",
+              values: ["거래금액"],
+            })
+          );
+
+          // VizFrame을 VBox에 추가
+          // vBox.addItem(oVizFrame); // VBox에 VizFrame 추가
+
+          // VizFrame이 VBox에 추가되었는지 확인
+          // console.log("VizFrame added to VBox:", vBox.getItems());
+        }
+      },
+
+      onGo: function (oEvent) {
+        var type = oEvent.getSource().getText();
+        let oTable = this.byId("Check");
+        // alert(oTable);
+        let lv_tabix = oTable.getSelectedIndices();
+
+        let oContext = [];
+        let oData = null;
+        let oModel = this.getView().getModel();
+
+        let cType;
+
+        if (type == "정상") {
+          cType = "O";
+        } else if (type == "불량") {
+          cType = "X";
+        }
+
+        if (lv_tabix == "") {
+          alert("행을 선택하세요");
+        }
+
+        oContext = oTable.getContextByIndex(lv_tabix[0]);
+        oData = oContext.getObject();
+
+        let lv_chkno = oData.Chkno;
+
+        let oUdaData = {
+          Chkno: oData.Chkno,
+          Serno: oData.Serno,
+          Chlno: oChlno,
+          Chkst: oData.Chkst,
+          Chkdat: oData.Chkdat,
+          Chkst: cType,
+        };
+
+        oModel.update(
+          "/Rental_checkSet('" + lv_chkno + "')",
+          oData,
+          {
+            success: function () {
+              sap.m.MessageToast.show("정상처리되었습니다.");
+            },
+            error: function () {
+              sap.m.MessageToast.show("검수에 실패했습니다.");
+            },
+          },
+          oModel.refresh()
+        );
+      },
 
       //화면 변경시
       _handleMediaChange: function () {
