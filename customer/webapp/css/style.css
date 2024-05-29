@@ -39,4 +39,6 @@
   height: 120px;
   width:273px;
 }
-
+.container > * {
+  margin-bottom: 16px; /* 간격 조절 */
+}

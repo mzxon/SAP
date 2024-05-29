@@ -8,15 +8,14 @@
 	xmlns:form="sap.ui.layout.form"
 	xmlns:layout="sap.ui.layout"
     xmlns="sap.m">
-    <!-- 헤더 -->
-    <VBox justifyContent="Center" alignItems="Center">
-        <Text text="Header" class="customHeaderText" />
-    </VBox>
     <FlexBox
         height="100%"
         alignItems="Center"
         justifyContent="Center">     
-        <layout:VerticalLayout>
+        <layout:VerticalLayout class="container">
+            <VBox justifyContent="Center" alignItems="Center">
+                <Text text="날짜선택" class="customHeaderText" />
+            </VBox>
             <u:Calendar
                 id="calendar"
                 select="handleCalendarSelect" />
@@ -32,7 +31,7 @@
 
 	    	<Button
 				press="nextStep"
-				text="Select Today" 
+				text="다음" 
                 class="customButton"/>
 	</layout:VerticalLayout>
     </FlexBox>

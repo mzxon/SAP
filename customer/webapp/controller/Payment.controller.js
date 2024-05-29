@@ -43,8 +43,12 @@ sap.ui.define(
         //날짜선택
         handleCalendarSelect: function(oEvent) {
 			var oCalendar = oEvent.getSource();
+            var oSelDate = oCalendar.getSelectedDates(),
+				oDate = oSelDate[0].getStartDate();
 
-            alert(oCalendar);
+            var today = new Date(); //오늘 날짜 가져오기
+
+            alert(this.oFormatYyyymmdd.format(oDate));
 		},
 
         //다음버튼
