@@ -10,3 +10,33 @@
   padding: 10px;
   border-radius: 10px;
 }
+
+.largeIcon .sapUiIcon{
+  font-size: 20px; /* 원하는 아이콘 크기로 설정 */
+}
+
+/* 헤더의 모서리를 둥근 모서리로 설정 */
+.sapMBar:first-child {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  margin-top: auto;
+}
+
+/* 푸터의 모서리를 둥근 모서리로 설정 */
+.sapMBar:last-child {
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  text-align: center;
+}
+
+.customHeaderText {
+  font-weight: bold;
+  font-size: 18px;
+  font-size: 24px; /* 원하는 글자 크기로 조정 */
+}
+
+.customButton {
+  height: 120px;
+  width:273px;
+}
+

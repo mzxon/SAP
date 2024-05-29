@@ -66,29 +66,6 @@ sap.ui.define(
         oBinding = this.getView().byId("ren_table").getBinding("rows");
       },
 
-      onScan: function (oEvent) {
-        var that = this;
-        BarcodeScanner.scan(
-          function (mResult) {
-            if (!mResult.cancelled) {
-              that.getView().byId("number").setValue(mResult.text);
-              MessageBox.show(
-                "We got a QR code\n" +
-                  "Result: " +
-                  mResult.text +
-                  "\n" +
-                  "Format: " +
-                  mResult.format +
-                  " \n"
-              );
-            }
-          },
-          function (Error) {
-            alert("Scanning failed:" + Error);
-          }
-        );
-      },
-
       //테이블 바인딩(Ch_item)
       _getTable: function () {
         let oTable = this.byId("Ch_item");
@@ -540,15 +517,34 @@ sap.ui.define(
               values: ["거래금액"],
             })
           );
-
-          // VizFrame을 VBox에 추가
-          // vBox.addItem(oVizFrame); // VBox에 VizFrame 추가
-
-          // VizFrame이 VBox에 추가되었는지 확인
-          // console.log("VizFrame added to VBox:", vBox.getItems());
         }
       },
 
+      //큐알스캔
+      onScan: function (oEvent) {
+        var that = this;
+        BarcodeScanner.scan(
+          function (mResult) {
+            if (!mResult.cancelled) {
+              that.getView().byId("number").setValue(mResult.text);
+              MessageBox.show(
+                "We got a QR code\n" +
+                  "Result: " +
+                  mResult.text +
+                  "\n" +
+                  "Format: " +
+                  mResult.format +
+                  " \n"
+              );
+            }
+          },
+          function (Error) {
+            alert("Scanning failed:" + Error);
+          }
+        );
+      },
+
+      //검수
       onGo: function (oEvent) {
         var type = oEvent.getSource().getText();
         let oTable = this.byId("Check");

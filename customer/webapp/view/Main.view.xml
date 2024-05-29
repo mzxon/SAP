@@ -3,61 +3,47 @@
     xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:tnt="sap.tnt" 
+    xmlns:ndc="sap.ndc"
 	height="100%">
-    <tnt:ToolPage
-		id="app"
-		class="sapUiDemoToolPage">
-        <tnt:header>
-			<tnt:ToolHeader>
-                <Button
-					id="sideNavigationToggleButton"
-					icon="sap-icon://menu2"
-					type="Transparent"
-					press=".onSideNavButtonPress">
-					<layoutData>
-						<OverflowToolbarLayoutData priority="NeverOverflow"/>
-					</layoutData>
-				</Button>
-                <ToolbarSpacer/>
-                <Title
-                    text="♥ 부릉e ♥"
-                    level="H2"/>
-                <ToolbarSpacer/>
-                <Avatar src="image/chin2.png" displaySize="XS" press=".onUserNamePress" tooltip="Profile">
-					<layoutData>
-						<OverflowToolbarLayoutData priority="NeverOverflow"/>
-					</layoutData>
-				</Avatar>
-			</tnt:ToolHeader>
-		</tnt:header>
-        <tnt:sideContent>
-		<tnt:SideNavigation id="sideNavigation" selectedKey="walked" expanded="true">
-			<tnt:NavigationList>
-				<tnt:NavigationListItem text="Home" icon="sap-icon://home" />
-				<tnt:NavigationListGroup text="New">
-					<tnt:NavigationListItem text="마이페이지" icon="sap-icon://people-connected" />
-					<tnt:NavigationListItem text="Building" icon="sap-icon://building" />
-					<tnt:NavigationListItem text="Mileage" icon="sap-icon://mileage">
-						<tnt:NavigationListItem text="Driven" />
-						<tnt:NavigationListItem text="Walked" id="walked" />
-					</tnt:NavigationListItem>
-				</tnt:NavigationListGroup>
-				<tnt:NavigationListGroup text="Recently used">
-					<tnt:NavigationListItem text="Managing My Area" icon="sap-icon://kpi-managing-my-area" />
-					<tnt:NavigationListItem text="Flight" icon="sap-icon://flight" />
-					<tnt:NavigationListItem text="Map" icon="sap-icon://map-2" />
-				</tnt:NavigationListGroup>
-			</tnt:NavigationList>
-			<tnt:fixedItem>
-				<tnt:NavigationList>
-					<tnt:NavigationListItem text="공지사항" selectable="false" href="https://sap.com" target="_blank" icon="sap-icon://marketing-campaign" />
-					<tnt:NavigationListItem text="고객센터" icon="sap-icon://headset" />
-				</tnt:NavigationList>
-			</tnt:fixedItem>
-			</tnt:SideNavigation>
-		</tnt:sideContent>
-		<tnt:mainContents>
-            <VBox id="map" class="myMap" height="500px" width="100%"></VBox>
-		</tnt:mainContents>
-	</tnt:ToolPage>
+	<Page
+		id="main"
+		class="roundedPage"
+		showHeader="true"
+		showFooter="true">
+		<headerContent>
+			<Bar>
+				<contentLeft>
+					<Button icon="sap-icon://menu2" press=".onSideNavButtonPress" />
+				</contentLeft>
+				<contentMiddle>
+					<Image height="1.5rem" class="sapUiSmallMarginBegin" src="image/logo.png" />
+				</contentMiddle>
+				<contentRight>
+					<Button icon="sap-icon://search" type="Transparent" id="searchButton" tooltip="Search" class="largeIcon"/>
+					<Button icon="sap-icon://person-placeholder" type="Transparent" press="profile" tooltip="Search" class="largeIcon"/>
+				</contentRight>
+			</Bar>
+		</headerContent>
+		<content>
+			<!-- Main content -->
+			<VBox id="map" class="myMap" height="100%" width="100%"></VBox>
+		</content>
+		<footer>
+			<Bar>
+				<contentLeft>
+					<Button text="Home" icon="sap-icon://home" press=".onHomePress"/>
+				</contentLeft>
+				<contentMiddle>
+					<SegmentedButton>
+                    	<Button text="대여하기" icon="sap-icon://bar-code" press=".onScanPress"/>
+					</SegmentedButton>
+					<!-- <Button text="대여하기" icon="sap-icon://bar-code" press=".onScanPress"/> -->
+					<Input id="number" value="" />
+				</contentMiddle>
+				<contentRight>
+					<Button text="즐겨찾기" icon="sap-icon://favorite" press=".onFavoritePress"/>
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
 </mvc:View>

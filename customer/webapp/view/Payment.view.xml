@@ -1,0 +1,39 @@
+<mvc:View 
+    controllerName="cust.customer.controller.Payment"
+    displayBlock="true"
+    height="100%"
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:u="sap.ui.unified"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:layout="sap.ui.layout"
+    xmlns="sap.m">
+    <!-- 헤더 -->
+    <VBox justifyContent="Center" alignItems="Center">
+        <Text text="Header" class="customHeaderText" />
+    </VBox>
+    <FlexBox
+        height="100%"
+        alignItems="Center"
+        justifyContent="Center">     
+        <layout:VerticalLayout>
+            <u:Calendar
+                id="calendar"
+                select="handleCalendarSelect" />
+
+            <FlexBox justifyContent="SpaceBetween">
+            <Text text="결제금액" />
+            <Text text="원" />
+            </FlexBox>
+            <FlexBox justifyContent="SpaceBetween">
+            <Text text="이용료(1시간)" />
+            <Text text="원" />
+            </FlexBox>
+
+	    	<Button
+				press="nextStep"
+				text="Select Today" 
+                class="customButton"/>
+	</layout:VerticalLayout>
+    </FlexBox>
+</mvc:View>
