@@ -1,0 +1,13 @@
+<mvc:View 
+    controllerName="cust.customer.controller.kakao"
+    xmlns:mvc="sap.ui.core.mvc" 
+    displayBlock="true"
+    height="100%"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:html="http://www.w3.org/1999/xhtml">
+    <Page id="kakao" title="kakao">   
+        <VBox id="mapContainer" width="100%" height="400px"></VBox>
+    </Page>
+</mvc:View>

@@ -102,6 +102,11 @@
           "name": "mainView",
           "pattern": "Main/{Custno}",
           "target": "main"
+        },
+        {
+          "name": "kakaoView",
+          "pattern": "kakao",
+          "target": "kakao"
         }
       ],
       "targets": {
@@ -114,6 +119,11 @@
           "viewType": "XML",
           "viewLevel": 1,
           "viewName": "Main"
+        },
+        "kakao": {
+          "viewType": "XML",
+          "viewLevel": 1,
+          "viewName": "kakao"
         }
       }
     },
