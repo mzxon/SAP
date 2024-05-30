@@ -25,7 +25,6 @@
 			</Bar>
 		</headerContent>
 		<content>
-			<!-- Main content -->
 			<VBox id="map" class="myMap" height="100%" width="100%"></VBox>
 		</content>
 		<footer>
@@ -37,8 +36,6 @@
 					<SegmentedButton>
                     	<Button text="대여하기" icon="sap-icon://bar-code" press=".onScanPress"/>
 					</SegmentedButton>
-					<!-- <Button text="대여하기" icon="sap-icon://bar-code" press=".onScanPress"/> -->
-					<Input id="number" value="" />
 				</contentMiddle>
 				<contentRight>
 					<Button text="즐겨찾기" icon="sap-icon://favorite" press=".onFavoritePress"/>
