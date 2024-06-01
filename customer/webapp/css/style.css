@@ -39,6 +39,45 @@
   height: 120px;
   width:273px;
 }
+
 .container > * {
   margin-bottom: 16px; /* 간격 조절 */
+}
+
+.customButtonTransparent .sapMBtnInner {
+  background-color: transparent !important;
+  width: 30px !important;
+  border: none !important;
+  margin-right: 88px;
+}
+
+.payText {
+  margin-left: 7px;
+}
+
+.responsiveImage {
+  max-width: 50px;  /* 원하는 최대 너비 설정 */
+  max-height: 50px; /* 원하는 최대 높이 설정 */
+  width: auto;      /* 비율을 유지하며 크기 조정 */
+  height: auto;     /* 비율을 유지하며 크기 조정 */
+}
+.customTosspayImage {
+  max-width: 70px;  /* Tosspay 이미지에 대한 최대 너비 설정 */
+  max-height: 65px; /* Tosspay 이미지에 대한 최대 높이 설정 */
+  width: auto;      /* 비율을 유지하며 크기 조정 */
+  height: auto;     /* 비율을 유지하며 크기 조정 */
+  margin-right: 6px;
+}
+.paymentOption {
+  flex-grow: 1;    /* 모든 옵션이 동일한 폭을 가지도록 설정 */
+  margin-right: 10px;  /* 각 옵션 간의 오른쪽 마진 조정 */
+}
+.paymentOption:last-child {
+  margin-right: 0; /* 마지막 요소의 오른쪽 마진 제거 */
+}
+.paymentOption > * {
+  margin-right: 5px;   /* 각 내부 요소 간의 간격 조정 */
+}
+.row {
+  width: 100%; /* HBox가 전체 너비를 차지하도록 설정 */
 }

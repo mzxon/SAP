@@ -4,34 +4,91 @@
     height="100%"
     xmlns:mvc="sap.ui.core.mvc" 
     xmlns:u="sap.ui.unified"
-	xmlns:f="sap.ui.layout.form"
-	xmlns:form="sap.ui.layout.form"
-	xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:layout="sap.ui.layout"
     xmlns:core="sap.ui.core"
     xmlns="sap.m">
     <FlexBox
-        height="100%"
-        alignItems="Center"
-        justifyContent="Center">     
-        <layout:VerticalLayout class="container">
-            <VBox justifyContent="Center" alignItems="Center">
-                <Text text="날짜선택" class="customHeaderText" />
-            </VBox>
-            <u:Calendar
-                id="calendar"
-                select="handleCalendarSelect" />
-            <FlexBox justifyContent="SpaceBetween">
-            <Text text="결제금액" />
-            <Text text="원" />
-            </FlexBox>
-            <FlexBox justifyContent="SpaceBetween">
-            <Text text="이용료(1시간)" />
-            <Text text="원" />
-            </FlexBox>
+      id="date"
+      height="100%"
+      alignItems="Center"
+      justifyContent="Center">     
+      <layout:VerticalLayout class="container">
+        <VBox justifyContent="Center" alignItems="Center">
+            <Text text="날짜선택" class="customHeaderText" />
+        </VBox>
+        <u:Calendar
+            id="calendar"
+            select="handleCalendarSelect" />
+        <FlexBox justifyContent="SpaceBetween">
+          <Text text="결제금액" />
+          <Text text="원" />
+        </FlexBox>
+        <FlexBox justifyContent="SpaceBetween">
+          <Text text="이용료(1시간)" />
+          <Text text="원" />
+        </FlexBox>
 	    	<Button
-				press="nextStep"
-				text="결제" 
-                class="customButton"/>
-	</layout:VerticalLayout>
+          press="nextStep"
+          text="결제" 
+          class="customButton"/>
+	    </layout:VerticalLayout>
+    </FlexBox>
+    <FlexBox
+      id="pay"
+      height="100%"
+      alignItems="Center"
+      justifyContent="Center">     
+      <layout:VerticalLayout class="container">
+        <HBox>
+          <Button icon="sap-icon://navigation-left-arrow" press="previousStep" class="customButtonTransparent"/> 
+          <Text text="결제" class="customHeaderText" />
+        </HBox>
+        <Text text="결제 수단" class="payText"></Text>
+        <FlexBox justifyContent="SpaceBetween" alignItems="Center" wrap="Wrap">
+          <VBox>  
+            <HBox alignItems="Center" justifyContent="SpaceBetween" class="row">
+                <HBox alignItems="Center" class="paymentOption">
+                    <RadioButton groupName="Group1" select="onSelect" customData="kakao"/>
+                    <Image src="/image/kakaopay.png" class="responsiveImage"/>
+                </HBox>
+                <HBox alignItems="Center" class="paymentOption">
+                    <RadioButton groupName="Group1" select="onSelect" customData="payco"/>
+                    <Image src="/image/payco.png" class="responsiveImage"/>
+                </HBox>
+            </HBox>
+            <HBox alignItems="Center" justifyContent="SpaceBetween" class="row">
+                <HBox alignItems="Center" class="paymentOption">
+                    <RadioButton groupName="Group1" select="onSelect" customData="toss"/>
+                    <Image src="/image/tosspay.png" class="customTosspayImage"/>
+                </HBox>
+                <HBox alignItems="Center" class="paymentOption">
+                    <RadioButton groupName="Group1" select="onSelect"/>
+                    <Text text="신용/체크카드" />
+                </HBox>
+            </HBox>
+          </VBox>
+        </FlexBox>
+        <FlexBox justifyContent="SpaceBetween">
+          <CheckBox
+              id="selectAllCheckBox"
+              text="전체동의"
+              select="handleSelectAll"/>
+          <CheckBox
+              id="checkBox1"
+              text="옵션 1"/>
+          <CheckBox
+              id="checkBox2"
+              text="옵션 2"/>
+          <CheckBox
+              id="checkBox3"
+              text="옵션 3"/>
+        </FlexBox>
+	    	<Button
+          press="requestPay"
+          text="결제" 
+          class="customButton"/>
+      </layout:VerticalLayout>
     </FlexBox>
 </mvc:View>

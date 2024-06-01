@@ -23,6 +23,7 @@ sap.ui.define(
     "use strict";
 
     var CalendarType = coreLibrary.CalendarType;
+    var payType = null;
 
     return Controller.extend("cust.customer.controller.Payment", {
       oFormatYyyymmdd: null,
@@ -37,11 +38,11 @@ sap.ui.define(
           calendarType: CalendarType.Gregorian,
         });
 
-        // Kakao SDK를 동적으로 로드합니다.
-        var script = document.createElement("script");
-        script.src = "https://developers.kakao.com/sdk/js/kakao.js";
-        script.async = true;
-        document.body.appendChild(script);
+        // // Kakao SDK를 동적으로 로드합니다.
+        // var script = document.createElement("script");
+        // script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+        // script.async = true;
+        // document.body.appendChild(script);
       },
 
       //라우터 연결정보 가져오기
@@ -69,54 +70,95 @@ sap.ui.define(
         alert(this.oFormatYyyymmdd.format(oDate));
       },
 
-      //다음버튼
       nextStep: function () {
-        alert("여기임");
-        var that = this;
+        // date FlexBox를 숨기고 pay FlexBox를 표시
+        var oDateFlexBox = this.byId("date");
+        var oPayFlexBox = this.byId("pay");
 
-        // 결제 준비를 위한 데이터 설정
-        var requestData = {
-          cid: "TC0ONETIME",
-          partner_order_id: "partner_order_id",
-          partner_user_id: "partner_user_id",
-          item_name: "초코파이",
-          quantity: "1",
-          total_amount: "2200",
-          vat_amount: "200",
-          tax_free_amount: "0",
-          approval_url: "https://developers.kakao.com/success",
-          fail_url: "https://developers.kakao.com/fail",
-          cancel_url: "https://developers.kakao.com/cancel",
-        };
-
-        $.ajax({
-          url: "http://localhost:8080/kakao-pay-proxy", // 프록시 서버 주소로 변경합니다.
-          method: "POST",
-          contentType: "application/json",
-          crossDomain: true,
-          data: JSON.stringify(requestData),
-          headers: {
-            "Access-Control-Allow-Origin": "http://localhost:8080",
-            "Access-Control-Allow-Methods": "POST",
-            "Access-Control-Allow-Headers": "Content-Type",
-          },
-          success: function (response) {
-            // 성공적으로 응답을 받은 경우
-            MessageBox.success("결제 준비가 완료되었습니다.");
-            // 응답 데이터를 콘솔에 출력하여 확인
-            console.log(response);
-            // 응답 데이터를 사용하여 결제 페이지로 이동하는 로직 추가
-            // 예를 들어, response.next_redirect_mobile_url 등을 사용하여 결제 페이지로 이동할 수 있습니다.
-          },
-          error: function (xhr, status, error) {
-            // 요청이 실패한 경우
-            MessageBox.error(
-              "결제 요청을 처리하는 도중 에러가 발생했습니다. 관리자에게 문의해주세요. 에러 메시지: " +
-                error
-            );
-          },
-        });
+        oDateFlexBox.setVisible(false);
+        oPayFlexBox.setVisible(true);
       },
+
+      previousStep: function () {
+        // pay FlexBox를 숨기고 date FlexBox를 표시
+        var oDateFlexBox = this.byId("date");
+        var oPayFlexBox = this.byId("pay");
+
+        oDateFlexBox.setVisible(true);
+        oPayFlexBox.setVisible(false);
+      },
+
+      handleSelectAll: function (oEvent) {
+        // selectAllCheckBox가 체크되면 나머지 체크박스도 체크/언체크
+        var bSelected = oEvent.getParameter("selected");
+        this.byId("checkBox1").setSelected(bSelected);
+        this.byId("checkBox2").setSelected(bSelected);
+        this.byId("checkBox3").setSelected(bSelected);
+      },
+
+      onSelect: function (oEvent) {
+        payType = null;
+        var selectedRadioButton = oEvent.getSource();
+        var id = selectedRadioButton.getId();
+                    
+        payType = id;
+      },
+
+      requestPay: function () {
+
+        var IMP = window.IMP; 
+        IMP.init("imp21380672"); 
+      
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+        
+        var pg;
+        switch (payType) {
+          case '__button2':
+            pg = 'kakaopay';
+            break;
+          case '__button3':
+            pg = 'payco';
+            break;
+          case '__button4':
+            pg = 'tosspay';
+            break;
+          case '__button5':
+            pg = 'html5_inicis';
+            break;
+
+          default:
+            alert("결제 수단을 선택해주세요");
+            break;
+        }
+
+        IMP.request_pay({
+            pg : pg,
+            pay_method : 'card',
+            merchant_uid: "IMP"+makeMerchantUid, 
+            name : '당근 10kg',
+            amount : 1004,
+            buyer_email : 'Iamport@chai.finance',
+            buyer_name : '아임포트 기술지원팀',
+            buyer_tel : '010-1234-5678',
+            buyer_addr : '서울특별시 강남구 삼성동',
+            buyer_postcode : '123-456'
+        }, function (rsp) { // callback
+          if (rsp.success) {
+              alert("결제되었습니다.");
+              console.log(rsp);
+          } else {
+              alert("결제에 실패했습니다.");	
+              console.log(rsp);
+          }
+        });
+
+        
+      }
     });
   }
 );
