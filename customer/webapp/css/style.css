@@ -44,6 +44,13 @@
   margin-bottom: 16px; /* 간격 조절 */
 }
 
+.customButtonTransparent1 .sapMBtnInner {
+  background-color: transparent !important;
+  width: 30px !important;
+  border: none !important;
+  margin-right: 63px;
+}
+
 .customButtonTransparent .sapMBtnInner {
   background-color: transparent !important;
   width: 30px !important;

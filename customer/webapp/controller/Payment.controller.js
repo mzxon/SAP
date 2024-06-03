@@ -4,9 +4,9 @@ sap.ui.define(
     "sap/ui/unified/DateRange",
     "sap/ui/core/format/DateFormat",
     "sap/ui/core/library",
-    "sap/ui/core/date/UI5Date",
-    "sap/m/MessageBox",
-    "sap/ui/thirdparty/jquery",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/m/MessageToast",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -16,14 +16,20 @@ sap.ui.define(
     DateRange,
     DateFormat,
     coreLibrary,
-    UI5Date,
-    MessageBox,
-    jQuery
+    Filter,
+    FilterOperator,
+    MessageToast
   ) {
     "use strict";
 
+    var oCustno;
+    var oSerno;
     var CalendarType = coreLibrary.CalendarType;
     var payType = null;
+    var cust_info = [];
+    var info = [];
+    var ren_price;
+    let oJsonModel = new sap.ui.model.json.JSONModel();
 
     return Controller.extend("cust.customer.controller.Payment", {
       oFormatYyyymmdd: null,
@@ -37,12 +43,6 @@ sap.ui.define(
           pattern: "yyyy-MM-dd",
           calendarType: CalendarType.Gregorian,
         });
-
-        // // Kakao SDK를 동적으로 로드합니다.
-        // var script = document.createElement("script");
-        // script.src = "https://developers.kakao.com/sdk/js/kakao.js";
-        // script.async = true;
-        // document.body.appendChild(script);
       },
 
       //라우터 연결정보 가져오기
@@ -52,22 +52,106 @@ sap.ui.define(
 
       //전달받은 파라미터 값 가져오기
       _onRouteMatched: function (oEvent) {
-        var oCustno = oEvent.getParameter("arguments").Custno;
-        var oSerno = oEvent.getParameter("arguments").Serno;
+        let oModel = this.getOwnerComponent().getModel();
+        oCustno = oEvent.getParameter("arguments").Custno;
+        oSerno = oEvent.getParameter("arguments").Serno;
 
-        console.log(oCustno);
-        console.log(oSerno);
+        var oFilter = null,
+            aFilters = [];
+
+        oFilter = new Filter({
+          path: "Custno",
+          operator: FilterOperator.EQ,
+          value1: oCustno
+        });
+    
+        aFilters.push(oFilter);
+
+        oModel.read("/MemberSet", {
+          filters: aFilters, // 필터 배열 적용
+    
+          success: function (response) {
+            cust_info = [
+              {
+                name: response.results[0].Custname,
+                email: response.results[0].Custemail,
+                addr: response.results[0].Custaddr,
+                phone: response.results[0].Custphone
+              }
+            ];
+          },
+          error: function (response) {
+            MessageToast.show("Error");
+          },
+        });
+
+        //조회해서 JsonModel에 넣어서 View에서 사용하기
+        oModel.read("/OrderSet('" + oSerno + "')", {
+          success: function (response) {
+            // 포맷팅된 가격 설정
+            response.Price = this.formatPrice(parseInt(response.Price.replace(/\./g, '')) / 10);
+            ren_price = response.Price;
+
+            oJsonModel.setData(response);
+            this.getView().setModel(oJsonModel, "Order");
+
+            info = [
+              {
+                modcd: response.Modcd,
+                modtxt: response.Modtxt,
+                price: response.Price
+              }
+            ];
+
+            // 기존 모델 데이터 가져오기
+            var oModelData = oJsonModel.getData();
+
+            // info 데이터 추가
+            oModelData.total_price = info[0].price;
+
+            // 업데이트된 데이터를 모델에 다시 설정
+            oJsonModel.setData(oModelData);
+        
+            
+          }.bind(this),
+          error: function (response) {
+            MessageToast.show("Error");
+          },
+        });
+
+      },
+
+      formatPrice: function (price) {
+        if (!price && price !== 0) {
+          return "";
+        }
+        return new Intl.NumberFormat('ko-KR', {
+          currency: 'KRW'
+        }).format(price);
       },
 
       //날짜선택
       handleCalendarSelect: function (oEvent) {
         var oCalendar = oEvent.getSource();
         var oSelDate = oCalendar.getSelectedDates(),
-          oDate = oSelDate[0].getStartDate();
+            oDate = oSelDate[0].getStartDate();
 
         var today = new Date(); //오늘 날짜 가져오기
 
-        alert(this.oFormatYyyymmdd.format(oDate));
+        if (oDate < today) {
+          alert("오늘 날짜보다 앞선 날짜를 선택해주세요");
+          return; // 오늘 날짜보다 앞선 날짜를 선택한 경우 함수를 종료
+        }
+
+        var differenceInDays = Math.floor((oDate - today) / (1000 * 60 * 60 * 24) + 2);
+        info[0].day = (differenceInDays);
+
+        var totalPrice = differenceInDays * ren_price.replace(/\,/g, '');
+
+        info[0].price = totalPrice.toLocaleString();
+        // total_price 업데이트
+        oJsonModel.setProperty("/total_price", info[0].price);
+
       },
 
       nextStep: function () {
@@ -84,8 +168,13 @@ sap.ui.define(
         var oDateFlexBox = this.byId("date");
         var oPayFlexBox = this.byId("pay");
 
-        oDateFlexBox.setVisible(true);
-        oPayFlexBox.setVisible(false);
+        if (oDateFlexBox.getVisible() === true) {
+          sap.ui.core.UIComponent.getRouterFor(this).navTo("mainView", {Custno: oCustno});
+        } else {
+          oDateFlexBox.setVisible(true);
+          oPayFlexBox.setVisible(false);
+        }
+
       },
 
       handleSelectAll: function (oEvent) {
@@ -96,6 +185,7 @@ sap.ui.define(
         this.byId("checkBox3").setSelected(bSelected);
       },
 
+      //라디오버튼
       onSelect: function (oEvent) {
         payType = null;
         var selectedRadioButton = oEvent.getSource();
@@ -104,8 +194,9 @@ sap.ui.define(
         payType = id;
       },
 
+      //결제
       requestPay: function () {
-
+        var that = this;
         var IMP = window.IMP; 
         IMP.init("imp21380672"); 
       
@@ -115,42 +206,63 @@ sap.ui.define(
         var seconds = today.getSeconds();  // 초
         var milliseconds = today.getMilliseconds();
         var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+
+        // var Tot_Price = parseFloat(info[0].price.replace(/\,/g, ''));
         
         var pg;
         switch (payType) {
-          case '__button2':
+          case '__xmlview0--kakao':
             pg = 'kakaopay';
             break;
-          case '__button3':
+          case '__xmlview0--payco':
             pg = 'payco';
             break;
-          case '__button4':
+          case '__xmlview0--toss':
             pg = 'tosspay';
             break;
-          case '__button5':
+          case '__xmlview0--card':
             pg = 'html5_inicis';
             break;
 
           default:
             alert("결제 수단을 선택해주세요");
-            break;
+            return;
         }
 
         IMP.request_pay({
             pg : pg,
             pay_method : 'card',
             merchant_uid: "IMP"+makeMerchantUid, 
-            name : '당근 10kg',
-            amount : 1004,
-            buyer_email : 'Iamport@chai.finance',
-            buyer_name : '아임포트 기술지원팀',
-            buyer_tel : '010-1234-5678',
-            buyer_addr : '서울특별시 강남구 삼성동',
-            buyer_postcode : '123-456'
+            name : info[0].modtxt,               //제품명
+            amount : info[0].price,              //가격
+            buyer_email : cust_info[0].email,    //구매자 이메일
+            buyer_name : cust_info[0].name,      //구매자 이름
+            buyer_tel : cust_info[0].phone,      //구매자 전화번호
+            buyer_addr : cust_info[0].addr,      //구매자 주소
         }, function (rsp) { // callback
           if (rsp.success) {
-              alert("결제되었습니다.");
-              console.log(rsp);
+              let oCrtData = {
+                Custno: oCustno,
+                Sereno: oSerno,
+                Modcd: info[0].modcd,
+                Tot_Price: parseFloat(info[0].price.replace(/\,/g, '')),
+              };
+
+              // 주문 생성
+              var oModel = that.getView().getModel();
+              oModel.create(
+                "/RentalSet",
+                oCrtData,
+                {
+                  success: function () {
+                    alert("결제되었습니다.");
+                  },
+                  error: function () {
+                    alert("결제에 실패했습니다.");
+                  },
+                },
+              );
+              oModel.refresh()
           } else {
               alert("결제에 실패했습니다.");	
               console.log(rsp);

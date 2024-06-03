@@ -15,19 +15,21 @@
       alignItems="Center"
       justifyContent="Center">     
       <layout:VerticalLayout class="container">
-        <VBox justifyContent="Center" alignItems="Center">
-            <Text text="날짜선택" class="customHeaderText" />
-        </VBox>
+         <HBox>
+          <Button icon="sap-icon://navigation-left-arrow" press="previousStep" class="customButtonTransparent1"/> 
+          <Text text="날짜선택" class="customHeaderText" />
+        </HBox>
+       
         <u:Calendar
             id="calendar"
             select="handleCalendarSelect" />
         <FlexBox justifyContent="SpaceBetween">
           <Text text="결제금액" />
-          <Text text="원" />
+          <Text text="{Order>/total_price}원" />
         </FlexBox>
         <FlexBox justifyContent="SpaceBetween">
           <Text text="이용료(1시간)" />
-          <Text text="원" />
+          <Text text="{Order>/Price}원"/>
         </FlexBox>
 	    	<Button
           press="nextStep"
@@ -50,20 +52,20 @@
           <VBox>  
             <HBox alignItems="Center" justifyContent="SpaceBetween" class="row">
                 <HBox alignItems="Center" class="paymentOption">
-                    <RadioButton groupName="Group1" select="onSelect" customData="kakao"/>
+                    <RadioButton groupName="Group1" select="onSelect" id="kakao"/>
                     <Image src="/image/kakaopay.png" class="responsiveImage"/>
                 </HBox>
                 <HBox alignItems="Center" class="paymentOption">
-                    <RadioButton groupName="Group1" select="onSelect" customData="payco"/>
+                    <RadioButton groupName="Group1" select="onSelect" id="payco"/>
                     <Image src="/image/payco.png" class="responsiveImage"/>
                 </HBox>
             </HBox>
             <HBox alignItems="Center" justifyContent="SpaceBetween" class="row">
                 <HBox alignItems="Center" class="paymentOption">
-                    <RadioButton groupName="Group1" select="onSelect" customData="toss"/>
+                    <RadioButton groupName="Group1" select="onSelect" id="toss"/>
                     <Image src="/image/tosspay.png" class="customTosspayImage"/>
                 </HBox>
-                <HBox alignItems="Center" class="paymentOption">
+                <HBox alignItems="Center" class="paymentOption" id="card">
                     <RadioButton groupName="Group1" select="onSelect"/>
                     <Text text="신용/체크카드" />
                 </HBox>
