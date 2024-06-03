@@ -228,6 +228,10 @@ sap.ui.define(
             alert("결제 수단을 선택해주세요");
             return;
         }
+        var num = parseFloat(info[0].price.replace(/\,/g, ''));
+        var formattedNum = num.toFixed(2);
+        
+        console.log(formattedNum);
 
         IMP.request_pay({
             pg : pg,
@@ -245,7 +249,7 @@ sap.ui.define(
                 Custno: oCustno,
                 Sereno: oSerno,
                 Modcd: info[0].modcd,
-                Tot_Price: parseFloat(info[0].price.replace(/\,/g, '')),
+                Tot_Price: formattedNum,
               };
 
               // 주문 생성
