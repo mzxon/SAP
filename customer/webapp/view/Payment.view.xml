@@ -19,7 +19,7 @@
           <Button icon="sap-icon://navigation-left-arrow" press="previousStep" class="customButtonTransparent1"/> 
           <Text text="날짜선택" class="customHeaderText" />
         </HBox>
-       
+        <HBox class='hBox' />
         <u:Calendar
             id="calendar"
             select="handleCalendarSelect" />
@@ -33,7 +33,7 @@
         </FlexBox>
 	    	<Button
           press="nextStep"
-          text="결제" 
+          text="다음" 
           class="customButton"/>
 	    </layout:VerticalLayout>
     </FlexBox>
@@ -47,7 +47,8 @@
           <Button icon="sap-icon://navigation-left-arrow" press="previousStep" class="customButtonTransparent"/> 
           <Text text="결제" class="customHeaderText" />
         </HBox>
-        <Text text="결제 수단" class="payText"></Text>
+        <HBox class='hBox2' />
+        <Text text="결제 수단" class="payText"/>
         <FlexBox justifyContent="SpaceBetween" alignItems="Center" wrap="Wrap">
           <VBox>  
             <HBox alignItems="Center" justifyContent="SpaceBetween" class="row">
@@ -72,21 +73,24 @@
             </HBox>
           </VBox>
         </FlexBox>
-        <FlexBox justifyContent="SpaceBetween">
-          <CheckBox
+        <VBox class="vBox">
+          <VBox class="vbox_pay">
+            <CheckBox
               id="selectAllCheckBox"
               text="전체동의"
               select="handleSelectAll"/>
-          <CheckBox
+          </VBox>
+          <VBox class="vbox_pay2">
+            <CheckBox
+              class="checkBox1"
               id="checkBox1"
-              text="옵션 1"/>
-          <CheckBox
+              text="연체시, 추가요금 이용약관에 동의합니다."/>
+            <CheckBox
+              class="checkBox1"
               id="checkBox2"
-              text="옵션 2"/>
-          <CheckBox
-              id="checkBox3"
-              text="옵션 3"/>
-        </FlexBox>
+              text="만 13세 미만 사용자는 사고 발생시" />
+          </VBox>
+        </VBox>
 	    	<Button
           press="requestPay"
           text="결제" 
