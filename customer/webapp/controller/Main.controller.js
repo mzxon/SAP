@@ -47,9 +47,8 @@ sap.ui.define(
             if (!mResult.cancelled) {
               that._getRouter().navTo("paymentView", {
                 Custno: oCustno,
-                Serno: mResult.text
+                Serno: mResult.text,
               });
-              
             }
           },
           function (Error) {
@@ -66,6 +65,10 @@ sap.ui.define(
       _onRouteMatched: function (oEvent) {
         let oModel = this.getOwnerComponent().getModel();
         let oJsonModel = new sap.ui.model.json.JSONModel();
+        var oRen = this.byId("ren");
+        var oIng = this.byId("ing");
+
+        console.log(oRen.getVisible());
 
         //empno 받아오기
         oCustno = oEvent.getParameter("arguments").Custno;
@@ -77,9 +80,20 @@ sap.ui.define(
             this.getView().setModel(oJsonModel, "Ren_list");
 
             this._getChannel();
+
+            console.log(response);
+
+            if (response.Renst == "L") {
+              oRen.setVisible(false);
+              oIng.setVisible(true);
+            } else {
+              oRen.setVisible(true);
+              oIng.setVisible(false);
+            }
           }.bind(this),
           error: function (response) {
-            MessageToast.show("Error");
+            oRen.setVisible(true);
+            oIng.setVisible(false);
           },
         });
       },
@@ -228,7 +242,7 @@ sap.ui.define(
             icon: markerIcon,
           });
 
-          if (i>0) {
+          if (i > 0) {
             var stockLabel = new google.maps.Marker({
               position: { lat: mapData[i].lat + 0.008, lng: mapData[i].lng },
               label: {
@@ -243,7 +257,7 @@ sap.ui.define(
               },
               map: map, // 지도에 추가
               zIndex: 3000, // marker보다 위에 표시
-            }); 
+            });
           }
         }
       },

@@ -66,6 +66,50 @@ sap.ui.define(
         oBinding = this.getView().byId("ren_table").getBinding("rows");
       },
 
+      getStatusText: function (sStatus) {
+        switch (sStatus) {
+          case "R":
+            return "렌탈대기";
+          case "L":
+            return "렌탈중";
+          default:
+            return "검수중";
+        }
+      },
+
+      getStatusText_mod: function (sStatus) {
+        switch (sStatus) {
+          case "BEAL24":
+            return "부릉이 베이직";
+          case "BETT24":
+            return "부릉이 울트라 맥스";
+        }
+      },
+
+      getStatusText_list: function (sStatus) {
+        switch (sStatus) {
+          case "R":
+            return "재고요청";
+          case "I":
+            return "출고완료";
+          case "C":
+            return "요청취소";
+          default:
+            return "입고확정";
+        }
+      },
+
+      getStatusText_check: function (sStatus) {
+        switch (sStatus) {
+          case "W":
+            return "검수대기";
+          case "G":
+            return "정상";
+          default:
+            return "불량";
+        }
+      },
+
       //테이블 바인딩(Ch_item)
       _getTable: function () {
         let oTable = this.byId("Ch_item");
@@ -170,7 +214,6 @@ sap.ui.define(
           position: { lat: lat, lng: lng },
           map: map, // 마커를 지도에 추가
           title: response.Chlname, // 마커에 표시할 툴팁
-          icon: markerIcon,
         });
 
         // 인포윈도우 생성

@@ -176,11 +176,6 @@
                                             </GenericTag>
                                         </OverflowToolbar>
                                     </ff:content>
-                                    <ff:actions>
-                                        <Button text="발주" type="Emphasized" press=".onOrdStd" ariaHasPopup="Dialog"/>
-                                        <Button text="입고" type="Transparent"/>
-                                        <Button text="검수" type="Transparent"/>
-                                    </ff:actions>
                                     <ff:navigationActions>
                                         <Button icon="sap-icon://action" type="Transparent"/>
                                         <Button icon="sap-icon://full-screen" type="Transparent" />
@@ -225,13 +220,23 @@
                                                     <t:Column width="11rem">
                                                         <Label text="모델명" />
                                                         <t:template templateShareable="false">
-                                                            <Text text="{Modcd}" wrapping="false" />
+                                                            <Text 
+                                                                text="{
+                                                                    path: 'Modcd',
+                                                                    formatter: '.getStatusText_mod'
+                                                                }" 
+                                                                wrapping="false" />
                                                         </t:template >
                                                     </t:Column>
                                                     <t:Column width="9rem">
                                                         <Label text="상태" />
                                                         <t:template templateShareable="false">
-                                                            <Text text="{Itmst}" wrapping="false" />
+                                                            <Text 
+                                                                text="{
+                                                                    path: 'Itmst',
+                                                                    formatter: '.getStatusText'
+                                                                }" 
+                                                                wrapping="false" />
                                                         </t:template>
                                                     </t:Column>
                                                 </t:columns>
@@ -264,8 +269,13 @@
                                                     </t:Column>
                                                     <t:Column width="11rem">
                                                         <Label text="모델명" />
-                                                        <t:template templateShareable="false">
-                                                            <Text text="{Modcd}" wrapping="false" />
+                                                        <t:template templateShareable="false"> 
+                                                            <Text 
+                                                                text="{
+                                                                    path: 'Modcd',
+                                                                    formatter: '.getStatusText_mod'
+                                                                }" 
+                                                                wrapping="false" />
                                                         </t:template >
                                                     </t:Column>
                                                     <t:Column width="6rem" hAlign="End">
@@ -277,7 +287,12 @@
                                                     <t:Column width="9rem">
                                                         <Label text="상태" />
                                                         <t:template templateShareable="false">
-                                                            <Text text="{Status}" wrapping="false" />
+                                                            <Text 
+                                                                text="{
+                                                                    path: 'Status',
+                                                                    formatter: '.getStatusText_list'
+                                                                }" 
+                                                                wrapping="false" />
                                                         </t:template>
                                                     </t:Column>
                                                     <t:Column width="11rem">
@@ -300,12 +315,6 @@
                                                     </t:Column>
                                                 </t:columns>
                                             </t:Table>
-                                        </IconTabFilter>
-                                        <IconTabFilter text="Notes">
-                                            <Text text="Notes go here ..." />
-                                        </IconTabFilter>
-                                        <IconTabFilter text="People">
-                                            <Text text="People content goes here ..." />
                                         </IconTabFilter>
                                     </items>
                                 </IconTabBar>
@@ -456,7 +465,12 @@
                                         <t:Column width="9rem">
                                             <Label text="모델명" />
                                             <t:template templateShareable="false">
-                                                <Text text="{Modcd}" wrapping="false" />
+                                                <Text 
+                                                    text="{
+                                                        path: 'Modcd',
+                                                        formatter: '.getStatusText_mod'
+                                                    }" 
+                                                    wrapping="false" />
                                             </t:template>
                                         </t:Column>
                                         <t:Column width="11rem">
@@ -521,7 +535,7 @@
                                         </t:Column>
                                     </t:columns>
                                 </t:Table>
-                                <viz:VizFrame xmlns="sap.viz" id="ren_chart" vizType="column" height="500px" width="800px"/>
+                                <viz:VizFrame xmlns="sap.viz" id="ren_chart" vizType="column" height="340px" width="100%"/>
                             </VBox>
                             </ff:content>
                         </ff:DynamicPage>
@@ -628,7 +642,12 @@
                                             <t:Column width="11rem">
                                                 <Label text="검수상태" />
                                                 <t:template templateShareable="false">
-                                                    <Text text="{Chkst}" wrapping="false" />
+                                                    <Text 
+                                                        text="{
+                                                            path: 'Modcd',
+                                                            formatter: '.getStatusText_check'
+                                                        }" 
+                                                        wrapping="false" />
                                                 </t:template >
                                             </t:Column>
                                             <t:Column width="9rem">
@@ -642,30 +661,6 @@
                                 </VBox>
                             </ff:content>
                         </ff:DynamicPage>
-					</ScrollContainer>
-					<ScrollContainer
-							id="page5"
-							horizontal="false"
-							vertical="true"
-							height="100%"
-							class="sapUiContentPadding">
-						<Text text="Provisioning" />
-					</ScrollContainer>
-					<ScrollContainer
-							id="page6"
-							horizontal="false"
-							vertical="true"
-							height="100%"
-							class="sapUiContentPadding">
-						<Text text="Monitoring" />
-					</ScrollContainer>
-					<ScrollContainer
-							id="page7"
-							horizontal="false"
-							vertical="true"
-							height="100%"
-							class="sapUiContentPadding">
-						<Text text="Resources" />
 					</ScrollContainer>
 				</pages>
 			</NavContainer>

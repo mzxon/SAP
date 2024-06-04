@@ -190,7 +190,6 @@ sap.ui.define(
         var bSelected = oEvent.getParameter("selected");
         this.byId("checkBox1").setSelected(bSelected);
         this.byId("checkBox2").setSelected(bSelected);
-        this.byId("checkBox3").setSelected(bSelected);
       },
 
       //라디오버튼
@@ -266,7 +265,10 @@ sap.ui.define(
               var oModel = that.getView().getModel();
               oModel.create("/RentalSet", oCrtData, {
                 success: function () {
-                  alert("결제되었습니다.");
+                  MessageToast.show("결제되었습니다.");
+                  sap.ui.core.UIComponent.getRouterFor(that).navTo("mainView", {
+                    Custno: oCustno,
+                  });
                 },
                 error: function () {
                   alert("결제에 실패했습니다.");

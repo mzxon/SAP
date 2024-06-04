@@ -29,41 +29,6 @@
           "key": "page6"
         }
       ]
-    },
-    {
-      "title": "Provisioning",
-      "key": "page5"
-    },
-    {
-      "title": "Monitoring",
-      "icon": "sap-icon://unwired",
-      "items": [
-        {
-          "title": "Monitoring 1",
-          "key": "page6"
-        },
-        {
-          "title": "Monitoring 2",
-          "key": "page6"
-        }
-      ]
-    },
-    {
-      "title": "Resources",
-      "items": [
-        {
-          "title": "Resource 1",
-          "key": "page7"
-        },
-        {
-          "title": "Resource 2",
-          "key": "page7"
-        },
-        {
-          "title": "Resource 3",
-          "key": "page7"
-        }
-      ]
     }
   ]
 }
