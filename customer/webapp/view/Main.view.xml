@@ -34,7 +34,8 @@
 				</contentLeft>
 				<contentMiddle>
 					<SegmentedButton>
-                    	<Button id="ren" text="대여중" icon="sap-icon://bar-code" press=".onScanPress"/>
+                    	<Button id="ren" text="대여하기" icon="sap-icon://bar-code" press=".onScanPress"/>
+                    	<Button id="ing" text="대여중" icon="sap-icon://bar-code" press=".onScanPress"/>
 					</SegmentedButton>
 				</contentMiddle>
 				<contentRight>

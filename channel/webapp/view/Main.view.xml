@@ -505,7 +505,12 @@
                                         <t:Column width="9rem">
                                             <Label text="카드회사" />
                                             <t:template templateShareable="false">
-                                                <Text text="{Cardcd}" wrapping="false" />
+                                            <Text 
+                                                text="{
+                                                    path: 'Cardcd',
+                                                    formatter: '.getStatusText_card'
+                                                }" 
+                                                wrapping="false" />
                                             </t:template>
                                         </t:Column>
                                         <t:Column width="9rem">

@@ -121,6 +121,29 @@ sap.ui.define(
         }
       },
 
+      getStatusText_card: function (sStatus) {
+        switch (sStatus) {
+          case "01":
+            return "신한카드";
+          case "02":
+            return "국민카드";
+          case "03":
+            return "현대카드";
+          case "04":
+            return "우리카드";
+          case "05":
+            return "하나카드";
+          case "06":
+            return "롯데카드";
+          case "07":
+            return "삼성카드";
+          case "08":
+            return "비씨카드";
+          default:
+            return "기타카드";
+        }
+      },
+
       //테이블 바인딩(Ch_item)
       _getTable: function () {
         let oTable = this.byId("Ch_item");
@@ -571,6 +594,14 @@ sap.ui.define(
               values: ["거래금액"],
             })
           );
+
+          // 차트 제목 추가
+          chart.setVizProperties({
+            title: {
+              visible: true,
+              text: "월별 거래",
+            },
+          });
         }
       },
 

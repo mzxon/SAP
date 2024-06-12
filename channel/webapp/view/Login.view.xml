@@ -34,12 +34,12 @@
 		<Label text="아이디" labelFor="custid" />
         <Input
 			id="custid"
-			placeholder="아이디 입력" />
+			placeholder="아이디" />
         <Label text="비밀번호" labelFor="custpw" />
         <Input
 			id="custpw"
 			type="Password"
-			placeholder="Enter password" />        
+			placeholder="비밀번호" />        
         <Button id="login" text="로그인" press="Login" />   
 		</f:content>
         </f:SimpleForm>
