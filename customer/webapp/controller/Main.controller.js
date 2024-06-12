@@ -262,112 +262,13 @@ sap.ui.define(
         }
       },
 
-      onSideNavButtonPress: function () {
-        var oToolPage = this.byId("app");
-        var bSideExpanded = oToolPage.getSideExpanded();
-        this._setToggleButtonTooltip(bSideExpanded);
-        oToolPage.setSideExpanded(!oToolPage.getSideExpanded());
-      },
-
-      onCollapseExpandPress() {
-        const oSideNavigation = this.byId("sideNavigation"),
-          bExpanded = oSideNavigation.getExpanded();
-
-        oSideNavigation.setExpanded(!bExpanded);
-      },
-
-      _setToggleButtonTooltip: function (bSideExpanded) {
-        var oToggleButton = this.byId("sideNavigationToggleButton");
-        var sTooltipText = bSideExpanded ? "Expand Menu" : "Collapse Menu";
-        oToggleButton.setTooltip(sTooltipText);
-      },
-
-      onHideShowWalkedPress() {
-        const oNavListItem = this.byId("walked");
-        oNavListItem.setVisible(!oNavListItem.getVisible());
-      },
-
-      onUserNamePress: function (oEvent) {
-        var oSource = oEvent.getSource();
-
-        // close message popover
-        var oMessagePopover = this.byId("errorMessagePopover");
-        if (oMessagePopover && oMessagePopover.isOpen()) {
-          oMessagePopover.destroy();
-        }
-
-        var fnHandleUserMenuItemPress = function (oEvent) {
-          var sClickHandlerMessage =
-            "You clicked: " + oEvent.getSource().getText();
-          MessageToast.show(sClickHandlerMessage);
-        }.bind(this);
-
-        var logoutPress = function (oEvent) {
-          this._logout();
-        }.bind(this);
-
-        var oModel_page1 = new JSONModel(
-          sap.ui.require.toUrl("chn/channel/model/data.json")
-        );
-
-        // Check if ActionSheet already exists
-        var oActionSheet = this.byId("userMessageActionSheet");
-        if (!oActionSheet) {
-          oActionSheet = new ActionSheet(
-            this.getView().createId("userMessageActionSheet"),
-            {
-              title: "User Actions",
-              showCancelButton: false,
-              buttons: [
-                new Button({
-                  text: "마이페이지",
-                  type: ButtonType.Transparent,
-                  press: fnHandleUserMenuItemPress,
-                }),
-                new Button({
-                  text: "Online Guide",
-                  type: ButtonType.Transparent,
-                  press: fnHandleUserMenuItemPress,
-                }),
-                new Button({
-                  text: "Feedback",
-                  type: ButtonType.Transparent,
-                  press: fnHandleUserMenuItemPress,
-                }),
-                new Button({
-                  text: "Help",
-                  type: ButtonType.Transparent,
-                  press: fnHandleUserMenuItemPress,
-                }),
-                new Button({
-                  text: "로그아웃",
-                  type: ButtonType.Transparent,
-                  press: logoutPress,
-                }),
-              ],
-              afterClose: function () {
-                oActionSheet.destroy();
-              },
-            }
-          );
-
-          this.getView().addDependent(oActionSheet);
-
-          // forward compact/cozy style into dialog
-          var sContentDensityClass = this.getOwnerComponent()
-            .getContentDensityClass
-            ? this.getOwnerComponent().getContentDensityClass()
-            : "sapUiSizeCompact";
-
-          syncStyleClass(sContentDensityClass, this.getView(), oActionSheet);
-        }
-
-        oActionSheet.openBy(oSource);
-      },
-
       _logout: function () {
         sap.ui.core.UIComponent.getRouterFor(this).navTo("loginView");
         MessageToast.show("로그아웃 되었습니다.");
+      },
+
+      onKaoPress: function () {
+        window.location.href = "http://pf.kakao.com/_VZZxkG/chat";
       },
     });
   }
