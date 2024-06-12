@@ -65,10 +65,10 @@ sap.ui.define(
       _onRouteMatched: function (oEvent) {
         let oModel = this.getOwnerComponent().getModel();
         let oJsonModel = new sap.ui.model.json.JSONModel();
-        var oRen = this.byId("ren");
-        var oIng = this.byId("ing");
+        // var oRen = this.byId("ren");
+        // var oIng = this.byId("ing");
 
-        console.log(oRen.getVisible());
+        // console.log(oRen.getVisible());
 
         //empno 받아오기
         oCustno = oEvent.getParameter("arguments").Custno;
@@ -83,17 +83,17 @@ sap.ui.define(
 
             console.log(response);
 
-            if (response.Renst == "L") {
-              oRen.setVisible(false);
-              oIng.setVisible(true);
-            } else {
-              oRen.setVisible(true);
-              oIng.setVisible(false);
-            }
+            // if (response.Renst == "L") {
+            //   oRen.setVisible(false);
+            //   oIng.setVisible(true);
+            // } else {
+            //   oRen.setVisible(true);
+            //   oIng.setVisible(false);
+            // }
           }.bind(this),
           error: function (response) {
-            oRen.setVisible(true);
-            oIng.setVisible(false);
+            // oRen.setVisible(true);
+            // oIng.setVisible(false);
           },
         });
       },

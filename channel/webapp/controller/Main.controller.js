@@ -110,6 +110,17 @@ sap.ui.define(
         }
       },
 
+      getStatusText_ren: function (sStatus) {
+        switch (sStatus) {
+          case "L":
+            return "렌탈중";
+          case "R":
+            return "반납";
+          default:
+            return "연체";
+        }
+      },
+
       //테이블 바인딩(Ch_item)
       _getTable: function () {
         let oTable = this.byId("Ch_item");

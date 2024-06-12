@@ -141,7 +141,7 @@
                             </ColumnListItem>
 		                    </items>
                         </Table>
-                        <VBox id="map" class="myMap" height="500px" width="100%" afterRendering="onAfterRendering"></VBox>
+                        <VBox id="map" class="myMap" height="590px" width="100%" afterRendering="onAfterRendering"></VBox>
 					</ScrollContainer>
                     <!-- 재고관리 -->
 					<ScrollContainer
@@ -494,7 +494,12 @@
                                         <t:Column width="3rem">
                                             <Label text="렌탈상태" />
                                             <t:template templateShareable="false">
-                                                <Text text="{Renst}" wrapping="false" />
+                                                <Text 
+                                                    text="{
+                                                        path: 'Renst',
+                                                        formatter: '.getStatusText_ren'
+                                                    }" 
+                                                    wrapping="false" />
                                             </t:template>
                                         </t:Column>
                                         <t:Column width="9rem">
@@ -535,7 +540,7 @@
                                         </t:Column>
                                     </t:columns>
                                 </t:Table>
-                                <viz:VizFrame xmlns="sap.viz" id="ren_chart" vizType="column" height="340px" width="100%"/>
+                                <viz:VizFrame xmlns="sap.viz" id="ren_chart" vizType="column" height="420px" width="100%"/>
                             </VBox>
                             </ff:content>
                         </ff:DynamicPage>
@@ -644,7 +649,7 @@
                                                 <t:template templateShareable="false">
                                                     <Text 
                                                         text="{
-                                                            path: 'Modcd',
+                                                            path: 'Chkst',
                                                             formatter: '.getStatusText_check'
                                                         }" 
                                                         wrapping="false" />

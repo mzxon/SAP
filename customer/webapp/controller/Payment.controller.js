@@ -249,6 +249,8 @@ sap.ui.define(
             buyer_name: cust_info[0].name, //구매자 이름
             buyer_tel: cust_info[0].phone, //구매자 전화번호
             buyer_addr: cust_info[0].addr, //구매자 주소
+            m_redirect_url:
+              "http://localhost:8080/index.html?sap-client=100&sap-ui-xx-viewCache=false",
           },
           function (rsp) {
             // callback

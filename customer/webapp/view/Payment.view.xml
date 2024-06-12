@@ -15,6 +15,12 @@
       alignItems="Center"
       justifyContent="Center">     
       <layout:VerticalLayout class="container">
+        <FlexBox
+          height="100%"
+          alignItems="Center"
+          justifyContent="Center">  
+          <Image height="1.5rem" class="sapUiSmallMarginBegin" src="image/logo.png" />
+        </FlexBox>
          <HBox>
           <Button icon="sap-icon://navigation-left-arrow" press="previousStep" class="customButtonTransparent1"/> 
           <Text text="날짜선택" class="customHeaderText" />
@@ -43,6 +49,12 @@
       alignItems="Center"
       justifyContent="Center">     
       <layout:VerticalLayout class="container">
+         <FlexBox
+          height="100%"
+          alignItems="Center"
+          justifyContent="Center">  
+          <Image height="1.5rem" class="sapUiSmallMarginBegin" src="image/logo.png" />
+        </FlexBox>
         <HBox>
           <Button icon="sap-icon://navigation-left-arrow" press="previousStep" class="customButtonTransparent"/> 
           <Text text="결제" class="customHeaderText" />
