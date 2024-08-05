@@ -1,0 +1,11 @@
+applications:
+  - name: mavek-tutorial
+    path: .
+    memory: 512M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    env:
+      NODE_ENV: production
+    health-check-type: http
+    health-check-http-endpoint: /health
