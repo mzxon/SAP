@@ -1,0 +1,115 @@
+<mvc:View controllerName="sync4.c1.fioriedum01.controller.FioriView"
+    xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form"
+	xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+    <l:VerticalLayout class="sapUiContentPadding">
+    <!-- 검색 아이콘 -->
+        <OverflowToolbar style="Clear">
+            <Label text="Carrid : "></Label>
+            <Input id="input_carr" width="100px" showClearIcon="true"></Input>
+            <Label text="Connid : "></Label>
+            <Input id="input_conn" width="100px" showClearIcon="true"></Input>
+            <Button text="Search" icon="sap-icon://search" press="onSearch"/>
+        </OverflowToolbar>
+    <!-- 테이블 -->
+        <t:Table
+            id="ScarrList"
+            rows="{/Flight_infoSet}"
+            selectionMode="MultiToggle"
+            selectionBehavior="Row"
+            paste="onPaste"
+            ariaLabelledBy="title"
+            visibleRowCount="7">
+            <t:columns>
+                <t:Column width="5rem">
+                    <Label text="Carrid" />
+                    <t:template>
+                        <Text text="{Carrid}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Connid" />
+                    <t:template>
+                        <Text text="{Connid}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Fldate" />
+                    <t:template>
+                        <Text text="{Fldate}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Bookid" />
+                    <t:template>
+                        <Text text="{Bookid}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Carrname" />
+                    <t:template>
+                        <Text text="{Carrname}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Planetype" />
+                    <t:template>
+                        <Text text="{Planetype}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Paymentsum" />
+                    <t:template>
+                        <Text text="{Paymentsum}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="5rem">
+                    <Label text="Currency" />
+                    <t:template>
+                        <Text text="{Currency}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Custtype" />
+                    <t:template>
+                        <Text text="{Custtype}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Luggweight" />
+                    <t:template>
+                        <Text text="{Luggweight}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Wunit" />
+                    <t:template>
+                        <Text text="{Wunit}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Wunit" />
+                    <t:template>
+                        <Text text="{Wunit}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Class" />
+                    <t:template>
+                        <Text text="{Class}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+                <t:Column width="11rem">
+                    <Label text="Invoice" />
+                    <t:template>
+                        <Text text="{Invoice}" wrapping="false" />
+                    </t:template>
+                </t:Column>
+            </t:columns>
+        </t:Table>
+    </l:VerticalLayout>
+    </Page>
+</mvc:View>

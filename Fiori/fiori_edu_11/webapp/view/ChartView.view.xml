@@ -1,0 +1,58 @@
+<mvc:View controllerName="sync4.c1.fioriedu11.controller.ChartView"
+    xmlns:mvc="sap.ui.core.mvc" 
+	displayBlock="true"
+	xmlns:c="sap.suite.ui.microchart"
+    xmlns="sap.m">
+    <FlexBox width="20rem" height="10rem" alignItems="Start" justifyContent="SpaceBetween">
+		<items>
+			<c:InteractiveDonutChart selectionChanged="onSelectionChanged">
+				<c:segments>
+					<c:InteractiveDonutChartSegment label="Implementation Phase" value="{/gs_data/value1}" displayedValue="{/gs_data/value1}%"/>
+					<c:InteractiveDonutChartSegment label="Design Phase" value="{/gs_data/value2}" displayedValue="{/gs_data/value2}%"/>
+					<c:InteractiveDonutChartSegment label="Test Phase" value="{/gs_data/value3}" displayedValue="{/gs_data/value3}%"/>
+				</c:segments>
+			</c:InteractiveDonutChart>
+		</items>
+		<items>
+			<c:InteractiveDonutChart selectionChanged="onSelectionChanged">
+				<c:segments>
+					<c:InteractiveDonutChartSegment label="Implementation Phase" value="{/gs_data2/value1}" displayedValue="{/gs_data2/value1}%"/>
+					<c:InteractiveDonutChartSegment label="Design Phase" value="{/gs_data2/value2}" displayedValue="{/gs_data2/value2}%"/>
+					<c:InteractiveDonutChartSegment label="Test Phase" value="{/gs_data2/value3}" displayedValue="{/gs_data2/value3}%"/>
+				</c:segments>
+			</c:InteractiveDonutChart>
+		</items>
+		<items>
+			<c:InteractiveDonutChart selectionChanged="onSelectionChanged">
+				<c:segments>
+					<c:InteractiveDonutChartSegment label="Implementation Phase" value="{m2>/gs_output/value1}" displayedValue="{m2>/gs_output/value1}%"/>
+					<c:InteractiveDonutChartSegment label="Design Phase" value="{m2>/gs_output/value2}" displayedValue="{m2>/gs_output/value2}%"/>
+				</c:segments>
+			</c:InteractiveDonutChart>
+		</items>
+	</FlexBox>
+    <FlexBox width="20rem" height="10rem" alignItems="Center" class="sapUiSmallMargin">
+			<items>
+				<c:InteractiveBarChart labelWidth="25%" selectionChanged="selectionChanged" press="press">
+					<c:bars>
+						<c:InteractiveBarChartBar label="Product 1" value="{m2>/gs_output2/value1}"/>
+						<c:InteractiveBarChartBar label="Product 2" value="{m2>/gs_output2/value2}"/>
+						<c:InteractiveBarChartBar label="Product 3" value="{m2>/gs_output2/value3}"/>
+					</c:bars>
+				</c:InteractiveBarChart>
+			</items>
+            <items>
+				<c:InteractiveLineChart selectionChanged="selectionChanged" press="press" precedingPoint="15"
+									  succeedingPoint="89">
+					<c:points>
+						<c:InteractiveLineChartPoint value="{m2>/gs_output3/value1}" label="May" secondaryLabel="Q2"/>
+						<c:InteractiveLineChartPoint value="{m2>/gs_output3/value2}" label="June"/>
+						<c:InteractiveLineChartPoint value="{m2>/gs_output3/value3}" label="July" secondaryLabel="Q3"/>
+						<c:InteractiveLineChartPoint value="{m2>/gs_output3/value4}" label="Aug"/>
+						<c:InteractiveLineChartPoint value="{m2>/gs_output3/value5}" label="Sep"/>
+						<c:InteractiveLineChartPoint value="{m2>/gs_output3/value6}" label="Oct" secondaryLabel="Q4"/>
+					</c:points>
+				</c:InteractiveLineChart>
+			</items>
+    </FlexBox>
+</mvc:View>

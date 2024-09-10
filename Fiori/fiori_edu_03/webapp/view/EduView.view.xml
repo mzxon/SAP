@@ -1,0 +1,68 @@
+<mvc:View controllerName="sync4.c1.fioriedu03.controller.EduView"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Button
+                text="메시지 팝업"
+                press="Msg('보임?')"
+                width='200px'
+                icon="sap-icon://flight"
+                />
+                <!-- Press = onClick() -->
+            <Button
+                text="메시지 팝업"
+                press="alert('합은 = ' + (3 + 3))"
+                width='200px'
+                icon="sap-icon://message-popup"
+                />
+                <!-- enabled : 사용가능여부 -->
+            <Button
+                text="메시지 토스트"
+                press="msgToast"
+                width='200px'
+                icon="sap-icon://message-popup"
+                />
+            <Input
+                value="{/gs_mat/Carrid}"
+                maxLength="10"
+                description="{/gs_mat/Connid}"
+                showClearIcon="true"
+                width="300px"
+            /> 
+            <Input
+                value="{/gs_wrk/Carrid}"
+                maxLength="10"
+                description="{/gs_wrk/Connid}"
+                showClearIcon="true"
+                width="300px"
+            /> 
+            <Input
+                value="{m2>/ls_mty/Value}"
+                maxLength="10"
+                description="{m2>/ls_mty/Des}"
+                showClearIcon="true"
+                width="300px"
+            /> 
+            <Input
+                maxLength="10"
+                description="{m3>/ls_grp/Des}"
+                showClearIcon="true"
+                width="300px"
+                id="group"
+            /> 
+            <Input
+                maxLength="10"
+                description="컨트롤러에서 세팅"
+                showClearIcon="true"
+                width="300px"
+                id="inText"
+            /> 
+            <Button
+                text="값 세팅"
+                width='200px'
+                press=".setMvalue"
+            /> 
+        </content>
+    </Page>
+</mvc:View>

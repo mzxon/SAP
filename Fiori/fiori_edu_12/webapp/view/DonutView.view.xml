@@ -1,0 +1,15 @@
+<mvc:View controllerName="sync4.c1.fioriedu12.controller.DonutView"
+    xmlns:mvc="sap.ui.core.mvc" 
+    displayBlock="true"
+	xmlns:c="sap.suite.ui.microchart"
+    xmlns="sap.m">
+    <FlexBox width="40rem" height="40rem" alignItems="Start" justifyContent="SpaceBetween">
+		<items>
+			<c:InteractiveDonutChart displayedSegments="19" selectionChanged="onSelectionChanged" segments="{path:'/DonutSet'}">
+				<c:segments>
+					<c:InteractiveDonutChartSegment label="{Carrname}" value="{Price}" displayedValue="{Price}%"/>
+				</c:segments>
+			</c:InteractiveDonutChart>
+		</items>
+	</FlexBox>
+</mvc:View>

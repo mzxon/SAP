@@ -1,0 +1,51 @@
+<mvc:View controllerName="sync4.c1.vizchartedu.controller.VizFrameView"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz="sap.viz.ui5.controls"
+    >
+    <!-- dimension : 기준이 되는 값 -->
+    <!-- feed : 차트로 표현할 값 -->
+    <Page id="page" title="{i18n>title}">
+        <FlexBox
+				height="800px"
+                width="300px"
+				alignItems="Start"
+				justifyContent="Start">
+
+                <viz:VizFrame id="VizFrameLine" uiConfig="{applicationSet:'fiori'}"
+                height='300px' width="800px" vizType='pie' vizProperties="{title: {text :'항공사별 금액', visible:false} }"> 
+                <!-- vizType : 차트의 형태를 정의 | vizProperties : 차트속성을 정의 (타이틀 등)-->
+                    <viz:dataset> <!-- Chart에 나타낼 DataSet을 정의 -->
+                        <viz.data:FlattenedDataset data="{/FlightSet}"> <!-- Odata의 EntitySet -->
+                            <viz.data:dimensions> <!-- dimensions : 기준이 될 값 -->
+                                <viz.data:DimensionDefinition name="Airline Name" 
+                                    value="{Carrname}" /> <!-- name : 이름, value: 값 -->
+                            </viz.data:dimensions>
+                            <viz.data:measures> <!--measures : 차트로 보여줄 값 -->
+                                <viz.data:MeasureDefinition name="Price"
+                                    value="{Price}" />
+                                <viz.data:MeasureDefinition name="Payment Sum"
+                                    value="{Paymentsum}" />
+                            </viz.data:measures>
+                        </viz.data:FlattenedDataset>
+                    </viz:dataset>
+
+                    <viz:feeds> <!-- chart를 그릴 재료 정의 (dimension, measure 모두 재료임) -->
+                        <!-- measure -->
+                        <viz.feeds:FeedItem id='valueAxisFeed1' uid="valueAxis" type="Measure"
+                            values="Price" />
+                        <viz.feeds:FeedItem id='valueAxisFeed2' uid="valueAxis" type="Measure"
+                            values="Payment Sum" /> <!-- value에 앞에서 정의한 name 값을 넣어줌 -->
+                        <!-- dimension -->
+                        <viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension"
+                            values="Airline Name" />
+                    </viz:feeds>
+                <viz:dependents>
+                    <viz:Popover id="idPopOver"></viz:Popover>
+                </viz:dependents>
+            </viz:VizFrame>
+        </FlexBox>
+    </Page>
+</mvc:View>

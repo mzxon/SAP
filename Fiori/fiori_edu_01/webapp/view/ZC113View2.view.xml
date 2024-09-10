@@ -1,0 +1,12 @@
+<mvc:View controllerName="sync4.fioriedu01.controller.ZC113View2"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true" 
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}"> <!--il8n파일의 title-->
+        <content>
+            <Text text="SYNC"/>
+            <Button
+                text="씽크"
+                press=".showMessage2('SYNC4')"/>
+        </content>
+    </Page>
+</mvc:View>

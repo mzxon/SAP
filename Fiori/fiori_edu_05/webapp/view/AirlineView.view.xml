@@ -1,0 +1,105 @@
+<mvc:View controllerName="sync4.c1.fioriedu05.controller.AirlineView"
+    displayBlock="true"
+    xmlns="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m">
+    <m:Page id="page" title="{i18n>title}">
+    <!-- 검색 -->
+        <m:OverflowToolbar id="otb1"> <!--namespace를 적어줘야함-->
+            <m:Label text="Airline을 입력하세요 : "/> 
+            <!-- 해당 property와 이름 맞춰주는게 더 가독성있음 -->
+            <m:Input id="Carrid" width="100px" showClearIcon="true" maxLength="2"/> 
+            <!--showClearIcon : 입력하면 바로 지울수있게 아이콘-->
+            <m:Button text="검색" type="Transparent"
+            icon="sap-icon://search" press="onSearch"
+            />
+	    </m:OverflowToolbar>
+        
+    <!-- selectionNode=None : 체크박스 사라짐 -->
+    <!-- EntitySet 이름적어줌 -->
+        <Table
+            id="airlineTable"
+            rows="{/AirlineSet}"
+            selectionMode="MultiToggle"
+            selectionBehavior="Row"
+            paste="onPaste"
+            ariaLabelledBy="title"
+            visibleRowCount="7">
+            <extension>
+                <m:OverflowToolbar style="Clear">
+                    <m:Title id="title" text="Airline Master"/>
+                </m:OverflowToolbar>
+            </extension>
+            <!-- 필드명-필드(데이터) 맞춰줌 -->
+            <columns>
+                <Column width="7rem">
+                    <m:Label text="Airline" />
+                    <template>
+                        <m:Text text="{Carrid}" wrapping="false"/>
+                    </template>
+                </Column>
+                <Column width="11rem">
+                    <m:Label text="Airline Name" />
+                    <template>
+                        <m:Text text="{Carrname}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="7rem">
+                    <m:Label text="Currency" />
+                    <template>
+                        <m:Text text="{Currcode}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="16rem">
+                    <m:Label text="URL" />
+                    <template>
+                        <m:Text text="{Url}" wrapping="false" />
+                    </template>
+                </Column>
+            </columns>
+        </Table>
+        <Table
+            id="airlineTable2"
+            rows="{/AirlineSet}"
+            selectionMode="MultiToggle"
+            selectionBehavior="Row"
+            paste="onPaste"
+            ariaLabelledBy="title"
+            visibleRowCount="7">
+            <extension>
+                <m:OverflowToolbar style="Clear">
+                    <m:Title id="title2" text="Airline Master"/>
+                </m:OverflowToolbar>
+            </extension>
+            <!-- 필드명-필드(데이터) 맞춰줌 -->
+            <columns>
+                <Column width="7rem">
+                    <m:Label text="Airline" />
+                    <template>
+                        <m:Text text="{Carrid}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="11rem">
+                    <m:Label text="Airline Name" />
+                    <template>
+                        <m:Text text="{Carrname}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="7rem">
+                    <m:Label text="Currency" />
+                    <template>
+                        <m:Text text="{Currcode}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width="16rem">
+                    <m:Label text="URL" />
+                    <template>
+                        <m:Text text="{Url}" wrapping="false" />
+                    </template>
+                </Column>
+            </columns>
+        </Table>
+    </m:Page>
+</mvc:View>

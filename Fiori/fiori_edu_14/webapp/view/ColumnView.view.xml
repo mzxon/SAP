@@ -1,0 +1,11 @@
+<mvc:View controllerName="sync4.c1.fioriedu14.controller.ColumnView"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:mvc="sap.ui.core.mvc" 
+    displayBlock="true"
+    xmlns="sap.m"    >
+    <Page id="page" title="{i18n>title}">
+    <!-- <viz:VizFrame xmlns="sap.viz" id="idColumnChart" vizType="column" height="500px" width="800px"/> -->
+    <viz:VizFrame xmlns="sap.viz" id="idColumnChart" vizType="pie" height="500px" width="800px"/>
+    
+    </Page>
+</mvc:View>
