@@ -1,0 +1,142 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "chn.channel",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.12.5",
+      "toolsId": "53590ff7-8336-4704-98d5-c142d3a29bd1"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZC102GWSD001_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.123.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.table": {},
+				"sap.tnt": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ushell": {},
+				"sap.ui.layout": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "chn.channel.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+      "routing": {
+        "config": {
+          "routerClass": "sap.m.routing.Router",
+          "viewType": "XML",
+          "async": true,
+          "viewPath": "chn.channel.view",
+          "controlAggregation": "pages",
+          "controlId": "app",
+          "clearControlAggregation": false
+        },
+        "routes": [
+          {
+            "name": "loginView",
+            "pattern": "",
+            "target": "login"
+          },
+          {
+            "name": "mainView",
+            "pattern": "Main/{Empno}",
+            "target": "main"
+          }
+        ],
+        "targets": {
+          "login": {
+            "viewType": "XML",
+            "viewLevel": 1,
+            "viewName": "Login"
+          },
+          "main": {
+            "viewType": "XML",
+            "viewLevel": 1,
+            "viewName": "Main"
+          }
+        }
+      },
+    "rootView": {
+      "viewName": "chn.channel.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    },
+    "config": {
+      "sample": {
+        "stretch": true,
+        "files": [
+          "MainView.view.xml",
+          "Channel_Management.controller.js",
+          "LoginView.view.xml",
+          "Channel_main.fragment.xml",
+          "manifest.json",
+          "model/data.json"
+        ]
+      }
+    }
+  }
+}

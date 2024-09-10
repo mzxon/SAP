@@ -1,0 +1,9 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<BusyDialog
+		title="로그인"
+		text=" 로그인중입니다. "
+		showCancelButton="true"
+		close="onDialogClosed" />
+</core:FragmentDefinition>

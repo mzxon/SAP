@@ -1,0 +1,138 @@
+.customButton {
+  font-weight: bold; /* 텍스트를 볼드체로 설정 */
+  padding: 5px; /* 버튼 내부 여백 설정 */
+  border-radius: 4px; /* 테두리 모서리 둥글게 설정 */
+}
+
+.info-window {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.largeIcon .sapUiIcon {
+  font-size: 20px; /* 원하는 아이콘 크기로 설정 */
+}
+
+/* 헤더의 모서리를 둥근 모서리로 설정 */
+.sapMBar:first-child {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  margin-top: auto;
+}
+
+/* 푸터의 모서리를 둥근 모서리로 설정 */
+.sapMBar:last-child {
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  text-align: center;
+}
+
+.customHeaderText {
+  font-weight: bold;
+  font-size: 18px;
+  font-size: 24px; /* 원하는 글자 크기로 조정 */
+}
+
+.customButton {
+  height: 120px;
+  width: 273px;
+}
+
+.container > * {
+  margin-bottom: 16px; /* 간격 조절 */
+}
+
+.customButtonTransparent1 .sapMBtnInner {
+  background-color: transparent !important;
+  width: 30px !important;
+  border: none !important;
+  margin-right: 63px;
+}
+
+.customButtonTransparent .sapMBtnInner {
+  background-color: transparent !important;
+  width: 30px !important;
+  border: none !important;
+  margin-right: 88px;
+}
+
+.payText {
+  margin-left: 7px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.responsiveImage {
+  max-width: 50px; /* 원하는 최대 너비 설정 */
+  max-height: 50px; /* 원하는 최대 높이 설정 */
+  width: auto; /* 비율을 유지하며 크기 조정 */
+  height: auto; /* 비율을 유지하며 크기 조정 */
+}
+.customTosspayImage {
+  max-width: 70px; /* Tosspay 이미지에 대한 최대 너비 설정 */
+  max-height: 65px; /* Tosspay 이미지에 대한 최대 높이 설정 */
+  width: auto; /* 비율을 유지하며 크기 조정 */
+  height: auto; /* 비율을 유지하며 크기 조정 */
+  margin-right: 6px;
+}
+.paymentOption {
+  flex-grow: 1; /* 모든 옵션이 동일한 폭을 가지도록 설정 */
+  margin-right: 10px; /* 각 옵션 간의 오른쪽 마진 조정 */
+  margin-bottom: 10px;
+}
+.paymentOption:last-child {
+  margin-right: 0; /* 마지막 요소의 오른쪽 마진 제거 */
+}
+.paymentOption > * {
+  margin-right: 5px; /* 각 내부 요소 간의 간격 조정 */
+}
+.row {
+  width: 100%; /* HBox가 전체 너비를 차지하도록 설정 */
+}
+
+.vbox_pay {
+  background-color: #eaecef !important; /* 원하는 배경색으로 변경 */
+  width: 100%;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.vbox_pay .sapMCbLabel {
+  font-weight: bold !important;
+}
+
+.vbox_pay2 {
+  margin-left: 10px;
+}
+
+.checkBox1 .sapMCbLabel {
+  font-size: 12px !important; /* 원하는 텍스트 크기로 변경 */
+}
+
+.vBox {
+  margin-top: 130px;
+}
+
+.hBox {
+  background: linear-gradient(to right, #2758fb 50%, white 50%);
+  width: 100%;
+  height: 8px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.hBox2 {
+  background: linear-gradient(to right, white 50%, #2758fb 50%);
+  width: 100%;
+  height: 8px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
